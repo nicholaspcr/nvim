@@ -12,5 +12,15 @@ plugin({
   requires = {
     { 'nvim-lua/plenary.nvim', opt = true },
     { 'nvim-telescope/telescope-fzy-native.nvim', opt = true },
+    { 'nvim-telescope/telescope-file-browser.nvim', opt = true },
   },
 })
+
+plugin({
+  'editorconfig/editorconfig-vim',
+  ft = { 'go', 'typescript', 'javascript', 'vim', 'rust', 'zig', 'c', 'cpp' },
+})
+
+plugin({ '~/Workspace/mcc.nvim', ft = { 'c', 'cpp', 'go', 'rust' }, config = conf.mcc_nvim })
+
+plugin({ 'phaazon/hop.nvim', event = 'BufRead', config = conf.hop })
