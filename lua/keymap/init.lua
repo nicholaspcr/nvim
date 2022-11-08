@@ -7,6 +7,8 @@ local api = vim.api
 require('keymap.remap')
 local keymap = require('core.keymap')
 local nmap, xmap, tmap = keymap.nmap, keymap.xmap, keymap.tmap
+local opts = keymap.new_opts
+local silent, noremap = keymap.silent, keymap.noremap
 local cmd = keymap.cmd
 require('keymap.config')
 
@@ -69,3 +71,15 @@ nmap({ '<A-d>', cmd('Lspsaga open_floaterm') })
 tmap({ '<A-d>', [[<C-\><C-n>:Lspsaga close_floaterm<CR>]] })
 
 xmap({ 'ga', cmd('Lspsaga code_action') })
+
+
+-- Harpoon keybindings
+nmap({
+  { '<leader>hc', function() require("harpoon.cmd-ui").toggle_quick_menu() end, opts(silent, noremap) },
+  { '<C-e>', function() require('harpoon.ui').toggle_quick_menu() end, opts(silent, noremap) },
+  { '<leader>a', function() require("harpoon.mark").add_file() end, opts(silent, noremap) },
+  { '<C-h>', function() require('harpoon.ui').nav_file(1) end, opts(silent, noremap) },
+  { '<C-t>', function() require('harpoon.ui').nav_file(2) end, opts(silent, noremap) },
+  { '<C-n>', function() require('harpoon.ui').nav_file(3) end, opts(silent, noremap) },
+  { '<C-s>', function() require('harpoon.ui').nav_file(4) end, opts(silent, noremap) },
+})

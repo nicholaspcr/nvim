@@ -2,6 +2,7 @@ local keymap = require('core.keymap')
 local nmap, imap, cmap, tmap = keymap.nmap, keymap.imap, keymap.cmap, keymap.tmap
 local expr = keymap.expr
 local opts = keymap.new_opts
+local silent, noremap = keymap.silent, keymap.noremap
 local cmd = keymap.cmd
 
 -- noremal remap
@@ -57,3 +58,5 @@ cmap({
 })
 
 tmap({ '<Esc>', [[<C-\><C-n>]] })
+
+
