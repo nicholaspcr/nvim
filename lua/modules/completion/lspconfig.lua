@@ -88,6 +88,7 @@ local servers = {
   'pyright',
   'bashls',
   'zls',
+  'tsserver',
 }
 
 for _, server in ipairs(servers) do
