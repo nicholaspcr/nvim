@@ -1,35 +1,25 @@
--- author: glepnr https://github.com/glepnir
--- date: 2022-07-02
--- License: MIT
--- recommend some vim mode key defines in this file
+local keymap = require('core.keymap')
+local nmap, imap, cmap, tmap = keymap.nmap, keymap.imap, keymap.cmap, keymap.tmap
+local expr = keymap.expr
+local opts = keymap.new_opts
+local cmd = keymap.cmd
 
-local key= require('core.keymap')
-local nmap, imap, cmap, xmap, tmap = key.nmap, key.imap, key.cmap, key.xmap, key.tmap
-local silent, noremap = key.silent, key.noremap
-local opts = key.new_opts
-local cmd = key.cmd
-
--- Use space as leader key
-vim.g.mapleader = ' '
-
--- leaderkey
-nmap({ ' ', '', opts(noremap) })
-xmap({ ' ', '', opts(noremap) })
-
--- usage example
+-- noremal remap
 nmap({
-  -- noremal remap
   -- close buffer
-  { '<C-x>k', cmd('bdelete'), opts(noremap, silent) },
+  { '<C-x>k', cmd('bdelete') },
   -- save
-  { '<C-s>', cmd('write'), opts(noremap) },
-  -- yank
-  { 'Y', 'y$', opts(noremap) },
+  { '<C-s>', cmd('write') },
   -- buffer jump
-  { ']b', cmd('bn'), opts(noremap) },
-  { '[b', cmd('bp'), opts(noremap) },
+  { ']b', cmd('bn') },
+  { '[b', cmd('bp') },
   -- remove trailing white space
-  { '<Leader>t', cmd('TrimTrailingWhitespace'), opts(noremap) },
+  { '<Leader>t', cmd('TrimTrailingWhitespace') },
+  -- window jump
+  { '<C-h>', '<C-w>h' },
+  { '<C-l>', '<C-w>l' },
+  { '<C-j>', '<C-w>j' },
+  { '<C-k>', '<C-w>k' },
   -- resize window
   { '<A-[>', cmd('vertical resize -5') },
   { '<A-]>', cmd('vertical resize +5') },
