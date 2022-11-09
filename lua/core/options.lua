@@ -69,8 +69,15 @@ opt.number = true
 opt.signcolumn = 'yes'
 opt.spelloptions = 'camel'
 
-opt.textwidth = 100
-opt.colorcolumn = '100'
+local column = os.getenv("NVIM_COLUMN")
+if column == nil then
+  opt.textwidth = 120
+  opt.colorcolumn = '120'
+else
+  opt.textwidth = tonumber(column)
+  opt.colorcolumn = column
+end
+
 -- opt.conceallevel = 2
 -- opt.concealcursor = 'niv'
 
