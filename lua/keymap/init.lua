@@ -80,6 +80,4 @@ nmap({
   { '<leader>a', function() require("harpoon.mark").add_file() end, opts(silent, noremap) },
   { '<C-h>', function() require('harpoon.ui').nav_file(1) end, opts(silent, noremap) },
   { '<C-t>', function() require('harpoon.ui').nav_file(2) end, opts(silent, noremap) },
-  { '<C-n>', function() require('harpoon.ui').nav_file(3) end, opts(silent, noremap) },
-  { '<C-s>', function() require('harpoon.ui').nav_file(4) end, opts(silent, noremap) },
 })
