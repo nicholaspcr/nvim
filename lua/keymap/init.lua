@@ -79,5 +79,7 @@ nmap({
   { '<C-e>', function() require('harpoon.ui').toggle_quick_menu() end, opts(silent, noremap) },
   { '<leader>a', function() require("harpoon.mark").add_file() end, opts(silent, noremap) },
   { '<C-h>', function() require('harpoon.ui').nav_file(1) end, opts(silent, noremap) },
-  { '<C-t>', function() require('harpoon.ui').nav_file(2) end, opts(silent, noremap) },
+  { '<C-j>', function() require('harpoon.ui').nav_file(2) end, opts(silent, noremap) },
+  { '<C-k>', function() require('harpoon.ui').nav_file(3) end, opts(silent, noremap) },
+  { '<C-l>', function() require('harpoon.ui').nav_file(4) end, opts(silent, noremap) },
 })
