@@ -16,11 +16,6 @@ nmap({
   { '[b', cmd('bp') },
   -- remove trailing white space
   { '<Leader>t', cmd('TrimTrailingWhitespace') },
-  -- window jump
-  { '<C-h>', '<C-w>h' },
-  { '<C-l>', '<C-w>l' },
-  { '<C-j>', '<C-w>j' },
-  { '<C-k>', '<C-w>k' },
   -- resize window
   { '<A-[>', cmd('vertical resize -5') },
   { '<A-]>', cmd('vertical resize +5') },
