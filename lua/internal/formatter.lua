@@ -221,7 +221,7 @@ function fmt:event(bufnr)
         return
       end
 
-      vim.lsp.buf.format({ async = true })
+      vim.lsp.buf.format({ async = false })
     end,
     desc = 'My format',
   })
