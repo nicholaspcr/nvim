@@ -14,3 +14,41 @@ plugin({
 })
 
 plugin({ 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' })
+
+--plugin({
+--  'nvim-orgmode/orgmode',
+--  ft = {'org'},
+--  after = 'nvim-treesitter',
+--  config = function ()
+--    require('orgmode').setup{
+--      org_agenda_files = { '~/Workspace/org/*' },
+--      org_default_notes_file = '~/Workspace/org/refile.org',
+--      org_todo_keywords = {'TODO', 'INPROGRESS', 'BLOCKED', 'DONE'},
+--      mappings = {
+--        global = {
+--          org_agenda = 'gA',
+--          org_capture = 'gC',
+--        },
+--        capture = {
+--          org_capture_finalize = '<Leader>w',
+--          org_capture_refile = 'R',
+--          org_capture_kill = 'Q'
+--        },
+--      }
+--    }
+--  end,
+--})
+--
+--plugin({
+--  'akinsho/org-bullets.nvim',
+--  config = function()
+--    require('org-bullets').setup()
+--  end
+--})
+--
+--plugin({
+--  'lukas-reineke/headlines.nvim',
+--  config = function()
+--      require('headlines').setup()
+--  end,
+--})
