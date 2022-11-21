@@ -67,7 +67,7 @@ xmap({ 'gcc', ':ComComment<CR>' })
 nmap({ 'gcj', cmd('ComAnnotation') })
 
 -- Lspsaga floaterminal
-nmap({ '<A-d>', cmd('Lspsaga open_floaterm') })
+nmap({ '<A-t>', cmd('Lspsaga open_floaterm') })
 tmap({ '<A-d>', [[<C-\><C-n>:Lspsaga close_floaterm<CR>]] })
 
 xmap({ 'ga', cmd('Lspsaga code_action') })
