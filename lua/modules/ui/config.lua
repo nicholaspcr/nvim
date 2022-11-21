@@ -17,7 +17,7 @@ function config.dashboard()
   local db = require('dashboard')
   local z = require('zephyr')
   db.session_directory = home .. '/.cache/nvim/session'
-  db.preview_command = 'cat | lolcat -F 0.3'
+  db.preview_command = 'cat'
   db.preview_file_path = home .. '/.config/nvim/static/neovim.cat'
   db.preview_file_height = 12
   db.preview_file_width = 80
@@ -77,14 +77,7 @@ function config.gitsigns()
       topdelete = { hl = 'GitGutterDeleteChange', text = '▔' },
       changedelete = { hl = 'GitGutterChange', text = '▎' },
     },
-    attach_to_untracked = true,
     current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
-    current_line_blame_opts = {
-      virt_text = true,
-      virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-      delay = 10,
-      ignore_whitespace = false,
-    },
     current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d>',
     keymaps = {
       -- Default keymap options
@@ -150,8 +143,15 @@ function config.indent_blankline()
   })
 end
 
+function config.diffview()
+  if not packer_plugins['plenary.nvim'].loaded then
+    vim.cmd([[packadd plenary.nvim]])
+  end
+end
+
 function config.nvim_bufferline()
   require('bufferline').setup({
+    --  mode = 'tabs',
     options = {
       modified_icon = '✥',
       buffer_close_icon = '',

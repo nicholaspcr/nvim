@@ -48,9 +48,10 @@ plugin({
   requires = 'kyazdani42/nvim-web-devicons',
 })
 
+plugin({
+  'sindrets/diffview.nvim',
+  config = conf.diffview,
+})
 
---plugin({
---  'f-person/git-blame.nvim'
---})
 
--- plugin({ 'akinsho/nvim-bufferline.lua', config = conf.nvim_bufferline, requires = 'kyazdani42/nvim-web-devicons' })
+plugin({ 'akinsho/nvim-bufferline.lua', config = conf.nvim_bufferline, requires = 'kyazdani42/nvim-web-devicons' })
