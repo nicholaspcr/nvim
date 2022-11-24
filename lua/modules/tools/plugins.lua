@@ -24,3 +24,5 @@ plugin({
 plugin({ '~/Workspace/mcc.nvim', ft = { 'c', 'cpp', 'go', 'rust' }, config = conf.mcc_nvim })
 
 plugin({ 'phaazon/hop.nvim', event = 'BufRead', config = conf.hop })
+
+plugin({ 'fatih/vim-go' })
