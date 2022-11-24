@@ -5,8 +5,8 @@ local function get_format_opts()
   local file_name = api.nvim_buf_get_name(0)
   local fmt_tools = {
     go = {
-      cmd = 'golines',
-      args = { '--max-len=100', file_name },
+      cmd = 'gofumpt',
+      args = { '-w', file_name },
     },
     lua = {
       cmd = 'stylua',
