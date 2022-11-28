@@ -17,8 +17,8 @@ function config.dashboard()
   local db = require('dashboard')
   local z = require('zephyr')
   db.session_directory = home .. '/.cache/nvim/session'
-  db.preview_command = 'cat'
-  db.preview_file_path = home .. '/.config/nvim/static/neovim.cat'
+  --db.preview_command = 'cat'
+  --db.preview_file_path = home .. '/.config/nvim/static/neovim.cat'
   db.preview_file_height = 12
   db.preview_file_width = 80
   db.custom_center = {
