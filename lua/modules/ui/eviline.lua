@@ -128,6 +128,14 @@ gls.left[11] = {
 }
 
 gls.mid[1] = {
+  FilePath = {
+    condition = condition.buffer_not_empty,
+    highlight = { colors.fg, colors.bg, 'bold' },
+    provider = 'FilePath',
+  },
+}
+
+gls.right[1] = {
   ShowLspClient = {
     condition = function()
       local tbl = { ['dashboard'] = true, [''] = true }
@@ -142,7 +150,7 @@ gls.mid[1] = {
   },
 }
 
-gls.right[1] = {
+gls.right[2] = {
   FileEncode = {
     condition = condition.hide_in_width,
     highlight = { colors.green, colors.bg, 'bold' },
@@ -152,7 +160,7 @@ gls.right[1] = {
   },
 }
 
-gls.right[2] = {
+gls.right[3] = {
   FileFormat = {
     condition = condition.hide_in_width,
     highlight = { colors.green, colors.bg, 'bold' },
@@ -162,7 +170,7 @@ gls.right[2] = {
   },
 }
 
-gls.right[3] = {
+gls.right[4] = {
   GitIcon = {
     provider = function()
       return '  '
@@ -174,7 +182,7 @@ gls.right[3] = {
   },
 }
 
-gls.right[4] = {
+gls.right[5] = {
   GitBranch = {
     condition = condition.check_git_workspace,
     highlight = { colors.violet, colors.bg, 'bold' },
@@ -182,7 +190,7 @@ gls.right[4] = {
   },
 }
 
-gls.right[5] = {
+gls.right[6] = {
   Separator = {
     provider = function()
       return ' '
@@ -190,7 +198,7 @@ gls.right[5] = {
   },
 }
 
-gls.right[6] = {
+gls.right[7] = {
   DiffAdd = {
     condition = condition.hide_in_width,
     highlight = { colors.green, colors.bg },
@@ -199,7 +207,7 @@ gls.right[6] = {
   },
 }
 
-gls.right[7] = {
+gls.right[8] = {
   DiffModified = {
     condition = condition.hide_in_width,
     highlight = { colors.orange, colors.bg },
@@ -208,7 +216,7 @@ gls.right[7] = {
   },
 }
 
-gls.right[8] = {
+gls.right[9] = {
   DiffRemove = {
     condition = condition.hide_in_width,
     highlight = { colors.red, colors.bg },
@@ -217,7 +225,7 @@ gls.right[8] = {
   },
 }
 
-gls.right[9] = {
+gls.right[10] = {
   RainbowBlue = {
     provider = function()
       return ' ▊'
