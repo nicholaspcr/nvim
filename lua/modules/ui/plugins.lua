@@ -5,7 +5,7 @@
 local plugin = require('core.pack').register_plugin
 local conf = require('modules.ui.config')
 
-plugin({ 'glepnir/zephyr-nvim', config = conf.zephyr })
+plugin({ 'glepnir/zephyr-nvim', event='VimEnter', config = conf.zephyr })
 
 plugin({ 'glepnir/dashboard-nvim', config = conf.dashboard })
 
@@ -52,10 +52,6 @@ plugin({
   'sindrets/diffview.nvim',
   config = conf.diffview,
 })
-
-
-plugin({ 'akinsho/nvim-bufferline.lua', config = conf.nvim_bufferline, requires = 'kyazdani42/nvim-web-devicons' })
-
 
 plugin({
   'xiyaowong/nvim-transparent',

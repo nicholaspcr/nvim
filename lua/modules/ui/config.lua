@@ -13,56 +13,20 @@ function config.galaxyline()
 end
 
 function config.dashboard()
-  local home = os.getenv('HOME')
-  local db = require('dashboard')
-  local z = require('zephyr')
-  db.session_directory = home .. '/.cache/nvim/session'
-  --db.preview_command = 'cat'
-  --db.preview_file_path = home .. '/.config/nvim/static/neovim.cat'
-  db.preview_file_height = 12
-  db.preview_file_width = 80
-  db.custom_center = {
-    {
-      icon = '  ',
-      desc = 'Update Plugins                          ',
-      shortcut = 'SPC p u',
-      action = 'PackerUpdate',
+  require('dashboard').setup({
+    theme = 'hyper', --  theme is doom and hyper default is hyper
+    config = {
+      shortcut = {
+        -- action can be a function type
+        -- { desc = string, group = 'highlight group', key = 'shortcut key', action = 'action when you press key' },
+      },
+      packages = { enable = true }, -- show how many plugins neovim loaded
+      -- limit how many projects list, action when you press key or enter it will run this action.
+      project = { limit = 8, icon = ' ~ ', label = 'Projects', action = 'Telescope find_files cwd=' },
+      mru = { limit = 10, icon = ' ~ ', label = 'Recent Files', },
+      footer = {}, -- footer
     },
-    {
-      icon = '  ',
-      desc = 'Find File                              ',
-      action = 'Telescope find_files find_command=rg,--hidden,--files',
-      shortcut = 'SPC f f',
-    },
-    {
-      icon = '  ',
-      icon_hl = { fg = z.yellow },
-      desc = 'Recently opened files                   ',
-      action = 'Telescope oldfiles',
-      shortcut = 'SPC f h',
-    },
-    {
-      icon = '  ',
-      icon_hl = { fg = z.blue },
-      desc = 'File Browser                            ',
-      action = 'Telescope file_browser',
-      shortcut = 'SPC   e',
-    },
-    {
-      icon = '  ',
-      icon_hl = { fg = z.oragne },
-      desc = 'Find  word                              ',
-      action = 'Telescope live_grep',
-      shortcut = 'SPC f b',
-    },
-    {
-      icon = '  ',
-      icon_hl = { fg = z.redwine },
-      desc = 'Open Personal dotfiles                  ',
-      action = 'Telescope dotfiles path=' .. vim.env.HOME .. '/.dotfiles',
-      shortcut = 'SPC f d',
-    },
-  }
+  })
 end
 
 function config.gitsigns()
@@ -147,17 +111,6 @@ function config.diffview()
   if not packer_plugins['plenary.nvim'].loaded then
     vim.cmd([[packadd plenary.nvim]])
   end
-end
-
-function config.nvim_bufferline()
-  require('bufferline').setup({
-    --  mode = 'tabs',
-    options = {
-      modified_icon = '✥',
-      buffer_close_icon = '',
-      always_show_bufferline = false,
-    },
-  })
 end
 
 function config.nvim_tree()
