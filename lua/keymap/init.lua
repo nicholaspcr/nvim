@@ -83,3 +83,6 @@ nmap({
   { '<C-k>', function() require('harpoon.ui').nav_file(3) end, opts(silent, noremap) },
   { '<C-l>', function() require('harpoon.ui').nav_file(4) end, opts(silent, noremap) },
 })
+
+nmap({"<C-d>", "<C-d>zz"})
+nmap({"<C-u>", "<C-u>zz"})
