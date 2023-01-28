@@ -72,3 +72,9 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'BufWinEnter' }, {
   callback = disable_cursorword,
 })
 
+vim.api.nvim_create_autocmd({ 'InsertEnter', 'BufWinEnter' }, {
+  pattern = '*',
+  callback = function ()
+    vim.cmd('set omnifunc=v:lua.vim.lsp.omnifunc')
+  end,
+})
