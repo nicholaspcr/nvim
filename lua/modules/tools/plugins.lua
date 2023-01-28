@@ -18,7 +18,7 @@ plugin({
 
 plugin({
   'editorconfig/editorconfig-vim',
-  ft = { 'go', 'typescript', 'javascript', 'vim', 'rust', 'zig', 'c', 'cpp' },
+  ft = {'typescript', 'javascript', 'vim', 'rust', 'zig', 'c', 'cpp' },
 })
 
 plugin({ '~/Workspace/mcc.nvim', ft = { 'c', 'cpp', 'go', 'rust' }, config = conf.mcc_nvim })
