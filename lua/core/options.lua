@@ -63,7 +63,7 @@ opt.whichwrap = 'h,l,<,>,[,],~'
 opt.breakindentopt = 'shift:2,min:20'
 opt.showbreak = '↳  '
 opt.foldlevelstart = 3
-opt.foldmethod = 'marker'
+opt.foldmethod = 'expr'
 
 opt.number = true
 opt.signcolumn = 'yes'
