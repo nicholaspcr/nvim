@@ -66,17 +66,17 @@ opt.foldlevelstart = 3
 opt.foldmethod = 'expr'
 
 opt.number = true
+opt.relativenumber = true
 opt.signcolumn = 'yes'
 opt.spelloptions = 'camel'
 
 local column = os.getenv("NVIM_COLUMN")
 if column == nil then
   opt.textwidth = 120
-  opt.colorcolumn = '120'
 else
   opt.textwidth = tonumber(column)
-  opt.colorcolumn = column
 end
+opt.colorcolumn = '+1'
 
 -- opt.conceallevel = 2
 -- opt.concealcursor = 'niv'
