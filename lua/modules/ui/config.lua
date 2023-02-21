@@ -14,18 +14,21 @@ end
 
 function config.dashboard()
   require('dashboard').setup({
-    theme = 'hyper', --  theme is doom and hyper default is hyper
+    theme = 'doom', --  theme is doom and hyper default is hyper
     config = {
-      shortcut = {
-        -- action can be a function type
-        -- { desc = string, group = 'highlight group', key = 'shortcut key', action = 'action when you press key' },
+      center = {
+        {
+          icon = '',
+          icon_hl = 'group',
+          desc = 'description',
+          desc_hl = 'group',
+          key = 'shortcut key in dashboard buffer not keymap !!',
+          key_hl = 'group',
+          action = '',
+        },
       },
-      packages = { enable = true }, -- show how many plugins neovim loaded
-      -- limit how many projects list, action when you press key or enter it will run this action.
-      project = { limit = 8, icon = ' ~ ', label = 'Projects', action = 'Telescope find_files cwd=' },
-      mru = { limit = 10, icon = ' ~ ', label = 'Recent Files', },
-      footer = {}, -- footer
-    },
+      footer = {},
+    }
   })
 end
 
