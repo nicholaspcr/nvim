@@ -48,4 +48,4 @@ g.loaded_netrwFileHandlers = 1
 
 require('core.pack'):boot_strap()
 require('core.options')
---require('keymap')
+require('keymap')
