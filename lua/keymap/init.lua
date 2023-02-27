@@ -41,14 +41,4 @@ nmap({
   -- plugin manager: Lazy.nvim
   { '<Leader>pu', cmd('Lazy update'), opts(noremap, silent) },
   { '<Leader>pi', cmd('Lazy install'), opts(noremap, silent) },
-  ---- dashboard
-  --{ '<Leader>n', cmd('DashboardNewFile'), opts(noremap, silent) },
-  --{ '<Leader>ss', cmd('SessionSave'), opts(noremap, silent) },
-  --{ '<Leader>sl', cmd('SessionLoad'), opts(noremap, silent) },
-  ---- nvimtree
-  --{ '<Leader>e', cmd('NvimTreeToggle'), opts(noremap, silent) },
-  ---- Telescope
-  --{ '<Leader>b', cmd('Telescope buffers'), opts(noremap, silent) },
-  --{ '<Leader>fa', cmd('Telescope live_grep'), opts(noremap, silent) },
-  --{ '<Leader>ff', cmd('Telescope find_files'), opts(noremap, silent) },
 })
