@@ -3,7 +3,6 @@ local conf = require('modules.lsp.config')
 
 package({
   'neovim/nvim-lspconfig',
-  ft = { 'lua', 'rust', 'c', 'cpp' },
   config = conf.nvim_lsp,
   dependencies = {{'hrsh7th/cmp-nvim-lsp'}},
   init = function()
