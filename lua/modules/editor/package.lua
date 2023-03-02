@@ -7,7 +7,7 @@ package({
   run = ':TSUpdate',
   config = conf.nvim_treesitter,
   dependencies = {
-    'nvim-treesitter/nvim-treesitter-textobjects',
+    {'nvim-treesitter/nvim-treesitter-textobjects'},
   },
 })
 
@@ -17,6 +17,9 @@ package({
 })
 
 
-package({ 'fatih/vim-go' })
+package({
+  'fatih/vim-go',
+  dependencies = {{'https://github.com/junegunn/fzf.vim'}},
+})
 
 package({ 'github/copilot.vim' })
