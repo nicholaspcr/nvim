@@ -96,3 +96,6 @@ if vim.loop.os_uname().sysname == 'Darwin' then
   vim.g.python_host_prog = '/usr/bin/python'
   vim.g.python3_host_prog = '/usr/local/bin/python3'
 end
+
+
+vim.cmd("au TextYankPost * silent! lua vim.highlight.on_yank {higroup='IncSearch', timeout=150}")
