@@ -28,8 +28,8 @@ package({
       { '<Leader>b', cmd('Telescope buffers'), opts(noremap, silent) },
       { '<Leader>fa', cmd('Telescope live_grep'), opts(noremap, silent) },
       { '<Leader>ff', cmd('Telescope find_files'), opts(noremap, silent) },
-      { '<Leader>ew', cmd('Telescope file_browser'), opts(noremap, silent) },
-      { '<Leader>ef', cmd('Telescope file_browser path=%:p:h select_buffer=true'), opts(noremap, silent) },
+      { '<Leader>fw', cmd('Telescope file_browser'), opts(noremap, silent) },
+      { '<Leader>fl', cmd('Telescope file_browser path=%:p:h select_buffer=true'), opts(noremap, silent) },
     })
   end
 })
