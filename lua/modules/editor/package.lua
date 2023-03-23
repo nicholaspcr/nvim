@@ -12,6 +12,15 @@ package({
 })
 
 package({
+  'nvim-treesitter/nvim-treesitter-context',
+  event = 'BufRead',
+  config = conf.nvim_treesitter_context,
+  dependencies = {
+    {'nvim-treesitter/nvim-treesitter'},
+  },
+})
+
+package({
   'editorconfig/editorconfig-vim',
   ft = {'typescript', 'javascript', 'vim', 'rust', 'zig', 'c', 'cpp' },
 })
