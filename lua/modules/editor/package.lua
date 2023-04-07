@@ -32,3 +32,5 @@ package({
 })
 
 package({ 'github/copilot.vim' })
+
+package({ 'tpope/vim-fugitive' })
