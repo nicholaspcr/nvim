@@ -14,6 +14,13 @@ package({
   dependencies = {{ 'kyazdani42/nvim-web-devicons', opt = true }},
 })
 
+package({
+  'luisiacc/gruvbox-baby',
+  config = function()
+    vim.cmd('colorscheme gruvbox-baby')
+  end
+})
+
 
 package({
   'folke/tokyonight.nvim',
@@ -59,7 +66,6 @@ package({
       --@param colors ColorScheme
       on_highlights = function(highlights, colors) end,
     })
-    --vim.cmd('colorscheme tokyonight')
   end
 })
 
@@ -92,8 +98,5 @@ package({
           light = "lotus"
       },
     })
-
-    -- setup must be called before loading
-    vim.cmd("colorscheme kanagawa")
   end
 })
