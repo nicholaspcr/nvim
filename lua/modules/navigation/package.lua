@@ -1,6 +1,17 @@
 local package = require('core.pack').package
 local conf = require('modules.navigation.config')
 
+package ({
+  'kdheepak/lazygit.nvim',
+  init = function()
+    local keymap = require('core.keymap')
+    local nmap = keymap.nmap
+    local cmd, opts = keymap.cmd, keymap.new_opts
+    local noremap, silent =  keymap.noremap, keymap.silent
+    nmap({ '<Leader>lg', cmd('LazyGit'), opts(noremap) })
+  end
+})
+
 package({
   'nvim-telescope/telescope.nvim',
   cmd = 'Telescope',
@@ -8,12 +19,14 @@ package({
     { 'nvim-lua/plenary.nvim' },
     { 'nvim-telescope/telescope-fzy-native.nvim' },
     { 'nvim-telescope/telescope-file-browser.nvim' }
+    -- { 'kdheepak/lazygit.nvim' }
   },
   config = conf.telescope,
   init = function()
     -- To get telescope-file-browser loaded and working with telescope,
     -- you need to call load_extension, somewhere after setup function:
     require("telescope").load_extension "file_browser"
+    --require("telescope").load_extension "lazygit"
 
 
     vim.g.mapleader = ' '
