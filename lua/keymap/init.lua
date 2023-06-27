@@ -24,8 +24,11 @@ nmap({
   { ']b', cmd('bn'), opts(noremap) },
   { '[b', cmd('bp'), opts(noremap) },
   -- remove trailing white space
-  { '<Leader>t', cmd('TrimTrailingWhitespace'), opts(noremap) },
+  { '<Leader>tw', cmd('TrimTrailingWhitespace'), opts(noremap) },
   { '<Leader><CR>', ':noh<CR>', opts(noremap) },
+  -- Tab related
+  { '<Leader>tn', cmd('tabnew'), opts(noremap) },
+  { '<Leader>tc', cmd('tabclose'), opts(noremap) },
 })
 
 
