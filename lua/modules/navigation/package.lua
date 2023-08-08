@@ -1,17 +1,6 @@
 local package = require('core.pack').package
 local conf = require('modules.navigation.config')
 
-package ({
-  'kdheepak/lazygit.nvim',
-  init = function()
-    local keymap = require('core.keymap')
-    local nmap = keymap.nmap
-    local cmd, opts = keymap.cmd, keymap.new_opts
-    local noremap, silent =  keymap.noremap, keymap.silent
-    nmap({ '<Leader>lg', cmd('LazyGit'), opts(noremap) })
-  end
-})
-
 package({
   'nvim-telescope/telescope.nvim',
   cmd = 'Telescope',
@@ -66,5 +55,16 @@ package({
       { '<C-k>', function() require('harpoon.ui').nav_file(3) end, opts(noremap, silent) },
       { '<C-l>', function() require('harpoon.ui').nav_file(4) end, opts(noremap, silent) },
     })
+  end
+})
+
+package ({
+  'kdheepak/lazygit.nvim',
+  init = function()
+    local keymap = require('core.keymap')
+    local nmap = keymap.nmap
+    local cmd, opts = keymap.cmd, keymap.new_opts
+    local noremap, silent =  keymap.noremap, keymap.silent
+    nmap({ '<Leader>gt', cmd('LazyGit'), opts(noremap, silent) })
   end
 })
