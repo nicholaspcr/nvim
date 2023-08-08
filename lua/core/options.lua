@@ -98,4 +98,5 @@ if vim.loop.os_uname().sysname == 'Darwin' then
 end
 
 
+vim.cmd("setlocal spell spelllang=en_us")
 vim.cmd("au TextYankPost * silent! lua vim.highlight.on_yank {higroup='IncSearch', timeout=150}")
