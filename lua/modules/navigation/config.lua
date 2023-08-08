@@ -70,6 +70,8 @@ function config.telescope()
         "%.pb.go",
         "%.fm.go",
         "data/*",
+        "go.mod",
+        "go.sum",
       }
     },
     extensions = {
