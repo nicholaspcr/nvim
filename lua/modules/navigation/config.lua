@@ -67,6 +67,7 @@ function config.telescope()
         -- custom files
         "%.pb.go",
         "%.fm.go",
+        "%.gm.go",
         "data/*",
         "go.mod",
         "go.sum",
