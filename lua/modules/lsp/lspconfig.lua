@@ -43,6 +43,12 @@ lspconfig.gopls.setup({
   init_options = {
     usePlaceholders = true,
     completeUnimported = true,
+    staticcheck = true,
+    gofumpt = true,
+    analyses = {
+      unusedparams = true,
+      shadow = true,
+    },
   },
 })
 
