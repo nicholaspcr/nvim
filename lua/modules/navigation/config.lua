@@ -69,7 +69,6 @@ function config.telescope()
         "%.fm.go",
         "%.gm.go",
         "^data/*",
-        "go.mod",
         "go.sum",
       }
     },
