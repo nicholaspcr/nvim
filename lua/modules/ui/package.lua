@@ -15,10 +15,9 @@ package({
 })
 
 package({
-  'luisiacc/gruvbox-baby',
-  config = function()
-    vim.cmd('colorscheme gruvbox-baby')
-  end
+  "folke/todo-comments.nvim",
+  dependencies = {{ "nvim-lua/plenary.nvim" }},
+  config = conf.todo,
 })
 
 
@@ -69,7 +68,10 @@ package({
   end
 })
 
-
+package({
+  'luisiacc/gruvbox-baby',
+  --config = conf.gruvbox,
+})
 
 package({
   'rebelot/kanagawa.nvim',

@@ -32,6 +32,7 @@ package({
       { '<Leader>ff', cmd('Telescope find_files'), opts(noremap, silent) },
       { '<Leader>fw', cmd('Telescope file_browser'), opts(noremap, silent) },
       { '<Leader>fl', cmd('Telescope file_browser path=%:p:h select_buffer=true'), opts(noremap, silent) },
+      { '<Leader>ft', cmd('TodoTelescope'), opts(noremap, silent) },
     })
   end
 })
