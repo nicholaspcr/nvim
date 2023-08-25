@@ -40,7 +40,7 @@ opt.winwidth = 30
 opt.pumheight = 15
 opt.showcmd = false
 
-opt.cmdheight = 0
+opt.cmdheight = 1
 opt.laststatus = 3
 opt.list = true
 opt.listchars = 'tab:»·,nbsp:+,trail:·,extends:→,precedes:←'
