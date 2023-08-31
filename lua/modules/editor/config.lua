@@ -31,8 +31,9 @@ end
 
 
 function config.neoformat()
-  vim.cmd("au BufWritePre *.js Neoformat")
-  vim.cmd("au BufWritePre *.ts Neoformat")
+  -- TODO: Allow for it to take repository configuration
+  --vim.cmd("au BufWritePre *.js Neoformat")
+  --vim.cmd("au BufWritePre *.ts Neoformat")
 end
 
 
