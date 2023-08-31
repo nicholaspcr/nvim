@@ -34,3 +34,8 @@ package({
 package({ 'github/copilot.vim' })
 
 package({ 'tpope/vim-fugitive' })
+
+package({ 
+  'sbdchd/neoformat',
+  config = conf.neoformat,
+})

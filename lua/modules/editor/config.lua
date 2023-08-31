@@ -29,4 +29,11 @@ function config.nvim_treesitter_context()
   })
 end
 
+
+function config.neoformat()
+  vim.cmd("au BufWritePre *.js Neoformat")
+  vim.cmd("au BufWritePre *.ts Neoformat")
+end
+
+
 return config
