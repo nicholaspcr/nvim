@@ -29,6 +29,9 @@ nmap({
   -- Tab related
   { '<Leader>tn', cmd('tabnew'), opts(noremap) },
   { '<Leader>tc', cmd('tabclose'), opts(noremap) },
+  -- Movement related
+  { '<C-d>', '<C-d>zz', opts(noremap) },
+  { '<C-u>', '<C-u>zz', opts(noremap) },
 })
 
 
