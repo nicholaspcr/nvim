@@ -154,8 +154,12 @@ function config.bufferline()
 end
 
 -- Colorscheme configuration
-function config.gruvbox()
+function config.gruvboxBaby()
     vim.cmd('colorscheme gruvbox-baby')
+end
+-- Colorscheme configuration
+function config.gruvbox()
+    vim.cmd('colorscheme gruvbox')
 end
 
 function config.tokyonight()

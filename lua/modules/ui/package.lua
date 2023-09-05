@@ -43,12 +43,17 @@ package({
 
 package({
   'folke/tokyonight.nvim',
-  config = conf.tokyonight,
+  --config = conf.tokyonight,
 })
 
 package({
   'luisiacc/gruvbox-baby',
-  --config = conf.gruvbox,
+  --config = conf.gruvboxBaby,
+})
+
+package({
+  'morhetz/gruvbox',
+  config = conf.gruvbox,
 })
 
 package({
