@@ -53,6 +53,8 @@ package({
     local nmap = keymap.nmap
     local cmd, opts = keymap.cmd, keymap.new_opts
     local noremap, silent =  keymap.noremap, keymap.silent
+
+    vim.g.mapleader = ' '
     nmap({
       { '<C-e>', function() require('harpoon.ui').toggle_quick_menu() end, opts(noremap, silent) },
       { '<Leader>a', function() require("harpoon.mark").add_file() end, opts(noremap, silent) },
