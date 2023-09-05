@@ -16,6 +16,8 @@ nmap({
   -- noremal remap
   -- close buffer
   { '<C-x>k', cmd('bdelete'), opts(noremap, silent) },
+  { '<C-x>p', cmd('let @+=expand("%:p")'), opts(noremap, silent) },
+
   -- save
   { '<C-s>', cmd('write'), opts(noremap) },
   -- yank
