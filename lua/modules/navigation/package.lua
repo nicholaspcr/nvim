@@ -22,6 +22,9 @@ package({
     local cmd, opts = keymap.cmd, keymap.new_opts
     local noremap, silent =  keymap.noremap, keymap.silent
 
+
+    local git_worktree = require('telescope').extensions.git_worktree
+    local utils = require('telescope.utils')
     -- Telescope mappings
     local extensions = require('telescope').extensions
     nmap({
@@ -30,6 +33,9 @@ package({
 
       -- File related mappings
       { '<Leader>fa', cmd('Telescope live_grep'), opts(noremap, silent) },
+      { '<Leader>fd', function() require'telescope.builtin'.live_grep{ cwd=utils.buffer_dir() } end, opts(noremap, silent) },
+      { '<Leader>cs', cmd('Telescope colorscheme'), opts(noremap, silent) },
+      { '<Leader>gs', cmd('Telescope git_status'), opts(noremap, silent) },
       { '<Leader>ff', cmd('Telescope find_files'), opts(noremap, silent) },
       { '<Leader>fl', cmd('Telescope file_browser path=%:p:h select_buffer=true'), opts(noremap, silent) },
 
