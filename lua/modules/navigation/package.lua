@@ -86,6 +86,6 @@ package ({
     local nmap = keymap.nmap
     local cmd, opts = keymap.cmd, keymap.new_opts
     local noremap, silent =  keymap.noremap, keymap.silent
-    nmap({ '<Leader>gt', cmd('LazyGit'), opts(noremap, silent) })
+    nmap({ '<Leader>lg', cmd('LazyGit'), opts(noremap, silent) })
   end
 })
