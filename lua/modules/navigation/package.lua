@@ -43,8 +43,8 @@ package({
       { '<Leader>ft', cmd('TodoTelescope'), opts(noremap, silent) },
 
       -- Worktree related mappings
-      { '<Leader>fwl', extensions.git_worktree.git_worktrees, opts(noremap, silent) },
-      { '<Leader>fwc', extensions.git_worktree.create_git_worktree, opts(noremap, silent) },
+      { '<Leader>wl', extensions.git_worktree.git_worktrees, opts(noremap, silent) },
+      { '<Leader>wc', extensions.git_worktree.create_git_worktree, opts(noremap, silent) },
     })
   end
 })
