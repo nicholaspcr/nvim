@@ -12,6 +12,7 @@ package({
 package({
   'nvim-lualine/lualine.nvim',
   config = conf.lualine,
+  after = "nvim-web-devicons",
   dependencies = {{'nvim-tree/nvim-web-devicons', opt = true }},
 })
 
@@ -34,7 +35,8 @@ package({
 package({
   'akinsho/bufferline.nvim', 
   version = "*", 
-  dependencies = {{'nvim-tree/nvim-web-devicons', opt = true}},
+  after = "nvim-web-devicons",
+  requires = "nvim-tree/nvim-web-devicons",
   config = conf.bufferline,
 })
 
