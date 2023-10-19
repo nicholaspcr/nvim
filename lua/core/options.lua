@@ -57,6 +57,9 @@ opt.shiftwidth = 2
 -- highlight
 opt.hlsearch = true
 
+-- cursor
+opt.cursorline = true
+
 -- wrap
 opt.linebreak = true
 opt.whichwrap = 'h,l,<,>,[,],~'
