@@ -103,3 +103,4 @@ end
 
 vim.cmd("setlocal spell spelllang=en_us")
 vim.cmd("au TextYankPost * silent! lua vim.highlight.on_yank {higroup='IncSearch', timeout=150}")
+vim.cmd(":highlight Normal guibg=none")
