@@ -40,27 +40,17 @@ package({
   config = conf.bufferline,
 })
 
-
--- Packages related to ColorScheme
--- Configs are commented in order to leave just the default settings be set.
-
 package({
-  'folke/tokyonight.nvim',
-  --config = conf.tokyonight,
-})
-
-package({
-  'luisiacc/gruvbox-baby',
-  --config = conf.gruvboxBaby,
+  "folke/noice.nvim",
+  event = "VeryLazy",
+  config = conf.noice,
+  dependencies = {
+	  {'MunifTanjim/nui.nvim', },
+	  {'rcarriga/nvim-notify', opt = true },
+  },
 })
 
 package({
   'morhetz/gruvbox',
   config = conf.gruvbox,
 })
-
-package({
-  'rebelot/kanagawa.nvim',
-  --config = conf.kanagawa,
-})
-
