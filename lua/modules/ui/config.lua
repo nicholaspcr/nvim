@@ -32,17 +32,26 @@ function config.lualine()
     sections = {
       lualine_a = {'mode'},
       lualine_b = {
-        'branch', 
-        'diff', 
+        'branch', -- TODO: Make it so that if there is a '/', use only the first letter of the word before it.
+        'diff',
         {
           'diagnostics',
-          sections = {'error', 'warn', 'info', 'hint'},	
+          sections = {'error', 'warn', 'info', 'hint'},
           colored = true,
           symbols = {error = ' ', warn = ' ', info = ' ', hint = ''},
         },
       },
-      lualine_c = {{'filename',path=1,}},
-      lualine_x = {'encoding', 'fileformat', 'filetype'},
+      lualine_c = {{'filename',path=1}},
+      lualine_x = {
+        {
+          require("noice").api.statusline.mode.get,
+          cond = require("noice").api.statusline.mode.has,
+          color = { fg = "#ff9e64" },
+        },
+        'encoding',
+        'fileformat',
+        'filetype'
+      },
       lualine_y = {'progress'},
       lualine_z = {'location'}
     },
@@ -169,14 +178,14 @@ function config.tokyonight()
       },
 
       -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
-      sidebars = { "qf", "help" }, 
+      sidebars = { "qf", "help" },
 
       -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
-      day_brightness = 0.3, 
+      day_brightness = 0.3,
 
       -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work
       -- with the standard **StatusLine** and **LuaLine**.
-      hide_inactive_statusline = false, 
+      hide_inactive_statusline = false,
 
       dim_inactive = false, -- dims inactive windows
       lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
@@ -220,22 +229,22 @@ function config.tokyonight()
       timeout = 200,
     })
       require("noice").setup({
-          lsp = {
-        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-        override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
+        lsp = {
+          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+          },
         },
-      },
-      -- you can enable a preset for easier configuration
-      presets = {
-        bottom_search = true, -- use a classic bottom cmdline for search
-        command_palette = true, -- position the cmdline and popupmenu together
-        long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false, -- add a border to hover docs and signature help
-      },
+        -- you can enable a preset for easier configuration
+        presets = {
+          bottom_search = true, -- use a classic bottom cmdline for search
+          command_palette = true, -- position the cmdline and popupmenu together
+          long_message_to_split = true, -- long messages will be sent to a split
+          inc_rename = false, -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = false, -- add a border to hover docs and signature help
+        },
     })
   end
 return config
