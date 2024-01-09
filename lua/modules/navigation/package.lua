@@ -53,21 +53,55 @@ package({
 
 package({
   'ThePrimeagen/harpoon',
-  dependencies = { {'nvim-lua/plenary.nvim'},},
+  branch = "harpoon2",
+  dependencies = { 
+    {'nvim-lua/plenary.nvim'},
+    {'nvim-telescope/telescope.nvim'},
+  },
+  config = function()
+    require("harpoon").setup({
+      settings = {
+        save_on_toggle = true
+      }
+    })
+  end,
   init = function()
     local keymap = require('core.keymap')
     local nmap = keymap.nmap
     local cmd, opts = keymap.cmd, keymap.new_opts
     local noremap, silent =  keymap.noremap, keymap.silent
 
+    local harpoon = require("harpoon")
     vim.g.mapleader = ' '
+
+    local telescope_conf = require("telescope.config").values
+    local function toggle_telescope(harpoon_files)
+      local file_paths = {}
+      for _, item in ipairs(harpoon_files.items) do
+          table.insert(file_paths, item.value)
+      end
+
+      require("telescope.pickers").new({}, {
+          prompt_title = "Harpoon",
+          finder = require("telescope.finders").new_table({
+              results = file_paths,
+          }),
+          previewer = telescope_conf.file_previewer({}),
+          sorter = telescope_conf.generic_sorter({}),
+      }):find()
+    end
+
+
     nmap({
-      { '<C-e>', function() require('harpoon.ui').toggle_quick_menu() end, opts(noremap, silent) },
-      { '<Leader>a', function() require("harpoon.mark").add_file() end, opts(noremap, silent) },
-      { '<C-h>', function() require('harpoon.ui').nav_file(1) end, opts(noremap, silent) },
-      { '<C-j>', function() require('harpoon.ui').nav_file(2) end, opts(noremap, silent) },
-      { '<C-k>', function() require('harpoon.ui').nav_file(3) end, opts(noremap, silent) },
-      { '<C-l>', function() require('harpoon.ui').nav_file(4) end, opts(noremap, silent) },
+      { '<Leader>a', function() harpoon:list():append() end, opts(noremap, silent) },
+      { '<C-e>', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, opts(noremap, silent) },
+      { '<Leader>fe', function() toggle_telescope(harpoon:list()) end, opts(noremap, silent) },
+       
+
+      -- vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
+      -- vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
+      -- vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
+      -- vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
     })
   end
 })
