@@ -75,6 +75,8 @@ opt.relativenumber = true
 opt.signcolumn = 'yes'
 opt.spelloptions = 'camel'
 
+opt.conceallevel = 1
+
 local column = os.getenv("NVIM_COLUMN")
 if column == nil then
   opt.textwidth = 120

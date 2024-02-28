@@ -10,6 +10,7 @@ package({
     { 'nvim-telescope/telescope-file-browser.nvim' },
     { 'ThePrimeagen/git-worktree.nvim' },
     { 'folke/todo-comments.nvim' },
+    { 'epwalsh/obsidian.nvim' },
   },
   config = conf.telescope,
   init = function()
@@ -45,6 +46,13 @@ package({
       -- Worktree related mappings
       { '<Leader>wl', extensions.git_worktree.git_worktrees, opts(noremap, silent) },
       { '<Leader>wc', extensions.git_worktree.create_git_worktree, opts(noremap, silent) },
+
+      -- Obsidian related mappings
+      { '<Leader>on', cmd('ObsidianNew'), opts(noremap, silent) },
+      { '<Leader>ow', cmd('ObsidianWorkspace'), opts(noremap, silent) },
+      { '<Leader>ot', cmd('ObsidianToday'), opts(noremap, silent) },
+      { '<Leader>fot', cmd('ObsidianTags'), opts(noremap, silent) },
+      { '<Leader>fof', cmd('ObsidianQuickSwitch'), opts(noremap, silent) },
     })
   end
 })
@@ -112,6 +120,19 @@ package({
     require("git-worktree").setup()
   end,
 })
+
+package({
+  "epwalsh/obsidian.nvim",
+  version = "v3.6.0",  -- recommended, use latest release instead of latest commit
+  lazy = false,
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "hrsh7th/nvim-cmp",
+    "hrsh7th/cmp-path",
+  },
+  config = conf.obsidian,
+})
+
 
 package ({
   'kdheepak/lazygit.nvim',
