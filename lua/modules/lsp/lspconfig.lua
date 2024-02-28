@@ -38,7 +38,7 @@ local lsp_flags = {
 lspconfig.gopls.setup({
   on_attach = on_attach,
   flags = lsp_flags,
-  cmd = { 'gopls', '--remote=auto' },
+  cmd = { 'gopls', '--remote=auto', '-rpc.trace', '--debug=localhost:6060' },
   capabilities = capabilities,
   init_options = {
     usePlaceholders = true,
