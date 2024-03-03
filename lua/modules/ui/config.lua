@@ -38,7 +38,7 @@ function config.lualine()
           'diagnostics',
           sections = {'error', 'warn', 'info', 'hint'},
           colored = true,
-          symbols = {error = ' ', warn = ' ', info = ' ', hint = ''},
+          symbols = {error = '⨂ ', warn = ' ', info = ' ', hint = ''},
         },
       },
       lualine_c = {{'filename',path=1}},
