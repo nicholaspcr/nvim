@@ -1,6 +1,10 @@
 local config = {}
 
 function config.telescope()
+  require("telescope").load_extension "file_browser"
+  require("telescope").load_extension "git_worktree"
+  require("telescope").load_extension "lazygit"
+
   require('telescope').setup({
     pickers = {
       colorscheme = {
@@ -74,15 +78,46 @@ function config.telescope()
         override_generic_sorter = false,
         override_file_sorter = true,
       },
-      file_browser = {
-        theme = "ivy",
-        hijack_netrw = true,
-        --mappings = {
-        --  ["i"] = { -- your custom insert mode mappings },
-        --  ["n"] = { -- your custom normal mode mappings },
-        --},
-      },
+      file_browser = { theme = "ivy" },
     },
+  })
+
+  vim.g.mapleader = ' '
+  local keymap = require('core.keymap')
+  local nmap = keymap.nmap
+  local cmd, opts = keymap.cmd, keymap.new_opts
+  local noremap, silent =  keymap.noremap, keymap.silent
+
+  local git_worktree = require('telescope').extensions.git_worktree
+  local utils = require('telescope.utils')
+  -- Telescope mappings
+  local extensions = require('telescope').extensions
+  nmap({
+    -- Buffer related mappings
+    { '<Leader>b', cmd('Telescope buffers'), opts(noremap, silent) },
+
+    -- File related mappings
+    { '<Leader>fa', cmd('Telescope live_grep'), opts(noremap, silent) },
+    { '<Leader>fd', function() require'telescope.builtin'.live_grep{ cwd=utils.buffer_dir() } end, opts(noremap, silent) },
+    { '<Leader>cs', cmd('Telescope colorscheme'), opts(noremap, silent) },
+    { '<Leader>gs', cmd('Telescope git_status'), opts(noremap, silent) },
+    { '<Leader>ff', cmd('Telescope find_files'), opts(noremap, silent) },
+    { '<Leader>fl', cmd('Telescope file_browser path=%:p:h select_buffer=true'), opts(noremap, silent) },
+    { '<Leader>lg', cmd('Telescope lazygit'), opts(noremap, silent) },
+
+    -- Todo related mappings
+    { '<Leader>ft', cmd('TodoTelescope'), opts(noremap, silent) },
+
+    -- Worktree related mappings
+    { '<Leader>wl', extensions.git_worktree.git_worktrees, opts(noremap, silent) },
+    { '<Leader>wc', extensions.git_worktree.create_git_worktree, opts(noremap, silent) },
+
+    -- Obsidian related mappings
+    { '<Leader>on', cmd('ObsidianNew'), opts(noremap, silent) },
+    { '<Leader>ow', cmd('ObsidianWorkspace'), opts(noremap, silent) },
+    { '<Leader>ot', cmd('ObsidianToday'), opts(noremap, silent) },
+    { '<Leader>fot', cmd('ObsidianTags'), opts(noremap, silent) },
+    { '<Leader>fof', cmd('ObsidianQuickSwitch'), opts(noremap, silent) },
   })
   require('telescope').load_extension('fzy_native')
 end
@@ -332,5 +367,41 @@ function config.obsidian()
   })
 end
 
+function config.harpoon()
+  local keymap = require('core.keymap')
+  local nmap = keymap.nmap
+  local cmd, opts = keymap.cmd, keymap.new_opts
+  local noremap, silent =  keymap.noremap, keymap.silent
+
+  local harpoon = require("harpoon")
+  vim.g.mapleader = ' '
+
+  local telescope_conf = require("telescope.config").values
+  local function toggle_telescope(harpoon_files)
+    local file_paths = {}
+    for _, item in ipairs(harpoon_files.items) do
+        table.insert(file_paths, item.value)
+    end
+
+    require("telescope.pickers").new({}, {
+        prompt_title = "Harpoon",
+        finder = require("telescope.finders").new_table({
+            results = file_paths,
+        }),
+        previewer = telescope_conf.file_previewer({}),
+        sorter = telescope_conf.generic_sorter({}),
+    }):find()
+  end
+
+
+  nmap({
+    { '<Leader>a', function() harpoon:list():append() end, opts(noremap, silent) },
+    { '<C-e>', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, opts(noremap, silent) },
+    { '<Leader>fe', function() toggle_telescope(harpoon:list()) end, opts(noremap, silent) },
+  })
+  require("harpoon").setup({
+    settings = { save_on_toggle = true }
+  })
+end
 
 return config
