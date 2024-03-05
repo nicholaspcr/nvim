@@ -3,8 +3,8 @@ local conf = require('modules.editor.config')
 
 package({
   'nvim-treesitter/nvim-treesitter',
-  event = 'BufRead',
-  run = ':TSUpdate',
+  event = { "BufReadPre", "BufNewFile" },
+  build = ":TSUpdate",
   config = conf.nvim_treesitter,
   dependencies = {
     {'nvim-treesitter/nvim-treesitter-textobjects'},
@@ -31,11 +31,6 @@ package({
   dependencies = {{'https://github.com/junegunn/fzf.vim'}},
 })
 
-package({ 'github/copilot.vim' })
+-- package({ 'github/copilot.vim' })
 
 package({ 'tpope/vim-fugitive' })
-
-package({ 
-  'sbdchd/neoformat',
-  config = conf.neoformat,
-})
