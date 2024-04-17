@@ -50,12 +50,12 @@ nmap({
   { '<Leader>pu', cmd('Lazy update'), opts(noremap, silent) },
   { '<Leader>pi', cmd('Lazy install'), opts(noremap, silent) },
 
-  {'gd', vim.lsp.buf.definition, opts(noremap,silent)},
-  {'gr', vim.lsp.buf.references, opts(noremap,silent)},
+  {'gd', cmd('Telescope lsp_definitions'), opts(noremap,silent)},
+  {'gr', cmd('Telescope lsp_references'), opts(noremap,silent)},
   {'K', vim.lsp.buf.hover, opts(noremap,silent)},
-  {'gi', vim.lsp.buf.implementation, opts(noremap,silent)},
+  {'gi', cmd('Telescope lsp_implementations'), opts(noremap,silent)},
   -- {'<C-k>', vim.lsp.buf.signature_help, opts(noremap,silent)},
-  {'<Leader>D', vim.lsp.buf.type_definition, opts(noremap,silent)},
+  {'<Leader>D', cmd('Telescope lsp_type_definitions'), opts(noremap,silent)},
   {'<Leader>rn', vim.lsp.buf.rename, opts(noremap,silent)},
   {'<Leader>ca', vim.lsp.buf.code_action, opts(noremap,silent)},
 })
