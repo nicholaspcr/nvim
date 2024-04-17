@@ -148,7 +148,7 @@ function config.obsidian()
       -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
       completion = {
         nvim_cmp = true,
-        min_chars = 2,
+        min_chars = 1,
       },
 
       -- Optional, configure key mappings. These are the defaults. If you don't want to set any keymappings this
@@ -395,7 +395,7 @@ function config.harpoon()
 
 
   nmap({
-    { '<Leader>a', function() harpoon:list():append() end, opts(noremap, silent) },
+    { '<Leader>a', function() harpoon:list():add() end, opts(noremap, silent) },
     { '<C-e>', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, opts(noremap, silent) },
     { '<Leader>fe', function() toggle_telescope(harpoon:list()) end, opts(noremap, silent) },
   })
