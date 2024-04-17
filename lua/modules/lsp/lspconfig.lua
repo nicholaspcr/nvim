@@ -87,12 +87,23 @@ lspconfig.rust_analyzer.setup({
   },
 })
 
+lspconfig.lua_ls.setup({
+  settings = {
+    Lua = {
+      completion = {
+        callSnippet = "Replace"
+      }
+    }
+  }
+})
+
 local servers = {
   'dockerls',
   'pyright',
   'bashls',
   'zls',
   'tsserver',
+  'lua_ls',
 }
 
 for _, server in ipairs(servers) do
