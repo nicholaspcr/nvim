@@ -4,7 +4,7 @@ local conf = require('modules.lsp.config')
 package({
   'neovim/nvim-lspconfig',
   config = conf.nvim_lsp,
-  dependencies = {{'hrsh7th/cmp-nvim-lsp'}},
+  dependencies = {{'hrsh7th/cmp-nvim-lsp'}, {'folke/neodev.nvim'}},
   init = function()
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
     local opts = { noremap=true, silent=true }
@@ -28,6 +28,34 @@ package({
     { 'hrsh7th/cmp-cmdline' },
   },
 })
+
+package({
+  'mfussenegger/nvim-dap',
+})
+
+package({
+  'rcarriga/nvim-dap-ui',
+  config = conf.dap_ui,
+  dependencies = {
+    { 'mfussenegger/nvim-dap' },
+    { 'nvim-neotest/nvim-nio' },
+  },
+})
+
+package({
+  'leoluz/nvim-dap-go',
+  ft = "go",
+  dependencies = { { 'mfussenegger/nvim-dap' } },
+  config = conf.nvim_dap_go,
+})
+
+
+package({
+  'folke/neodev.nvim',
+  config = conf.neodev,
+  dependencies = { { 'rcarriga/nvim-dap-ui' } },
+})
+
 
 package({
   'L3MON4D3/LuaSnip',

@@ -34,6 +34,44 @@ function config.nvim_cmp()
   })
 end
 
+function config.dap_ui()
+  require('dapui').setup({})
+
+    vim.g.mapleader = ' '
+    local keymap = require('core.keymap')
+    local nmap = keymap.nmap
+    local cmd, opts = keymap.cmd, keymap.new_opts
+    local noremap, silent =  keymap.noremap, keymap.silent
+
+    nmap({
+      { '<Leader>dt', cmd(':lua require("dapui").toggle()'), opts(noremap, silent) },
+      { '<Leader>db', cmd('DapToggleBreakpoint'), opts(noremap, silent) },
+      { '<Leader>dc', cmd('DapContinue'), opts(noremap, silent) },
+      { '<Leader>dr', cmd(':lua require("dapui").open({reset=true})'), opts(noremap, silent) },
+    })
+end
+
+function config.nvim_dap_go()
+    require('dap-go').setup({})
+
+    vim.g.mapleader = ' '
+    local keymap = require('core.keymap')
+    local nmap = keymap.nmap
+    local cmd, opts = keymap.cmd, keymap.new_opts
+    local noremap, silent =  keymap.noremap, keymap.silent
+
+    nmap({
+      { '<Leader>dgt', cmd(":lua require('dap-go').debug_test()"), opts(noremap, silent) },
+      { '<Leader>dgl', cmd(":lua require('dap-go').debug_last_test()"), opts(noremap, silent) },
+    })
+end
+
+function config.neodev()
+  require("neodev").setup({
+    library = { plugins = { "nvim-dap-ui" }, types = true },
+  })
+end
+
 function config.lua_snip()
   local ls = require('luasnip')
   local types = require('luasnip.util.types')
