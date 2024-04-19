@@ -12,8 +12,7 @@ package({
 package({
   'nvim-lualine/lualine.nvim',
   config = conf.lualine,
-  after = "nvim-web-devicons",
-  dependencies = {{'nvim-tree/nvim-web-devicons', opt = true }},
+  dependencies = {{'nvim-tree/nvim-web-devicons'}},
 })
 
 package({
@@ -34,9 +33,8 @@ package({
 
 package({
   'akinsho/bufferline.nvim',
+  dependencies = {{'nvim-tree/nvim-web-devicons'}},
   version = "*",
-  after = "nvim-web-devicons",
-  requires = "nvim-tree/nvim-web-devicons",
   config = conf.bufferline,
 })
 
@@ -45,8 +43,8 @@ package({
   event = "VeryLazy",
   config = conf.noice,
   dependencies = {
-	  {'MunifTanjim/nui.nvim', },
-	  {'rcarriga/nvim-notify', opt = true },
+	  {'MunifTanjim/nui.nvim'},
+	  {'rcarriga/nvim-notify'},
   },
 })
 
