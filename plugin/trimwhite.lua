@@ -59,7 +59,7 @@ local function trim_space(opts, preview_ns, preview_buf)
   end
 end
 
-if vim.fn.has('nvim-0.8') == 1 then
+if vim.fn.has('nvim-0.9') == 1 then
   -- Create the user command
   vim.api.nvim_create_user_command(
     'TrimTrailingWhitespace',
