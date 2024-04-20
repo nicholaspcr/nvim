@@ -159,6 +159,10 @@ function config.gruvbox()
     vim.cmd('colorscheme gruvbox')
 end
 
+function config.catppuccin()
+    vim.cmd('colorscheme catppuccin-mocha')
+end
+
 function config.tokyonight()
     require("tokyonight").setup({
       style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`

@@ -49,11 +49,7 @@ package({
 })
 
 package({
-  'morhetz/gruvbox',
-  config = conf.gruvbox,
-})
-
-package({
   "catppuccin/nvim",
   name = "catppuccin",
+  config = conf.catppuccin,
 })
