@@ -193,35 +193,8 @@ function config.obsidian()
         return tostring(os.time()) .. "-" .. suffix
       end,
 
-      -- Optional, customize how wiki links are formatted.
-      ---@param opts {path: string, label: string, id: string|?}
-      ---@return string
-      wiki_link_func = function(opts)
-        if opts.id == nil then
-          return string.format("[[%s]]", opts.label)
-        elseif opts.label ~= opts.id then
-          return string.format("[[%s|%s]]", opts.id, opts.label)
-        else
-          return string.format("[[%s]]", opts.id)
-        end
-      end,
-
-      -- Optional, customize how markdown links are formatted.
-      ---@param opts {path: string, label: string, id: string|?}
-      ---@return string
-      markdown_link_func = function(opts)
-        return string.format("[%s](%s)", opts.label, opts.path)
-      end,
-
       -- Either 'wiki' or 'markdown'.
-      preferred_link_style = "wiki",
-
-      -- Optional, customize the default name or prefix when pasting images via `:ObsidianPasteImg`.
-      ---@return string
-      image_name_func = function()
-        -- Prefix image names with timestamp.
-        return string.format("%s-", os.time())
-      end,
+      preferred_link_style = "markdown",
 
       -- Optional, boolean or a function that takes a filename and returns a boolean.
       -- `true` indicates that you don't want obsidian.nvim to manage frontmatter.
@@ -247,28 +220,6 @@ function config.obsidian()
 
         return out
       end,
-
-      ---- Optional, for templates (see below).
-      --templates = {
-      --  subdir = "templates",
-      --  date_format = "%Y-%m-%d",
-      --  time_format = "%H:%M",
-      --  -- A map for custom variables, the key should be the variable and the value a function
-      --  substitutions = {},
-      --},
-
-      -- Optional, by default when you use `:ObsidianFollowLink` on a link to an external
-      -- URL it will be ignored but you can customize this behavior here.
-      ---@param url string
-      follow_url_func = function(url)
-        -- Open the URL in the default web browser.
-        vim.fn.jobstart({"open", url})  -- Mac OS
-        -- vim.fn.jobstart({"xdg-open", url})  -- linux
-      end,
-
-      -- Optional, set to true if you use the Obsidian Advanced URI plugin.
-      -- https://github.com/Vinzent03/obsidian-advanced-uri
-      use_advanced_uri = false,
 
       -- Optional, set to true to force ':ObsidianOpen' to bring the app to the foreground.
       open_app_foreground = false,
