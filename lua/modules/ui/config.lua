@@ -230,8 +230,8 @@ function config.tokyonight()
     vim.opt.termguicolors = true
     require("notify").setup({
       background_colour = "#000000",
-      render = "minimal",
-      timeout = 600,
+      render = "compact",
+      timeout = 100,
     })
       require("noice").setup({
         lsp = {
