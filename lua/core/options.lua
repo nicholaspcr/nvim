@@ -67,7 +67,7 @@ opt.breakindentopt = 'shift:2,min:20'
 opt.showbreak = '↳ '
 
 opt.foldexpr = "nvim_treesitter#foldexpr()"
-opt.foldlevelstart = 5
+opt.foldlevel = 5
 opt.foldmethod = 'expr'
 
 opt.number = true
