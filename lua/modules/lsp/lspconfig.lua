@@ -97,13 +97,20 @@ lspconfig.lua_ls.setup({
   }
 })
 
+lspconfig.marksman.setup({
+  cmd = { "marksman", "server" },
+  file_types = { "markdown", "markdown.mdx" },
+  single_file_support = true,
+})
+
 local servers = {
   'dockerls',
   'pyright',
   'bashls',
   'zls',
   'tsserver',
-  'lua_ls',
+  'gopls',
+  'marksman',
 }
 
 for _, server in ipairs(servers) do
