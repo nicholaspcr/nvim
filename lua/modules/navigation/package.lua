@@ -35,7 +35,7 @@ package({
 
 package({
   "epwalsh/obsidian.nvim",
-  version = "v3.6.0",  -- recommended, use latest release instead of latest commit
+  version = "v3.7.12",  -- recommended, use latest release instead of latest commit
   lazy = false,
   dependencies = {
     "nvim-lua/plenary.nvim",
