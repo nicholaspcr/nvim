@@ -137,12 +137,18 @@ function config.obsidian()
       notes_subdir = "notes",
       log_level = vim.log.levels.INFO,
 
+      templates = {
+        folder = "templates",
+        date_format = "%Y-%m-%d-%a",
+        time_format = "%H:%M",
+      },
+
       daily_notes = {
         folder = "daily",
         date_format = "%Y-%m-%d",
         alias_format = "%B %-d, %Y",
         -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
-        template = nil
+        template = 'daily.md'
       },
 
       -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
