@@ -51,7 +51,12 @@ nmap({
   { '<Leader>pi', cmd('Lazy install'), opts(noremap, silent) },
 
   {'gd', cmd('Telescope lsp_definitions'), opts(noremap,silent)},
-  {'gr', cmd('Telescope lsp_references'), opts(noremap,silent)},
+  {
+    'gr',
+    function () require('telescope.builtin').lsp_references({ show_line = true, include_declaration = true }) end,
+    opts(noremap,silent),
+  },
+  {'<Leader>gr', vim.lsp.buf.references, opts(noremap,silent)},
   {'K', vim.lsp.buf.hover, opts(noremap,silent)},
   {'gi', cmd('Telescope lsp_implementations'), opts(noremap,silent)},
   -- {'<C-k>', vim.lsp.buf.signature_help, opts(noremap,silent)},
