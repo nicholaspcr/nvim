@@ -25,12 +25,6 @@ package({
   ft = {'typescript', 'javascript', 'vim', 'rust', 'zig', 'c', 'cpp' },
 })
 
-
-package({
-  'fatih/vim-go',
-  dependencies = {{'https://github.com/junegunn/fzf.vim'}},
-})
-
 -- package({ 'github/copilot.vim' })
 
 package({ 'tpope/vim-fugitive' })
