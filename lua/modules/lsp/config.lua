@@ -61,7 +61,7 @@ function config.nvim_cmp()
 
   vim.diagnostic.config({
     signs = true,
-    update_in_insert = false,
+    update_in_insert = true,
     underline = true,
     severity_sort = true,
     virtual_text = {
@@ -92,7 +92,7 @@ function config.nvim_cmp()
           usePlaceholders = true,
           completeUnimported = true,
           staticcheck = true,
-          gofumpt = true,
+          gofumpt = false,
           analyses = {
             unusedparams = true,
             shadow = true,
