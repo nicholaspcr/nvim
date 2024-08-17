@@ -86,16 +86,17 @@ function config.nvim_cmp()
     ['gopls'] = function()
       require("lspconfig").gopls.setup({
         on_attach = on_attach,
-        cmd = { 'gopls', '--remote=auto', '-rpc.trace', '--debug=localhost:6060' },
         capabilities = capabilities,
-        init_options = {
-          usePlaceholders = true,
-          completeUnimported = true,
-          staticcheck = true,
-          gofumpt = false,
-          analyses = {
-            unusedparams = true,
-            shadow = true,
+        cmd = { 'gopls', '--remote=auto', '-rpc.trace', '--debug=localhost:6060' },
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        settings = {
+          gopls = {
+            completeUnimported = true,
+            usePlaceholders = true,
+            staticcheck = true,
+            analyses = {
+              unusedparams = true,
+            },
           },
         },
       })
