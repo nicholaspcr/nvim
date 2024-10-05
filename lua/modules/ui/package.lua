@@ -3,6 +3,10 @@ local package = require('core.pack').package
 local conf = require('modules.ui.config')
 
 package({
+  'xiyaowong/transparent.nvim',
+})
+
+package({
   'lukas-reineke/indent-blankline.nvim',
   main = "ibl",
   event = 'BufRead',
@@ -52,6 +56,12 @@ package({
   "catppuccin/nvim",
   name = "catppuccin",
   config = conf.catppuccin,
+})
+
+package({
+  "ellisonleao/gruvbox.nvim",
+  name = "gruvbox",
+  -- config = conf.gruvbox,
 })
 
 package({
