@@ -17,16 +17,6 @@ package({
 })
 
 package({
-  'ThePrimeagen/harpoon',
-  branch = "harpoon2",
-  dependencies = { 
-    {'nvim-lua/plenary.nvim'},
-    {'nvim-telescope/telescope.nvim'},
-  },
-  config = conf.harpoon,
-})
-
-package({
   'ThePrimeagen/git-worktree.nvim',
   config = function()
     require("git-worktree").setup()

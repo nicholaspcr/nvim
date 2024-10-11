@@ -320,41 +320,4 @@ function config.obsidian()
   })
 end
 
-function config.harpoon()
-  local keymap = require('core.keymap')
-  local nmap = keymap.nmap
-  local cmd, opts = keymap.cmd, keymap.new_opts
-  local noremap, silent =  keymap.noremap, keymap.silent
-
-  local harpoon = require("harpoon")
-  vim.g.mapleader = ' '
-
-  local telescope_conf = require("telescope.config").values
-  local function toggle_telescope(harpoon_files)
-    local file_paths = {}
-    for _, item in ipairs(harpoon_files.items) do
-        table.insert(file_paths, item.value)
-    end
-
-    require("telescope.pickers").new({}, {
-        prompt_title = "Harpoon",
-        finder = require("telescope.finders").new_table({
-            results = file_paths,
-        }),
-        previewer = telescope_conf.file_previewer({}),
-        sorter = telescope_conf.generic_sorter({}),
-    }):find()
-  end
-
-
-  nmap({
-    { '<Leader>a', function() harpoon:list():add() end, opts(noremap, silent) },
-    { '<C-e>', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, opts(noremap, silent) },
-    { '<Leader>fe', function() toggle_telescope(harpoon:list()) end, opts(noremap, silent) },
-  })
-  require("harpoon").setup({
-    settings = { save_on_toggle = true }
-  })
-end
-
 return config
