@@ -1,6 +1,4 @@
-local config = {}
-
-function config.nvim_treesitter()
+local function nvim_treesitter()
   vim.api.nvim_command('set foldmethod=expr')
   vim.api.nvim_command('set foldexpr=nvim_treesitter#foldexpr()')
   require('nvim-treesitter.configs').setup({
@@ -112,12 +110,14 @@ function config.nvim_treesitter()
   vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
   vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
 end
-
-function config.nvim_treesitter_context()
-  require('treesitter-context').setup({
-    enable = true,
-    max_lines = 3,
-  })
-end
-
-return config
+return {
+  'nvim-treesitter/nvim-treesitter',
+  event = { "BufReadPre", "BufNewFile" },
+  config = nvim_treesitter,
+  build = function()
+			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
+		end,
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+  },
+}

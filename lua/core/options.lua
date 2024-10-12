@@ -43,7 +43,6 @@ opt.showcmd = false
 opt.cmdheight = 1
 opt.laststatus = 3
 opt.list = true
-opt.listchars = 'tab:»·,nbsp:+,trail:·,extends:→,precedes:←'
 opt.pumblend = 10
 opt.winblend = 10
 opt.undofile = true
