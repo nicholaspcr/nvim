@@ -29,14 +29,8 @@ local function nvim_cmp()
         end
       end, {'i', 's'})
     }),
-    snippet = {
-      expand = function(args)
-        require('luasnip').lsp_expand(args.body)
-      end,
-    },
     sources = {
       { name = 'nvim_lsp' },
-      { name = 'luasnip' },
       { name = 'buffer' },
     },
   })
@@ -184,7 +178,6 @@ return {
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-buffer',
-    'saadparwaiz1/cmp_luasnip',
     'neovim/nvim-lspconfig',
     'hrsh7th/cmp-cmdline',
     'williamboman/mason.nvim',
