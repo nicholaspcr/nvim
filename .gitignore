@@ -1,2 +1,5 @@
 # Personal env file
 .envrc
+
+# Lazy nvim lazy.lock
+lazy-lock.json
