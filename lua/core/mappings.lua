@@ -1,6 +1,7 @@
 local keymap = require('core.keymap')
 local map = keymap.map
 local cmd = keymap.cmd
+local telescope = require('telescope.builtin')
 
 -- close buffer
 map('n', '<C-x>k', cmd('bdelete'))
@@ -29,11 +30,13 @@ map('n', '<Leader>pu', cmd('Lazy update'))
 map('n', '<Leader>pi', cmd('Lazy install'))
 
 map('n', 'gd', cmd('Telescope lsp_definitions'))
-map('n', 'gr', function () require('telescope.builtin').lsp_references({ show_line = true, include_declaration = true }) end)
+map('n', 'gr', function () telescope.lsp_references({ show_line = true, include_declaration = true }) end)
 map('n', '<Leader>gr', vim.lsp.buf.references)
 map('n', 'K', vim.lsp.buf.hover)
-map('n', 'gi', cmd('Telescope lsp_implementations'))
--- {'<C-k>', vim.lsp.buf.signature_help,
+map('n', 'gi', function () telescope.lsp_type_definitions() end)
 map('n', '<Leader>D', cmd('Telescope lsp_type_definitions'))
 map('n', '<Leader>rn', vim.lsp.buf.rename)
 map('n', '<Leader>ca', vim.lsp.buf.code_action)
+
+-- Deletes all marks
+map('n', '<Leader>dm', cmd('delm! | delm A-Z0-9'))
