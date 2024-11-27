@@ -112,6 +112,7 @@ local function nvim_treesitter()
 end
 return {
   'nvim-treesitter/nvim-treesitter',
+  version = '0.9.3',
   event = { "BufReadPre", "BufNewFile" },
   config = nvim_treesitter,
   build = function()
