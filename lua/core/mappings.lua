@@ -37,6 +37,7 @@ map('n', 'gi', function () telescope.lsp_implementations() end)
 map('n', '<Leader>D', function () telescope.lsp_type_definitions() end)
 map('n', '<Leader>rn', vim.lsp.buf.rename)
 map('n', '<Leader>ca', vim.lsp.buf.code_action)
+map('n', '<Leader>fw', vim.lsp.buf.format)
 
 -- Deletes all marks
 map('n', '<Leader>dm', cmd('delm! | delm A-Z0-9'))

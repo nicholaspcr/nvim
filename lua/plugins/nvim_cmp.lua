@@ -4,7 +4,7 @@ local function nvim_cmp()
   require("mason-lspconfig").setup()
 
   local cmp = require('cmp')
-  local select_opts = {behavior = cmp.SelectBehavior.Select}
+  local select_opts = { behavior = cmp.SelectBehavior.Select }
 
   cmp.setup({
     preselect = cmp.PreselectMode.Item,
@@ -27,7 +27,7 @@ local function nvim_cmp()
         else
           cmp.complete()
         end
-      end, {'i', 's'})
+      end, { 'i', 's' })
     }),
     sources = {
       { name = 'nvim_lsp' },
@@ -69,10 +69,10 @@ local function nvim_cmp()
   -- See :help mason-lspconfig-dynamic-server-setup
   require('mason-lspconfig').setup_handlers({
     function(server)
-      lspconfig[server].setup({capabilities = capabilities})
+      lspconfig[server].setup({ capabilities = capabilities })
     end,
     ['tsserver'] = function()
-      require("lspconfig").tsserver.setup({settings = {completions = {completeFunctionCalls = true}}})
+      require("lspconfig").tsserver.setup({ settings = { completions = { completeFunctionCalls = true } } })
     end,
     ['gopls'] = function()
       require("lspconfig").gopls.setup({
@@ -94,9 +94,9 @@ local function nvim_cmp()
 
       vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
         pattern = '*.go',
-        callback = function ()
+        callback = function()
           local params = vim.lsp.util.make_range_params()
-          params.context = {only = {"source.organizeImports"}}
+          params.context = { only = { "source.organizeImports" } }
           -- buf_request_sync defaults to a 1000ms timeout. Depending on your
           -- machine and codebase, you may want longer. Add an additional
           -- argument after params if you find that you have to write the file
@@ -111,7 +111,7 @@ local function nvim_cmp()
               end
             end
           end
-          vim.lsp.buf.format({async = false})
+          vim.lsp.buf.format({ async = false })
         end
       })
     end,
@@ -151,6 +151,8 @@ local function nvim_cmp()
     end,
     ['lua_ls'] = function()
       require("lspconfig").lua_ls.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
         settings = {
           Lua = {
             completion = {
