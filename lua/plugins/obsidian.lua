@@ -2,7 +2,7 @@ local function obsidian()
   require('obsidian').setup({ workspaces = {
         {
           name = 'notes',
-          path = '~/vaults/notes',
+          path = '~/obsidian',
         },
       },
       notes_subdir = 'notes',
