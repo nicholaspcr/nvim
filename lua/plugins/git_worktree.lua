@@ -4,5 +4,6 @@ end
 
 return {
   'ThePrimeagen/git-worktree.nvim',
+  lazy = false,
   config = git_worktree,
 }
