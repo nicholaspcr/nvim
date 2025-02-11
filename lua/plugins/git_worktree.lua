@@ -1,9 +1,6 @@
-local function git_worktree()
-  require("git-worktree").setup()
-end
-
 return {
-  'ThePrimeagen/git-worktree.nvim',
+  'polarmutex/git-worktree.nvim',
+  version = '^2',
   lazy = false,
-  config = git_worktree,
+  dependencies = { "nvim-lua/plenary.nvim" }
 }
