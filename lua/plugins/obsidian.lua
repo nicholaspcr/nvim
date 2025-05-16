@@ -2,7 +2,7 @@ local function obsidian()
   require('obsidian').setup({ workspaces = {
         {
           name = 'notes',
-          path = '~/obsidian',
+          path = '~/notes',
         },
       },
       notes_subdir = 'notes',
@@ -170,7 +170,7 @@ end
 
 return {
   'epwalsh/obsidian.nvim',
-  version = 'v3.7.12',  -- recommended, use latest release instead of latest commit
+  version = 'v3.9.0',  -- recommended, use latest release instead of latest commit
   dependencies = {
     'nvim-lua/plenary.nvim',
     'hrsh7th/nvim-cmp',
