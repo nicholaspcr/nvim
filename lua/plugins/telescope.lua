@@ -1,4 +1,3 @@
-
 local telescope_setup = {
   pickers = {
     colorscheme = {
@@ -68,20 +67,26 @@ local telescope_setup = {
     }
   },
   extensions = {
-    fzy_native = {
-      override_generic_sorter = false,
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
       override_file_sorter = true,
+      case_mode = "smart_case",
     },
-    file_browser = { theme = 'ivy' },
+    file_browser = {
+      theme = "ivy",
+      grouped = true,
+      hidden = true,
+      respect_gitignore = false,
+    },
   },
 }
 
-
 local function telescope()
+  require('telescope').setup(telescope_setup)
   require('telescope').load_extension 'file_browser'
   require('telescope').load_extension 'fzy_native'
   require('telescope').load_extension 'git_worktree'
-  require('telescope').setup(telescope_setup)
 
   local git_worktree = require('telescope').extensions.git_worktree
   local utils = require('telescope.utils')
