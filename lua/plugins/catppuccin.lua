@@ -1,7 +1,7 @@
 local function catppuccin()
   -- vim.cmd('colorscheme catppuccin-latte')
   -- vim.cmd('colorscheme catppuccin-macchiato')
-end 
+end
 
 return {
   'catppuccin/nvim',
