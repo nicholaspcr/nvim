@@ -8,18 +8,19 @@ local function dap()
         dap_configurations = {
             {
               type = "go",
-              name = "Debug", -- Overrides the default "Debug" launch configuration
+              name = "TTI Test File",
               request = "launch",
-              program = "${fileDirname}",
-              buildFlags = "-tags=tti", -- Add your build tags here
+              program = "${file}",
+              mode = "test",
+              buildFlags = "-tags=tti",
             },
             {
               type = "go",
-              name = "Test", -- Overrides the default "Test" launch configuration
+              name = "TTI Test Package",
               request = "launch",
               mode = "test",
               program = "${fileDirname}",
-              buildFlags = "-tags=tti", -- Also apply tags to tests
+              buildFlags = "-tags=tti",
             }
         }
     })
