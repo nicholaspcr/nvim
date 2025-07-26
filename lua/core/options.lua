@@ -1,7 +1,16 @@
 local opt = vim.opt
 local cache_dir = vim.env.HOME .. '/.cache/nvim/'
 
-opt.background = "dark"
+local theme_file_path = vim.fn.expand('~/.current_theme')
+local file = io.open(theme_file_path, 'r')
+if file then
+  local theme = file:read('*a')
+  file:close()
+  opt.background = vim.trim(theme)
+else
+  opt.background = 'dark'
+end
+
 opt.termguicolors = true
 opt.hidden = true
 opt.magic = true
