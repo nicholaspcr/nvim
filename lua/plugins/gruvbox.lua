@@ -23,7 +23,6 @@ local function gruvbox()
     dim_inactive = false,
     transparent_mode = false,
   })
-  vim.o.background = "dark" -- or "light" for light mode
   vim.cmd('colorscheme gruvbox')
 end
 
