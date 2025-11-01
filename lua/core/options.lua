@@ -1,16 +1,7 @@
 local opt = vim.opt
 local cache_dir = vim.env.HOME .. '/.cache/nvim/'
 
-local theme_file_path = vim.fn.expand('~/.current_theme')
-local file = io.open(theme_file_path, 'r')
-if file then
-  local theme = file:read('*a')
-  file:close()
-  opt.background = vim.trim(theme)
-else
-  opt.background = 'dark'
-end
-
+opt.background = 'dark'
 opt.termguicolors = true
 opt.hidden = true
 opt.magic = true
@@ -44,11 +35,9 @@ opt.showmode = false
 opt.shortmess = 'aoOTIcF'
 opt.scrolloff = 2
 opt.sidescrolloff = 5
-opt.ruler = false
 opt.showtabline = 1
 opt.winwidth = 30
 opt.pumheight = 15
-opt.showcmd = false
 
 opt.cmdheight = 1
 opt.laststatus = 3
@@ -93,24 +82,6 @@ else
   opt.textwidth = tonumber(column)
 end
 opt.colorcolumn = '+1'
-
-if vim.loop.os_uname().sysname == 'Darwin' then
-  vim.g.clipboard = {
-    name = 'macOS-clipboard',
-    copy = {
-      ['+'] = 'pbcopy',
-      ['*'] = 'pbcopy',
-    },
-    paste = {
-      ['+'] = 'pbpaste',
-      ['*'] = 'pbpaste',
-    },
-    cache_enabled = 0,
-  }
-  vim.g.python_host_prog = '/usr/bin/python'
-  vim.g.python3_host_prog = '/usr/local/bin/python3'
-end
-
 
 vim.cmd("setlocal spell spelllang=en_us")
 vim.cmd("au TextYankPost * silent! lua vim.highlight.on_yank {higroup='IncSearch', timeout=150}")
