@@ -4,10 +4,14 @@ local function mason()
         automatic_enable = true
     }
 
-    vim.lsp.config('tsserver', { settings = { completions = { completeFunctionCalls = true } } })
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+    vim.lsp.config('tsserver', { 
+        capabilities = capabilities,
+        settings = { completions = { completeFunctionCalls = true } } 
+    })
     vim.lsp.config('gopls', {
-        cmd = { 'gopls', '--remote=auto', '-rpc.trace', '--debug=localhost:6060' },
-        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        capabilities = capabilities,
         settings = {
           gopls = {
             completeUnimported = true,
@@ -24,11 +28,6 @@ local function mason()
         callback = function()
           local params = vim.lsp.util.make_range_params(nil, "utf-16")
           params.context = { only = { "source.organizeImports" } }
-          -- buf_request_sync defaults to a 1000ms timeout. Depending on your
-          -- machine and codebase, you may want longer. Add an additional
-          -- argument after params if you find that you have to write the file
-          -- twice for changes to be saved.
-          -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
           local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
           for cid, res in pairs(result or {}) do
             for _, r in pairs(res.result or {}) do
@@ -38,11 +37,12 @@ local function mason()
               end
             end
           end
-          vim.lsp.buf.format({ async = false })
+          vim.lsp.buf.format({ async = true })
         end
     })
 
     vim.lsp.config('clangd', {
+       capabilities = capabilities,
        cmd = {
          'clangd',
          '--background-index',
@@ -52,6 +52,7 @@ local function mason()
        },
     })
     vim.lsp.config('rust_analyzer', {
+      capabilities = capabilities,
       settings = {
          imports = {
            granularity = {
@@ -70,6 +71,7 @@ local function mason()
        },
     })
     vim.lsp.config('lua_ls', {
+       capabilities = capabilities,
        settings = {
          Lua = {
            completion = {
@@ -79,12 +81,14 @@ local function mason()
        }
     })
     vim.lsp.config('marksman', {
+       capabilities = capabilities,
        cmd = { "marksman", "server" },
        file_types = { "markdown", "markdown.mdx" },
        single_file_support = true,
     })
 
     vim.lsp.config('pylsp', {
+        capabilities = capabilities,
         settings = {
             pylsp = {
                 plugins = {
@@ -116,6 +120,7 @@ return {
     dependencies = {
       'neovim/nvim-lspconfig',
       'williamboman/mason.nvim',
+      'hrsh7th/cmp-nvim-lsp',
     },
     config = mason,
 }

@@ -46,6 +46,7 @@ local function nvim_cmp()
     },
   })
 
+  return capabilities
 end
 
 
