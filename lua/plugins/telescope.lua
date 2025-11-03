@@ -125,16 +125,6 @@ local function telescope()
     return
   end
 
-  -- Override notify to suppress telescope highlight warnings
-  local original_notify = vim.notify
-  vim.notify = function(msg, level, opts)
-    -- Filter out telescope highlight group warnings
-    if type(msg) == "string" and msg:match("Invalid.*hl_group") then
-      return
-    end
-    original_notify(msg, level, opts)
-  end
-
   telescope.setup(telescope_setup)
 
   -- Load extensions with error handling
