@@ -22,11 +22,29 @@ local function mason()
     -- Buffer-local keymaps for LSP
     local on_attach = function(client, bufnr)
         local opts = { buffer = bufnr, noremap = true, silent = true }
+
+        -- Enable inlay hints if supported
+        if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+            vim.keymap.set('n', '<leader>ih', function()
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+            end, { buffer = bufnr, desc = 'Toggle inlay hints' })
+        end
+
+        -- Navigation
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, opts)
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+
+        -- Information
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+        vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, opts)
+
+        -- Actions
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
         vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     end
 
     -- TypeScript/JavaScript

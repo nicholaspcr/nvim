@@ -113,8 +113,7 @@ local function telescope()
   map('n', '<Leader>gs', cmd('Telescope git_status'))
   map('n', '<Leader>ff', cmd('Telescope find_files'))
   map('n', '<Leader>fl', cmd('Telescope file_browser path=%:p:h select_buffer=true'))
-  map('n', 'gr', cmd('Telescope lsp_references'))
-  map('n', 'gi', cmd('Telescope lsp_implementations'))
+  -- Note: 'gr' and 'gi' are buffer-local LSP keymaps set in mason.lua on_attach
 
 
   -- Todo related mappings
