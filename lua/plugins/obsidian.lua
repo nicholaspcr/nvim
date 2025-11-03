@@ -174,7 +174,6 @@ return {
   dependencies = {
     'nvim-lua/plenary.nvim',
     'hrsh7th/nvim-cmp',
-    'hrsh7th/cmp-path',
   },
   config = obsidian,
 }

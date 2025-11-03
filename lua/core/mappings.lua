@@ -1,7 +1,6 @@
 local keymap = require('core.keymap')
 local map = keymap.map
 local cmd = keymap.cmd
-local telescope = require('telescope.builtin')
 
 -- close buffer
 map('n', '<C-x>k', cmd('bdelete'))
@@ -29,10 +28,8 @@ map('n', '<C-u>', '<C-u>zz')
 map('n', '<Leader>pu', cmd('Lazy update'))
 map('n', '<Leader>pi', cmd('Lazy install'))
 
-map('n', 'gd', vim.lsp.buf.definition )
-map('n', 'K', vim.lsp.buf.hover)
-map('n', '<Leader>rn', vim.lsp.buf.rename)
-map('n', '<Leader>ca', vim.lsp.buf.code_action)
+-- LSP keymaps are now buffer-local (see mason.lua on_attach)
+-- Global formatting keymap
 map('n', '<Leader>fw', vim.lsp.buf.format)
 
 -- Deletes all marks

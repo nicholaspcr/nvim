@@ -1,5 +1,12 @@
+-- Completion plugin configuration
+-- Version: Using latest for nvim-cmp and sources
 local function nvim_cmp()
-  local cmp = require('cmp')
+  local cmp_ok, cmp = pcall(require, 'cmp')
+  if not cmp_ok then
+    vim.notify("Failed to load nvim-cmp", vim.log.levels.ERROR)
+    return
+  end
+
   local select_opts = { behavior = cmp.SelectBehavior.Select }
 
   cmp.setup({
@@ -28,6 +35,7 @@ local function nvim_cmp()
     sources = {
       { name = 'nvim_lsp' },
       { name = 'buffer' },
+      { name = 'path' },
     },
   })
 
@@ -57,11 +65,10 @@ return {
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-buffer',
-    'neovim/nvim-lspconfig',
     'hrsh7th/cmp-cmdline',
+    'neovim/nvim-lspconfig',
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
-    'neovim/nvim-lspconfig',
     'folke/neodev.nvim',
   },
   config = nvim_cmp,
