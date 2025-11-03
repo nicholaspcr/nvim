@@ -4,3 +4,7 @@ vim.opt_local.smartindent = true
 vim.opt_local.shiftwidth = 4
 vim.opt_local.softtabstop = 4
 vim.opt_local.tabstop = 4
+
+-- Enable spell checking for markdown files
+vim.opt_local.spell = true
+vim.opt_local.spelllang = "en_us"
