@@ -27,9 +27,11 @@ end
 return {
   'folke/noice.nvim',
   event = 'VeryLazy',
+  version = 'v4.10.0',
   dependencies = {
 	  'MunifTanjim/nui.nvim',
 	  'rcarriga/nvim-notify',
+      'hrsh7th/nvim-cmp',
   },
   config = noice,
 }
