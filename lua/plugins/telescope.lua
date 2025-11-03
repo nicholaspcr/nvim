@@ -169,6 +169,18 @@ end
 return {
   'nvim-telescope/telescope.nvim',
   cmd = 'Telescope',
+  keys = {
+    { '<Leader>b', desc = 'Telescope buffers' },
+    { '<Leader>fa', desc = 'Telescope live grep' },
+    { '<Leader>fd', desc = 'Telescope grep in directory' },
+    { '<Leader>cs', desc = 'Telescope colorscheme' },
+    { '<Leader>gs', desc = 'Telescope git status' },
+    { '<Leader>ff', desc = 'Telescope find files' },
+    { '<Leader>fl', desc = 'Telescope file browser' },
+    { '<Leader>ft', desc = 'Todo telescope' },
+    { '<Leader>wl', desc = 'List worktrees' },
+    { '<Leader>wc', desc = 'Create worktree' },
+  },
   dependencies = {
     'nvim-lua/plenary.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
