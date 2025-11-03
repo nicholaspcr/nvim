@@ -26,7 +26,6 @@ local function noice()
       {
         filter = {
           event = "msg_show",
-          kind = "",
           find = "Invalid.*hl_group",
         },
         opts = { skip = true },
@@ -34,6 +33,21 @@ local function noice()
       {
         filter = {
           event = "notify",
+          find = "Invalid.*hl_group",
+        },
+        opts = { skip = true },
+      },
+      {
+        filter = {
+          event = "msg_show",
+          find = "Finder failed with msg",
+        },
+        opts = { skip = true },
+      },
+      {
+        filter = {
+          event = "msg_show",
+          kind = "lua_error",
           find = "Invalid.*hl_group",
         },
         opts = { skip = true },
