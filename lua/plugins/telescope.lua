@@ -160,19 +160,45 @@ local function telescope()
 
   -- Worktree related mappings
   map('n', '<Leader>wl', function()
+    -- Ensure highlight groups are defined before opening picker
+    vim.api.nvim_set_hl(0, 'TelescopeResultsComment', { link = 'Comment' })
+
     local ok, git_worktree = pcall(function()
       return require('telescope').extensions.git_worktree
     end)
     if ok then
+      -- Suppress telescope warnings during picker execution
+      local old_notify = vim.notify
+      vim.notify = function(msg, level, opts)
+        if not (level == vim.log.levels.WARN and msg:match('Invalid.*hl_group')) then
+          old_notify(msg, level, opts)
+        end
+      end
+
       git_worktree.git_worktrees()
+
+      vim.notify = old_notify
     end
   end)
   map('n', '<Leader>wc', function()
+    -- Ensure highlight groups are defined before opening picker
+    vim.api.nvim_set_hl(0, 'TelescopeResultsComment', { link = 'Comment' })
+
     local ok, git_worktree = pcall(function()
       return require('telescope').extensions.git_worktree
     end)
     if ok then
+      -- Suppress telescope warnings during picker execution
+      local old_notify = vim.notify
+      vim.notify = function(msg, level, opts)
+        if not (level == vim.log.levels.WARN and msg:match('Invalid.*hl_group')) then
+          old_notify(msg, level, opts)
+        end
+      end
+
       git_worktree.create_git_worktree()
+
+      vim.notify = old_notify
     end
   end)
 
