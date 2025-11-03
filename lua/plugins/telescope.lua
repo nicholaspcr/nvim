@@ -1,5 +1,36 @@
 -- Telescope fuzzy finder configuration
 -- Version: Using latest stable release
+
+-- Custom buffer previewer that handles missing treesitter parsers
+local function buffer_previewer_maker(filepath, bufnr, opts)
+  opts = opts or {}
+
+  local previewers = require('telescope.previewers')
+  local Job = require('plenary.job')
+
+  -- Use cat for preview without treesitter highlighting
+  -- This prevents errors when treesitter parsers are missing
+  filepath = vim.fn.expand(filepath)
+  Job:new({
+    command = 'cat',
+    args = { filepath },
+    on_exit = vim.schedule_wrap(function(j, exit_code)
+      if exit_code ~= 0 then
+        return
+      end
+
+      local results = j:result()
+      vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, results)
+
+      -- Set filetype for basic syntax highlighting (non-treesitter)
+      local ft = vim.filetype.match({ buf = bufnr, filename = filepath })
+      if ft then
+        vim.api.nvim_buf_set_option(bufnr, 'filetype', ft)
+      end
+    end),
+  }):start()
+end
+
 local telescope_setup = {
   pickers = {
     colorscheme = {
@@ -24,6 +55,9 @@ local telescope_setup = {
     file_previewer = require('telescope.previewers').vim_buffer_cat.new,
     grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
     qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
+
+    -- Use custom previewer to avoid treesitter parser errors
+    buffer_previewer_maker = buffer_previewer_maker,
 
     file_ignore_patterns = {
       'vendor/*',
