@@ -75,6 +75,9 @@ opt.spelloptions = 'camel'
 
 opt.conceallevel = 1
 
+-- Colorcolumn configuration
+-- Set via NVIM_COLUMN environment variable (defaults to 120)
+-- Example: export NVIM_COLUMN=80
 local column = os.getenv("NVIM_COLUMN")
 if column == nil then
   opt.textwidth = 120
@@ -83,6 +86,16 @@ else
 end
 opt.colorcolumn = '+1'
 
-vim.cmd("setlocal spell spelllang=en_us")
-vim.cmd("au TextYankPost * silent! lua vim.highlight.on_yank {higroup='IncSearch', timeout=150}")
-vim.cmd(":highlight Normal guibg=none")
+-- Spell checking is configured per-filetype in after/ftplugin/
+-- (markdown.lua and text.lua)
+
+-- Highlight on yank
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 150 })
+  end,
+})
+
+-- Transparent background
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })

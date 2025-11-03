@@ -1,7 +1,14 @@
+-- Treesitter configuration for syntax highlighting and navigation
+-- Version: Tracking master branch for latest parsers
 local function nvim_treesitter()
-  vim.api.nvim_command('set foldmethod=expr')
-  vim.api.nvim_command('set foldexpr=nvim_treesitter#foldexpr()')
-  require('nvim-treesitter.configs').setup({
+  local ts_ok, ts_configs = pcall(require, 'nvim-treesitter.configs')
+  if not ts_ok then
+    vim.notify("Failed to load nvim-treesitter", vim.log.levels.ERROR)
+    return
+  end
+
+  -- Fold configuration is set in core/options.lua
+  ts_configs.setup({
     ensure_installed = {
         "c",
         "lua",
@@ -29,10 +36,10 @@ local function nvim_treesitter()
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = "<C-space>",
-        node_incremental = "<C-space>",
-        scope_incremental = false,
-        node_decremental = "<bs>",
+        init_selection = "gnn",
+        node_incremental = "grn",
+        scope_incremental = "grc",
+        node_decremental = "grm",
       },
     },
 
@@ -129,8 +136,7 @@ end
 return {
   'nvim-treesitter/nvim-treesitter',
   event = { "BufReadPre", "BufNewFile" },
-  branch = 'master',
-  lazy = false,
+  build = ':TSUpdate',
   config = nvim_treesitter,
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
