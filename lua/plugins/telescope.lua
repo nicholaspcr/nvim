@@ -86,7 +86,7 @@ local function telescope()
   require('telescope').setup(telescope_setup)
   require('telescope').load_extension 'file_browser'
   require('telescope').load_extension 'fzy_native'
-  require('telescope').load_extension 'git_worktree'
+  require('telescope').load_extension('git_worktree')
 
   local git_worktree = require('telescope').extensions.git_worktree
   local utils = require('telescope.utils')
@@ -134,6 +134,7 @@ return {
     'ThePrimeagen/git-worktree.nvim',
     'folke/todo-comments.nvim',
     'epwalsh/obsidian.nvim',
+    'ibhagwan/fzf-lua',
   },
   config = telescope,
 }
