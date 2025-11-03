@@ -1,5 +1,11 @@
 local function indent_blankline()
-  require('ibl').setup({
+  local ok, ibl = pcall(require, 'ibl')
+  if not ok then
+    vim.notify("Failed to load indent-blankline", vim.log.levels.ERROR)
+    return
+  end
+
+  ibl.setup({
     indent = { char = '|' },
   })
   vim.opt.listchars:append 'space:⋅'

@@ -1,5 +1,11 @@
 local function lualine()
-  require('lualine').setup({
+  local ok, lualine = pcall(require, 'lualine')
+  if not ok then
+    vim.notify("Failed to load lualine", vim.log.levels.ERROR)
+    return
+  end
+
+  lualine.setup({
       options = {
         icons_enabled = true,
         theme = 'auto',
