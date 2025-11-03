@@ -55,6 +55,17 @@ end
 
 return {
    'mfussenegger/nvim-dap',
+   keys = {
+     { '<F5>', desc = 'DAP Continue' },
+     { '<F10>', desc = 'DAP Step Over' },
+     { '<F11>', desc = 'DAP Step Into' },
+     { '<F12>', desc = 'DAP Step Out' },
+     { '<Leader>tb', desc = 'Toggle Breakpoint' },
+     { '<Leader>B', desc = 'Conditional Breakpoint' },
+     { '<Leader>lp', desc = 'Log Point' },
+     { '<Leader>dr', desc = 'DAP REPL' },
+     { '<Leader>dl', desc = 'DAP Run Last' },
+   },
    dependencies = {
      { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
      { 'leoluz/nvim-dap-go', dependencies = {'mfussenegger/nvim-dap'} },    -- Go support for nvim-dap

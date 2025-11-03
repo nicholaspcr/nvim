@@ -4,5 +4,6 @@ end
 
 return {
   'nvim-tree/nvim-web-devicons',
+  lazy = true,
   config = nvim_web_devicons,
 }

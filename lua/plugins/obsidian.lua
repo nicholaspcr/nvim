@@ -170,7 +170,8 @@ end
 
 return {
   'epwalsh/obsidian.nvim',
-  version = 'v3.9.0',  -- recommended, use latest release instead of latest commit
+  version = 'v3.9.0',
+  ft = 'markdown',
   dependencies = {
     'nvim-lua/plenary.nvim',
     'hrsh7th/nvim-cmp',
