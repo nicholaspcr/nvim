@@ -2,7 +2,7 @@ local function noice()
   require('notify').setup({
     background_colour = '#000000',
     render = 'compact',
-    timeout = 100,
+    timeout = 3000,  -- 3 seconds
   })
   require('noice').setup({
     lsp = {

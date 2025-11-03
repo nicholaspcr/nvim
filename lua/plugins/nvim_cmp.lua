@@ -36,7 +36,26 @@ local function nvim_cmp()
       { name = 'nvim_lsp' },
       { name = 'buffer' },
       { name = 'path' },
+      { name = 'obsidian' },
+      { name = 'obsidian_new' },
     },
+  })
+
+  -- Cmdline completion
+  cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } }
+    })
   })
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
