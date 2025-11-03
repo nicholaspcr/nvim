@@ -12,6 +12,8 @@ local function nvim_treesitter()
     ensure_installed = {
         "bash",
         "c",
+        "inko",
+        "regex",
         "lua",
         "vim",
         "vimdoc",
