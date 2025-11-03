@@ -1,3 +1,5 @@
+-- Telescope fuzzy finder configuration
+-- Version: Using latest stable release
 local telescope_setup = {
   pickers = {
     colorscheme = {
@@ -83,10 +85,18 @@ local telescope_setup = {
 }
 
 local function telescope()
-  require('telescope').setup(telescope_setup)
-  require('telescope').load_extension 'file_browser'
-  require('telescope').load_extension 'fzy_native'
-  require('telescope').load_extension('git_worktree')
+  local telescope_ok, telescope = pcall(require, 'telescope')
+  if not telescope_ok then
+    vim.notify("Failed to load telescope", vim.log.levels.ERROR)
+    return
+  end
+
+  telescope.setup(telescope_setup)
+
+  -- Load extensions with error handling
+  pcall(telescope.load_extension, 'file_browser')
+  pcall(telescope.load_extension, 'fzf')
+  pcall(telescope.load_extension, 'git_worktree')
 
   local git_worktree = require('telescope').extensions.git_worktree
   local utils = require('telescope.utils')
@@ -126,15 +136,13 @@ end
 return {
   'nvim-telescope/telescope.nvim',
   cmd = 'Telescope',
-  lazy = false,
   dependencies = {
     'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope-fzy-native.nvim',
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     'nvim-telescope/telescope-file-browser.nvim',
     'ThePrimeagen/git-worktree.nvim',
     'folke/todo-comments.nvim',
     'epwalsh/obsidian.nvim',
-    'ibhagwan/fzf-lua',
   },
   config = telescope,
 }
