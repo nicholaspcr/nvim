@@ -2,7 +2,23 @@ local function nvim_treesitter()
   vim.api.nvim_command('set foldmethod=expr')
   vim.api.nvim_command('set foldexpr=nvim_treesitter#foldexpr()')
   require('nvim-treesitter.configs').setup({
-    ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go" },
+    ensure_installed = {
+        "c",
+        "lua",
+        "vim",
+        "vimdoc",
+        "query",
+        "markdown",
+        "markdown_inline",
+        "go",
+        "javascript",
+        "proto",
+        "readline",
+        "terraform",
+        "typescript",
+        "xml",
+        "sql"
+    },
     auto_install = true,
 
     highlight = {
@@ -112,8 +128,9 @@ local function nvim_treesitter()
 end
 return {
   'nvim-treesitter/nvim-treesitter',
-  version = '0.9.3',
   event = { "BufReadPre", "BufNewFile" },
+  branch = 'master',
+  lazy = false,
   config = nvim_treesitter,
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
