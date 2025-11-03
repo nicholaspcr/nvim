@@ -130,10 +130,12 @@ local function telescope()
   -- Load extensions with error handling
   pcall(telescope.load_extension, 'file_browser')
   pcall(telescope.load_extension, 'fzf')
-  pcall(telescope.load_extension, 'git_worktree')
 
-  local git_worktree = require('telescope').extensions.git_worktree
-  local utils = require('telescope.utils')
+  -- Suppress warnings when loading git_worktree extension
+  local notify_level = vim.log.levels.WARN
+  vim.log.levels.WARN = vim.log.levels.ERROR
+  pcall(telescope.load_extension, 'git_worktree')
+  vim.log.levels.WARN = notify_level
 
   local map = require('core.keymap').map
   local cmd = require('core.keymap').cmd_func
@@ -142,7 +144,10 @@ local function telescope()
   map('n', '<Leader>b', cmd('Telescope buffers'))
   -- File related mappings
   map('n', '<Leader>fa', cmd('Telescope live_grep'))
-  map('n', '<Leader>fd', function() require'telescope.builtin'.live_grep{ cwd=utils.buffer_dir() } end)
+  map('n', '<Leader>fd', function()
+    local utils = require('telescope.utils')
+    require('telescope.builtin').live_grep({ cwd = utils.buffer_dir() })
+  end)
   map('n', '<Leader>cs', cmd('Telescope colorscheme'))
   map('n', '<Leader>gs', cmd('Telescope git_status'))
   map('n', '<Leader>ff', cmd('Telescope find_files'))
@@ -154,8 +159,22 @@ local function telescope()
   map('n', '<Leader>ft', cmd('TodoTelescope'))
 
   -- Worktree related mappings
-  map('n', '<Leader>wl', git_worktree.git_worktrees)
-  map('n', '<Leader>wc', git_worktree.create_git_worktree)
+  map('n', '<Leader>wl', function()
+    local ok, git_worktree = pcall(function()
+      return require('telescope').extensions.git_worktree
+    end)
+    if ok then
+      git_worktree.git_worktrees()
+    end
+  end)
+  map('n', '<Leader>wc', function()
+    local ok, git_worktree = pcall(function()
+      return require('telescope').extensions.git_worktree
+    end)
+    if ok then
+      git_worktree.create_git_worktree()
+    end
+  end)
 
   -- Obsidian related mappings
   map('n', '<Leader>on', cmd('ObsidianNew'))
