@@ -10,6 +10,7 @@ local function nvim_treesitter()
   -- Fold configuration is set in core/options.lua
   ts_configs.setup({
     ensure_installed = {
+        "bash",
         "c",
         "lua",
         "vim",
