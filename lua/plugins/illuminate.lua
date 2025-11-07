@@ -28,5 +28,14 @@ return {
       -- min_count_to_highlight: minimum number of matches required to highlight
       min_count_to_highlight = 1,
     })
+
+    -- Set custom highlight colors for vim-illuminate
+    -- Subtle underline for other occurrences
+    vim.api.nvim_set_hl(0, 'IlluminatedWordText', { bg = '#32302f', underline = true, sp = '#665c54' })
+    vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { bg = '#32302f', underline = true, sp = '#665c54' })
+    vim.api.nvim_set_hl(0, 'IlluminatedWordWrite', { bg = '#32302f', underline = true, sp = '#665c54' })
+
+    -- Current word under cursor with distinct orange/yellow underline and background
+    vim.api.nvim_set_hl(0, 'IlluminatedCurWord', { bg = '#3c3836', underline = true, sp = '#fabd2f', bold = true })
   end,
 }
