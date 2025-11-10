@@ -180,6 +180,7 @@ local function telescope()
   map('n', '<Leader>on', cmd('ObsidianNew'))
   map('n', '<Leader>ow', cmd('ObsidianWorkspace'))
   map('n', '<Leader>ot', cmd('ObsidianToday'))
+  map('n', '<Leader>oy', cmd('ObsidianYesterday'))
   map('n', '<Leader>fot', cmd('ObsidianTags'))
   map('n', '<Leader>fof', cmd('ObsidianQuickSwitch'))
 end
