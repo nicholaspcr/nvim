@@ -29,13 +29,28 @@ return {
       min_count_to_highlight = 1,
     })
 
-    -- Set custom highlight colors for vim-illuminate
-    -- Subtle underline for other occurrences
-    vim.api.nvim_set_hl(0, 'IlluminatedWordText', { bg = '#32302f', underline = true, sp = '#665c54' })
-    vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { bg = '#32302f', underline = true, sp = '#665c54' })
-    vim.api.nvim_set_hl(0, 'IlluminatedWordWrite', { bg = '#32302f', underline = true, sp = '#665c54' })
+    -- Set custom highlight colors for vim-illuminate based on background
+    local function set_illuminate_colors()
+      if vim.o.background == 'dark' then
+        -- Dark theme colors
+        vim.api.nvim_set_hl(0, 'IlluminatedWordText', { bg = '#32302f', underline = true, sp = '#665c54' })
+        vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { bg = '#32302f', underline = true, sp = '#665c54' })
+        vim.api.nvim_set_hl(0, 'IlluminatedWordWrite', { bg = '#32302f', underline = true, sp = '#665c54' })
+        vim.api.nvim_set_hl(0, 'IlluminatedCurWord', { bg = '#3c3836', underline = true, sp = '#fabd2f', bold = true })
+      else
+        -- Light theme colors
+        vim.api.nvim_set_hl(0, 'IlluminatedWordText', { bg = '#f2e5bc', underline = true, sp = '#928374' })
+        vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { bg = '#f2e5bc', underline = true, sp = '#928374' })
+        vim.api.nvim_set_hl(0, 'IlluminatedWordWrite', { bg = '#f2e5bc', underline = true, sp = '#928374' })
+        vim.api.nvim_set_hl(0, 'IlluminatedCurWord', { bg = '#ebdbb2', underline = true, sp = '#d79921', bold = true })
+      end
+    end
 
-    -- Current word under cursor with distinct orange/yellow underline and background
-    vim.api.nvim_set_hl(0, 'IlluminatedCurWord', { bg = '#3c3836', underline = true, sp = '#fabd2f', bold = true })
+    set_illuminate_colors()
+
+    -- Update colors when colorscheme changes
+    vim.api.nvim_create_autocmd('ColorScheme', {
+      callback = set_illuminate_colors,
+    })
   end,
 }
