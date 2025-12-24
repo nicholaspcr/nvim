@@ -25,7 +25,7 @@ local function buffer_previewer_maker(filepath, bufnr, opts)
       -- Set filetype for basic syntax highlighting (non-treesitter)
       local ft = vim.filetype.match({ buf = bufnr, filename = filepath })
       if ft then
-        vim.api.nvim_buf_set_option(bufnr, 'filetype', ft)
+        vim.bo[bufnr].filetype = ft
       end
     end),
   }):start()
