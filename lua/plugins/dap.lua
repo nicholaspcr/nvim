@@ -35,7 +35,7 @@ local function dap()
     map('n', '<F10>', function() dap.step_over() end)
     map('n', '<F11>', function() dap.step_into() end)
     map('n', '<F12>', function() dap.step_out() end)
-    map('n', '<Leader>tb', function() dap.toggle_breakpoint() end)
+    map('n', '<Leader>db', function() dap.toggle_breakpoint() end)
     map('n', '<Leader>B', function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end)
     map('n', '<Leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
     map('n', '<Leader>dr', function() dap.repl.open() end)
@@ -60,7 +60,7 @@ return {
      { '<F10>', desc = 'DAP Step Over' },
      { '<F11>', desc = 'DAP Step Into' },
      { '<F12>', desc = 'DAP Step Out' },
-     { '<Leader>tb', desc = 'Toggle Breakpoint' },
+     { '<Leader>db', desc = 'Toggle Breakpoint' },
      { '<Leader>B', desc = 'Conditional Breakpoint' },
      { '<Leader>lp', desc = 'Log Point' },
      { '<Leader>dr', desc = 'DAP REPL' },
