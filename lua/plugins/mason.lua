@@ -14,7 +14,17 @@ local function mason()
     end
 
     mason.setup()
-    mason_lspconfig.setup()
+    mason_lspconfig.setup({
+        ensure_installed = {
+            'ts_ls',
+            'gopls',
+            'clangd',
+            'rust_analyzer',
+            'lua_ls',
+            'marksman',
+            'pylsp',
+        },
+    })
 
     -- Get capabilities from cmp_nvim_lsp
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
