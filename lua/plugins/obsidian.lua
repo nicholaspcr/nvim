@@ -170,7 +170,6 @@ end
 
 return {
   'epwalsh/obsidian.nvim',
-  version = 'v3.14.8',
   ft = 'markdown',
   dependencies = {
     'nvim-lua/plenary.nvim',
