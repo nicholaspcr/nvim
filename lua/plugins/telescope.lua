@@ -56,8 +56,9 @@ local telescope_setup = {
     grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
     qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
 
-    -- Use custom previewer to avoid treesitter parser errors
-    buffer_previewer_maker = buffer_previewer_maker,
+    -- Note: Custom buffer_previewer_maker breaks LSP previews (lsp_references, etc)
+    -- Commented out to use default Telescope previewer which handles LSP correctly
+    -- buffer_previewer_maker = buffer_previewer_maker,
 
     file_ignore_patterns = {
       'vendor/*',
@@ -176,13 +177,43 @@ local function telescope()
     end
   end)
 
-  -- Obsidian related mappings
+  -- Obsidian related mappings (unified under <Leader>o)
   map('n', '<Leader>on', cmd('ObsidianNew'))
   map('n', '<Leader>ow', cmd('ObsidianWorkspace'))
   map('n', '<Leader>ot', cmd('ObsidianToday'))
   map('n', '<Leader>oy', cmd('ObsidianYesterday'))
-  map('n', '<Leader>fot', cmd('ObsidianTags'))
-  map('n', '<Leader>fof', cmd('ObsidianQuickSwitch'))
+  map('n', '<Leader>os', cmd('ObsidianTags'))
+  map('n', '<Leader>of', cmd('ObsidianQuickSwitch'))
+  map('n', '<Leader>ob', cmd('ObsidianBacklinks'))
+  map('n', '<Leader>ol', cmd('ObsidianLinks'))
+  map('n', '<Leader>oR', cmd('ObsidianRename'))
+  map('n', '<Leader>oT', cmd('ObsidianTemplate'))
+
+  -- Grep notes content
+  map('n', '<Leader>og', function()
+    require('telescope.builtin').live_grep({
+      cwd = vim.fn.expand('~/notes'),
+      prompt_title = 'Search Notes Content',
+    })
+  end)
+
+  -- Browse daily notes
+  map('n', '<Leader>od', function()
+    require('telescope.builtin').find_files({
+      cwd = vim.fn.expand('~/notes/daily'),
+      prompt_title = 'Daily Notes',
+      sorting_strategy = 'descending',
+    })
+  end)
+
+  -- Recent notes (modified in last 7 days)
+  map('n', '<Leader>or', function()
+    require('telescope.builtin').find_files({
+      cwd = vim.fn.expand('~/notes/notes'),
+      prompt_title = 'Recent Notes (7d)',
+      find_command = { 'fd', '--type', 'f', '-e', 'md', '--changed-within', '7d' },
+    })
+  end)
 end
 
 

@@ -1,4 +1,15 @@
 local function obsidian()
+  -- Auto-save for notes
+  vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
+    pattern = vim.fn.expand('~/notes') .. '/**/*.md',
+    callback = function()
+      if vim.bo.modified then
+        vim.cmd('silent! write')
+      end
+    end,
+    desc = 'Auto-save notes',
+  })
+
   require('obsidian').setup({ workspaces = {
         {
           name = 'notes',
