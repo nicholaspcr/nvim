@@ -21,7 +21,7 @@ local function obsidian()
 
       templates = {
         folder = 'templates',
-        date_format = '%Y-%m-%d-%a',
+        date_format = '%A, %B %-d, %Y',
         time_format = '%H:%M',
       },
 
@@ -96,7 +96,22 @@ local function obsidian()
           note:add_alias(note.title)
         end
 
-        local out = { id = note.id, aliases = note.aliases, tags = note.tags }
+        -- Add 'daily' tag for daily notes
+        local tags = note.tags or {}
+        if note.path and string.match(tostring(note.path), '/daily/') then
+          local has_daily = false
+          for _, tag in ipairs(tags) do
+            if tag == 'daily' then
+              has_daily = true
+              break
+            end
+          end
+          if not has_daily then
+            table.insert(tags, 'daily')
+          end
+        end
+
+        local out = { id = note.id, aliases = note.aliases, tags = tags }
 
         -- `note.metadata` contains any manually added fields in the frontmatter.
         -- So here we just make sure those fields are kept in the frontmatter.
