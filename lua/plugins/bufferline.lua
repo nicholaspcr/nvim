@@ -9,6 +9,14 @@ local function bufferline()
   bufferline.setup{
     options = {
       mode = 'tabs',
+      separator_style = 'thin',
+      show_tab_indicators = true,
+      indicator = {
+        style = 'underline',
+      },
+      modified_icon = '●',
+      show_close_icon = false,
+      show_buffer_close_icons = false,
     },
   }
 end
