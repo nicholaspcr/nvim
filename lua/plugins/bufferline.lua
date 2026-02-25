@@ -5,7 +5,6 @@ local function bufferline()
     return
   end
 
-  vim.opt.termguicolors = true
   bufferline.setup{
     options = {
       mode = 'tabs',
