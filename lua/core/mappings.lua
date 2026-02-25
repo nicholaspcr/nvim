@@ -3,34 +3,34 @@ local map = keymap.map
 local cmd = keymap.cmd
 
 -- close buffer
-map('n', '<C-x>k', cmd('bdelete'))
-map('n', '<C-x>p', cmd('let @+=expand("%:p")'))
+map('n', '<C-x>k', cmd('bdelete'), { desc = 'Close buffer' })
+map('n', '<C-x>p', cmd('let @+=expand("%:p")'), { desc = 'Copy file path' })
 
 -- save
-map('n', '<C-s>', cmd('write'))
+map('n', '<C-s>', cmd('write'), { desc = 'Save file' })
 -- yank
-map('n', 'Y', 'y$')
+map('n', 'Y', 'y$', { desc = 'Yank to end of line' })
 -- buffer jump
-map('n', ']b', cmd('bn'))
-map('n', '[b', cmd('bp'))
+map('n', ']b', cmd('bn'), { desc = 'Next buffer' })
+map('n', '[b', cmd('bp'), { desc = 'Previous buffer' })
 -- remove trailing white space
-map('n', '<Leader>tw', cmd('TrimTrailingWhitespace'))
-map('n', '<Leader><CR>', ':noh<CR>')
+map('n', '<Leader>tw', cmd('TrimTrailingWhitespace'), { desc = 'Trim whitespace' })
+map('n', '<Leader><CR>', ':noh<CR>', { desc = 'Clear search highlight' })
 -- Tab related
-map('n', '<Leader>tn', cmd('tabnew'))
-map('n', '<Leader>tc', cmd('tabclose'))
+map('n', '<Leader>tn', cmd('tabnew'), { desc = 'New tab' })
+map('n', '<Leader>tc', cmd('tabclose'), { desc = 'Close tab' })
 -- Movement related
-map('n', '<C-d>', '<C-d>zz')
-map('n', '<C-u>', '<C-u>zz')
+map('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down and center' })
+map('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up and center' })
 
 -- usage of plugins
 -- plugin manager: Lazy.nvim
-map('n', '<Leader>pu', cmd('Lazy update'))
-map('n', '<Leader>pi', cmd('Lazy install'))
+map('n', '<Leader>pu', cmd('Lazy update'), { desc = 'Update plugins' })
+map('n', '<Leader>pi', cmd('Lazy install'), { desc = 'Install plugins' })
 
 -- LSP keymaps are now buffer-local (see mason.lua on_attach)
 -- Global formatting keymap
-map('n', '<Leader>fw', vim.lsp.buf.format)
+map('n', '<Leader>fw', vim.lsp.buf.format, { desc = 'Format buffer' })
 
 -- Deletes all marks
-map('n', '<Leader>dm', cmd('delm! | delm A-Z0-9'))
+map('n', '<Leader>dm', cmd('delm! | delm A-Z0-9'), { desc = 'Delete all marks' })
