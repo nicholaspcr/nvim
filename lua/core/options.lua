@@ -13,7 +13,7 @@ opt.directory = cache_dir .. 'swap/'
 opt.undodir = cache_dir .. 'undo/'
 opt.backupdir = cache_dir .. 'backup/'
 opt.viewdir = cache_dir .. 'view/'
-opt.spellfile = cache_dir .. 'spell/en.uft-8.add'
+opt.spellfile = cache_dir .. 'spell/en.utf-8.add'
 opt.history = 2000
 opt.timeout = true
 opt.ttimeout = true
@@ -64,7 +64,7 @@ opt.whichwrap = 'h,l,<,>,[,],~'
 opt.breakindentopt = 'shift:2,min:20'
 opt.showbreak = '↳ '
 
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldlevel = 5
 opt.foldmethod = 'expr'
 
@@ -97,5 +97,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Transparent background
-vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+-- Transparent background is handled by gruvbox transparent_mode
