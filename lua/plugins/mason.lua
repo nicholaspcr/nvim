@@ -65,6 +65,17 @@ local function mason()
         vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
     end
 
+    -- Diagnostic display
+    vim.diagnostic.config({
+        signs = true,
+        update_in_insert = true,
+        underline = true,
+        severity_sort = true,
+        virtual_text = {
+            source = true,
+        },
+    })
+
     -- TypeScript/JavaScript
     vim.lsp.enable('ts_ls')
     vim.lsp.config('ts_ls', {
@@ -84,6 +95,7 @@ local function mason()
         on_attach = on_attach,
         settings = {
             gopls = {
+                buildFlags = { '-tags=database' },
                 completeUnimported = true,
                 usePlaceholders = true,
                 staticcheck = true,
