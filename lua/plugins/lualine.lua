@@ -39,8 +39,8 @@ local function lualine()
         lualine_c = {{'filename',path=1}},
         lualine_x = {
           {
-            require('noice').api.statusline.mode.get,
-            cond = require('noice').api.statusline.mode.has,
+            function() return require('noice').api.statusline.mode.get() end,
+            cond = function() return require('noice').api.statusline.mode.has() end,
             color = { fg = '#ff9e64' },
           },
           'encoding',
