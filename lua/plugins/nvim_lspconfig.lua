@@ -1,6 +1,6 @@
 return {
   'neovim/nvim-lspconfig',
-  dependencies = {{'hrsh7th/cmp-nvim-lsp'}, {'folke/neodev.nvim'}, },
+  dependencies = {{'hrsh7th/cmp-nvim-lsp'}, {'folke/lazydev.nvim'}, },
   init = function()
     local map = require('core.keymap').map
     map('n', '<Leader>d', vim.diagnostic.open_float)

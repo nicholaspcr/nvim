@@ -84,22 +84,6 @@ local function nvim_cmp()
     })
   })
 
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-  capabilities.offsetEncoding = 'utf-8'
-
-  vim.diagnostic.config({
-    signs = true,
-    update_in_insert = true,
-    underline = true,
-    severity_sort = true,
-    virtual_text = {
-      prefix = '🔥',
-      source = true,
-    },
-  })
-
-  return capabilities
 end
 
 
@@ -114,7 +98,7 @@ return {
     'neovim/nvim-lspconfig',
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
-    'folke/neodev.nvim',
+    'folke/lazydev.nvim',
     -- Snippet engine
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',

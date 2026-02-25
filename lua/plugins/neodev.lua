@@ -1,12 +1,10 @@
 return {
-  'folke/neodev.nvim',
+  'folke/lazydev.nvim',
   ft = 'lua',
-  config = function()
-    require('neodev').setup({
-      library = {
-        plugins = { 'nvim-dap-ui' },
-        types = true,
-      },
-    })
-  end,
+  opts = {
+    library = {
+      { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+      { path = 'nvim-dap-ui' },
+    },
+  },
 }
