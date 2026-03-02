@@ -156,8 +156,15 @@ local function telescope()
   -- Note: 'gr' and 'gi' are buffer-local LSP keymaps set in mason.lua on_attach
 
 
-  -- Todo related mappings
-  map('n', '<Leader>ft', cmd('TodoTelescope'))
+  -- Todo related mappings (shows all tags: TODO, FIX, HACK, WARN, PERF, NOTE, TEST)
+  map('n', '<Leader>ft', cmd('TodoTelescope'), { desc = 'Find comment tags (TODO, FIX, NOTE, etc.)' })
+  map('n', '<Leader>fT', cmd('TodoTelescope keywords=TODO'), { desc = 'Find TODO' })
+  map('n', '<Leader>fF', cmd('TodoTelescope keywords=FIX'), { desc = 'Find FIX/BUG' })
+  map('n', '<Leader>fN', cmd('TodoTelescope keywords=NOTE'), { desc = 'Find NOTE' })
+  map('n', '<Leader>fW', cmd('TodoTelescope keywords=WARN'), { desc = 'Find WARN' })
+  map('n', '<Leader>fH', cmd('TodoTelescope keywords=HACK'), { desc = 'Find HACK' })
+  map('n', '<Leader>fP', cmd('TodoTelescope keywords=PERF'), { desc = 'Find PERF' })
+  map('n', '<Leader>fE', cmd('TodoTelescope keywords=TEST'), { desc = 'Find TEST' })
 
   -- Worktree related mappings
   map('n', '<Leader>wl', function()
@@ -228,7 +235,14 @@ return {
     { '<Leader>gs', desc = 'Telescope git status' },
     { '<Leader>ff', desc = 'Telescope find files' },
     { '<Leader>fl', desc = 'Telescope file browser' },
-    { '<Leader>ft', desc = 'Todo telescope' },
+    { '<Leader>ft', desc = 'Find comment tags (TODO, FIX, NOTE, etc.)' },
+    { '<Leader>fT', desc = 'Find TODO' },
+    { '<Leader>fF', desc = 'Find FIX/BUG' },
+    { '<Leader>fN', desc = 'Find NOTE' },
+    { '<Leader>fW', desc = 'Find WARN' },
+    { '<Leader>fH', desc = 'Find HACK' },
+    { '<Leader>fP', desc = 'Find PERF' },
+    { '<Leader>fE', desc = 'Find TEST' },
     { '<Leader>wl', desc = 'List worktrees' },
     { '<Leader>wc', desc = 'Create worktree' },
   },
