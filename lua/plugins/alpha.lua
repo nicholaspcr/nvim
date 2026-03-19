@@ -27,13 +27,7 @@ return {
       dashboard.button("q", "  Quit", ":qa<CR>"),
     }
 
-    local function footer()
-      -- local fortune = require('alpha.fortune')()
-      -- return fortune
-      return "quote of the day"
-    end
-
-    dashboard.section.footer.val = footer()
+    dashboard.section.footer.val = require('alpha.fortune')()
 
     dashboard.config.layout = {
       { type = "padding", val = 2 },

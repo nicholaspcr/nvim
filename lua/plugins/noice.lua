@@ -26,29 +26,7 @@ local function noice()
       {
         filter = {
           event = "msg_show",
-          find = "Invalid.*hl_group",
-        },
-        opts = { skip = true },
-      },
-      {
-        filter = {
-          event = "notify",
-          find = "Invalid.*hl_group",
-        },
-        opts = { skip = true },
-      },
-      {
-        filter = {
-          event = "msg_show",
           find = "Finder failed with msg",
-        },
-        opts = { skip = true },
-      },
-      {
-        filter = {
-          event = "msg_show",
-          kind = "lua_error",
-          find = "Invalid.*hl_group",
         },
         opts = { skip = true },
       },
@@ -60,9 +38,9 @@ return {
   'folke/noice.nvim',
   event = 'VeryLazy',
   dependencies = {
-	  'MunifTanjim/nui.nvim',
-	  'rcarriga/nvim-notify',
-      'hrsh7th/nvim-cmp',
+    'MunifTanjim/nui.nvim',
+    'rcarriga/nvim-notify',
+    'hrsh7th/nvim-cmp',
   },
   config = noice,
 }
