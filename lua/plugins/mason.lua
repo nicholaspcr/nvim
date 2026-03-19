@@ -116,7 +116,8 @@ local function mason()
             for cid, res in pairs(result or {}) do
                 for _, r in pairs(res.result or {}) do
                     if r.edit then
-                        local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+                        local clients = vim.lsp.get_clients({ id = cid })
+                        local enc = (clients[1] and clients[1].offset_encoding) or "utf-16"
                         vim.lsp.util.apply_workspace_edit(r.edit, enc)
                     end
                 end
@@ -134,7 +135,7 @@ local function mason()
         cmd = {
             'clangd',
             '--background-index',
-            '--suggest-missing-includes',
+
             '--clang-tidy',
             '--header-insertion=iwyu',
         },
