@@ -34,3 +34,9 @@ map('n', '<Leader>fw', vim.lsp.buf.format, { desc = 'Format buffer' })
 
 -- Deletes all marks
 map('n', '<Leader>dm', cmd('delm! | delm A-Z0-9'), { desc = 'Delete all marks' })
+
+-- Diagnostics (built-in vim.diagnostic, no plugin needed)
+map('n', '<Leader>dd', vim.diagnostic.open_float, { desc = 'Show diagnostics' })
+map('n', '[d', vim.diagnostic.goto_prev, { desc = 'Previous diagnostic' })
+map('n', ']d', vim.diagnostic.goto_next, { desc = 'Next diagnostic' })
+map('n', '<Leader>q', vim.diagnostic.setloclist, { desc = 'Diagnostic list' })
