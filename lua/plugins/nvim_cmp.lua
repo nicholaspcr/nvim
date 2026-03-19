@@ -58,12 +58,22 @@ local function nvim_cmp()
       end, { 'i', 's' }),
     }),
     sources = {
-      { name = 'nvim_lsp' },
-      { name = 'luasnip' },
-      { name = 'buffer' },
-      { name = 'path' },
-      { name = 'obsidian' },
-      { name = 'obsidian_new' },
+      { name = 'nvim_lsp', group_index = 1 },
+      { name = 'luasnip', group_index = 1 },
+      { name = 'path', group_index = 2 },
+      { name = 'buffer', group_index = 2, max_item_count = 5 },
+    },
+  })
+
+  -- Obsidian sources only for markdown files
+  cmp.setup.filetype('markdown', {
+    sources = {
+      { name = 'obsidian', group_index = 1 },
+      { name = 'obsidian_new', group_index = 1 },
+      { name = 'nvim_lsp', group_index = 1 },
+      { name = 'luasnip', group_index = 1 },
+      { name = 'path', group_index = 2 },
+      { name = 'buffer', group_index = 2, max_item_count = 5 },
     },
   })
 
@@ -89,7 +99,7 @@ end
 
 return {
   'hrsh7th/nvim-cmp',
-  event = 'InsertEnter',
+  event = { 'InsertEnter', 'CmdlineEnter' },
   dependencies = {
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
