@@ -84,7 +84,7 @@ return {
       { "<leader>tw", desc = "Trim Whitespace" },
       { "<leader>w", group = "Worktree" },
       { "<leader>wc", desc = "Create Worktree" },
-      { "<leader>wl", desc = "List Worktrees (C-d to delete)" },
+      { "<leader>wl", desc = "List Worktrees (M-d to delete)" },
       { "<leader>ws", desc = "Stack New Worktree Branch" },
       { "g", group = "Go to" },
       { "gd", desc = "Definition" },

@@ -132,7 +132,7 @@ local function telescope()
       return require('telescope').extensions.git_worktree
     end)
     if ok then
-      git_worktree.git_worktrees()
+      git_worktree.git_worktree()
     end
   end)
   map('n', '<Leader>wc', function()
