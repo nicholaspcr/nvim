@@ -33,6 +33,9 @@ local function nvim_treesitter()
         "vimdoc",
         "xml",
         "yaml",
+        "html",
+        "css",
+        "tsx",
     },
     auto_install = true,
 
@@ -44,10 +47,10 @@ local function nvim_treesitter()
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = "gnn",
-        node_incremental = "grn",
-        scope_incremental = "grc",
-        node_decremental = "grm",
+        init_selection = "<C-space>",
+        node_incremental = "<C-space>",
+        scope_incremental = false,
+        node_decremental = "<BS>",
       },
     },
 
