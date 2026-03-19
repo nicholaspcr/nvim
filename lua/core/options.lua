@@ -33,7 +33,7 @@ end
 opt.completeopt = 'menu,menuone,noselect'
 opt.showmode = false
 opt.shortmess = 'aoOTIcF'
-opt.scrolloff = 2
+opt.scrolloff = 8
 opt.sidescrolloff = 5
 opt.showtabline = 1
 opt.winwidth = 30
@@ -45,6 +45,11 @@ opt.list = true
 opt.pumblend = 10
 opt.winblend = 10
 opt.undofile = true
+opt.confirm = true
+opt.smoothscroll = true
+opt.splitkeep = 'screen'
+opt.jumpoptions = 'stack'
+opt.inccommand = 'split'
 
 opt.smarttab = true
 opt.expandtab = true
@@ -65,7 +70,7 @@ opt.breakindentopt = 'shift:2,min:20'
 opt.showbreak = '↳ '
 
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-opt.foldlevel = 5
+opt.foldlevel = 99
 opt.foldmethod = 'expr'
 
 opt.number = true
