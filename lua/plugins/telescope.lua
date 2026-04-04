@@ -140,7 +140,7 @@ local function telescope()
       return require('telescope').extensions.git_worktree
     end)
     if ok then
-      git_worktree.create_git_worktree()
+      git_worktree.create_git_worktree({ prefix = 'trees/' })
     end
   end)
 
