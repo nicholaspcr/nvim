@@ -95,7 +95,7 @@ local function mason()
         on_attach = on_attach,
         settings = {
             gopls = {
-                buildFlags = { '-tags=database' },
+                buildFlags = { '-tags=database,integration,tti' },
                 completeUnimported = true,
                 usePlaceholders = true,
                 staticcheck = true,
