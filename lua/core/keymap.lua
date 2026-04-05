@@ -1,9 +1,5 @@
 local keymap = {}
 
-keymap.cmd_func = function(command)
-  return function() vim.cmd(command) end
-end
-
 keymap.cmd = function(str)
   return '<cmd>' .. str .. '<CR>'
 end

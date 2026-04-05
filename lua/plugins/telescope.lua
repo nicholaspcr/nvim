@@ -99,20 +99,20 @@ local function telescope()
   pcall(telescope.load_extension, 'git_worktree')
 
   local map = require('core.keymap').map
-  local cmd = require('core.keymap').cmd_func
+  local cmd = require('core.keymap').cmd
 
   -- Buffer related mappings
-  map('n', '<Leader>b', cmd('Telescope buffers'))
+  map('n', '<Leader>b', cmd('Telescope buffers'), { desc = 'Telescope buffers' })
   -- File related mappings
-  map('n', '<Leader>fa', cmd('Telescope live_grep'))
+  map('n', '<Leader>fa', cmd('Telescope live_grep'), { desc = 'Live grep' })
   map('n', '<Leader>fd', function()
     local utils = require('telescope.utils')
     require('telescope.builtin').live_grep({ cwd = utils.buffer_dir() })
-  end)
-  map('n', '<Leader>cs', cmd('Telescope colorscheme'))
-  map('n', '<Leader>gs', cmd('Telescope git_status'))
-  map('n', '<Leader>ff', cmd('Telescope find_files'))
-  map('n', '<Leader>fl', cmd('Telescope file_browser path=%:p:h select_buffer=true'))
+  end, { desc = 'Grep in directory' })
+  map('n', '<Leader>cs', cmd('Telescope colorscheme'), { desc = 'Colorscheme' })
+  map('n', '<Leader>gs', cmd('Telescope git_status'), { desc = 'Git status' })
+  map('n', '<Leader>ff', cmd('Telescope find_files'), { desc = 'Find files' })
+  map('n', '<Leader>fl', cmd('Telescope file_browser path=%:p:h select_buffer=true'), { desc = 'File browser' })
   -- Note: 'gr' and 'gi' are buffer-local LSP keymaps set in mason.lua on_attach
 
 
@@ -182,16 +182,16 @@ local function telescope()
   end)
 
   -- Obsidian related mappings (unified under <Leader>o)
-  map('n', '<Leader>on', cmd('ObsidianNew'))
-  map('n', '<Leader>ow', cmd('ObsidianWorkspace'))
-  map('n', '<Leader>ot', cmd('ObsidianToday'))
-  map('n', '<Leader>oy', cmd('ObsidianYesterday'))
-  map('n', '<Leader>os', cmd('ObsidianTags'))
-  map('n', '<Leader>of', cmd('ObsidianQuickSwitch'))
-  map('n', '<Leader>ob', cmd('ObsidianBacklinks'))
-  map('n', '<Leader>ol', cmd('ObsidianLinks'))
-  map('n', '<Leader>oR', cmd('ObsidianRename'))
-  map('n', '<Leader>oT', cmd('ObsidianTemplate'))
+  map('n', '<Leader>on', cmd('ObsidianNew'), { desc = 'New note' })
+  map('n', '<Leader>ow', cmd('ObsidianWorkspace'), { desc = 'Workspace' })
+  map('n', '<Leader>ot', cmd('ObsidianToday'), { desc = 'Today' })
+  map('n', '<Leader>oy', cmd('ObsidianYesterday'), { desc = 'Yesterday' })
+  map('n', '<Leader>os', cmd('ObsidianTags'), { desc = 'Search tags' })
+  map('n', '<Leader>of', cmd('ObsidianQuickSwitch'), { desc = 'Find notes' })
+  map('n', '<Leader>ob', cmd('ObsidianBacklinks'), { desc = 'Backlinks' })
+  map('n', '<Leader>ol', cmd('ObsidianLinks'), { desc = 'Outgoing links' })
+  map('n', '<Leader>oR', cmd('ObsidianRename'), { desc = 'Rename note' })
+  map('n', '<Leader>oT', cmd('ObsidianTemplate'), { desc = 'Insert template' })
 
   -- Grep notes content
   map('n', '<Leader>og', function()
