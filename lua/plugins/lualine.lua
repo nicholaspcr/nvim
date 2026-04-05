@@ -27,7 +27,7 @@ local function lualine()
       sections = {
         lualine_a = {'mode'},
         lualine_b = {
-          'branch', -- TODO: Make it so that if there is a '/', use only the first letter of the word before it.
+          { 'branch', fmt = function(s) return s:gsub('([^/])[^/]*/', '%1/') end },
           'diff',
           {
             'diagnostics',
