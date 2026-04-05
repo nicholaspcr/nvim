@@ -3,13 +3,10 @@ local cache_dir = vim.env.HOME .. '/.cache/nvim/'
 
 opt.background = 'dark'
 opt.termguicolors = true
-opt.hidden = true
-opt.magic = true
 opt.virtualedit = 'block'
 opt.clipboard = 'unnamedplus'
 opt.wildignorecase = true
 opt.swapfile = false
-opt.directory = cache_dir .. 'swap/'
 opt.undodir = cache_dir .. 'undo/'
 opt.backupdir = cache_dir .. 'backup/'
 opt.viewdir = cache_dir .. 'view/'
@@ -53,7 +50,6 @@ opt.inccommand = 'split'
 
 opt.smarttab = true
 opt.expandtab = true
-opt.autoindent = true
 opt.tabstop = 4
 opt.shiftwidth = 4
 
