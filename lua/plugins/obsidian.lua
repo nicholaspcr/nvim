@@ -33,10 +33,8 @@ local function obsidian()
         template = 'daily.md'
       },
 
-      -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
       completion = {
-        nvim_cmp = true,
-        min_chars = 1,
+        nvim_cmp = false,
       },
 
       -- Optional, configure key mappings. These are the defaults. If you don't want to set any keymappings this
@@ -199,7 +197,6 @@ return {
   ft = 'markdown',
   dependencies = {
     'nvim-lua/plenary.nvim',
-    'hrsh7th/nvim-cmp',
   },
   config = obsidian,
 }
