@@ -8,8 +8,6 @@ map('n', '<C-x>p', cmd('let @+=expand("%:p")'), { desc = 'Copy file path' })
 
 -- save
 map('n', '<C-s>', cmd('write'), { desc = 'Save file' })
--- yank
-map('n', 'Y', 'y$', { desc = 'Yank to end of line' })
 -- buffer jump
 map('n', ']b', cmd('bn'), { desc = 'Next buffer' })
 map('n', '[b', cmd('bp'), { desc = 'Previous buffer' })
@@ -28,7 +26,7 @@ map('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up and center' })
 map('n', '<Leader>pu', cmd('Lazy update'), { desc = 'Update plugins' })
 map('n', '<Leader>pi', cmd('Lazy install'), { desc = 'Install plugins' })
 
--- LSP keymaps are now buffer-local (see mason.lua on_attach)
+-- LSP keymaps are buffer-local (see mason.lua LspAttach autocmd)
 -- Global formatting keymap
 map('n', '<Leader>fw', vim.lsp.buf.format, { desc = 'Format buffer' })
 
@@ -37,6 +35,6 @@ map('n', '<Leader>dm', cmd('delm! | delm A-Z0-9'), { desc = 'Delete all marks' }
 
 -- Diagnostics (built-in vim.diagnostic, no plugin needed)
 map('n', '<Leader>dd', vim.diagnostic.open_float, { desc = 'Show diagnostics' })
-map('n', '[d', vim.diagnostic.goto_prev, { desc = 'Previous diagnostic' })
-map('n', ']d', vim.diagnostic.goto_next, { desc = 'Next diagnostic' })
+map('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, { desc = 'Previous diagnostic' })
+map('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, { desc = 'Next diagnostic' })
 map('n', '<Leader>q', vim.diagnostic.setloclist, { desc = 'Diagnostic list' })
