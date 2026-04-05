@@ -6,7 +6,6 @@ return {
       -- providers: array of providers.. see below
       providers = {
         'lsp',
-        'treesitter',
         'regex',
       },
       -- delay: delay in milliseconds
