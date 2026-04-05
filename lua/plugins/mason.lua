@@ -26,49 +26,51 @@ local function mason()
         },
     })
 
-    -- Get capabilities from cmp_nvim_lsp
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    -- Buffer-local keymaps via LspAttach autocmd
+    vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('lsp_attach_keymaps', { clear = true }),
+        callback = function(ev)
+            local client = vim.lsp.get_client_by_id(ev.data.client_id)
+            local bufnr = ev.buf
+            local opts = { buffer = bufnr, noremap = true, silent = true }
 
-    -- Buffer-local keymaps for LSP
-    local on_attach = function(client, bufnr)
-        local opts = { buffer = bufnr, noremap = true, silent = true }
+            -- Enable inlay hints if supported
+            if client and client.server_capabilities.inlayHintProvider then
+                vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+                vim.keymap.set('n', '<leader>ih', function()
+                    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+                end, { buffer = bufnr, desc = 'Toggle inlay hints' })
+            end
 
-        -- Enable inlay hints if supported
-        if client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-            vim.keymap.set('n', '<leader>ih', function()
-                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
-            end, { buffer = bufnr, desc = 'Toggle inlay hints' })
-        end
+            -- Navigation
+            vim.keymap.set('n', 'gd', function()
+                require('telescope.builtin').lsp_definitions()
+            end, opts)
+            vim.keymap.set('n', 'gD', function()
+                require('telescope.builtin').lsp_type_definitions()
+            end, opts)
+            vim.keymap.set('n', 'gi', function()
+                require('telescope.builtin').lsp_implementations()
+            end, opts)
+            vim.keymap.set('n', 'gr', function()
+                require('telescope.builtin').lsp_references()
+            end, opts)
 
-        -- Navigation
-        vim.keymap.set('n', 'gd', function()
-            require('telescope.builtin').lsp_definitions()
-        end, opts)
-        vim.keymap.set('n', 'gD', function()
-            require('telescope.builtin').lsp_type_definitions()
-        end, opts)
-        vim.keymap.set('n', 'gi', function()
-            require('telescope.builtin').lsp_implementations()
-        end, opts)
-        vim.keymap.set('n', 'gr', function()
-            require('telescope.builtin').lsp_references()
-        end, opts)
+            -- Information
+            vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+            vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+            vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, opts)
 
-        -- Information
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-        vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, opts)
-
-        -- Actions
-        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-    end
+            -- Actions
+            vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+            vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+        end,
+    })
 
     -- Diagnostic display
     vim.diagnostic.config({
         signs = true,
-        update_in_insert = true,
+        update_in_insert = false,
         underline = true,
         severity_sort = true,
         virtual_text = {
@@ -79,8 +81,6 @@ local function mason()
     -- TypeScript/JavaScript
     vim.lsp.enable('ts_ls')
     vim.lsp.config('ts_ls', {
-        capabilities = capabilities,
-        on_attach = on_attach,
         settings = {
             completions = {
                 completeFunctionCalls = true
@@ -91,8 +91,6 @@ local function mason()
     -- Go with formatting on save
     vim.lsp.enable('gopls')
     vim.lsp.config('gopls', {
-        capabilities = capabilities,
-        on_attach = on_attach,
         settings = {
             gopls = {
                 buildFlags = { '-tags=database,integration,tti' },
@@ -122,7 +120,6 @@ local function mason()
                     end
                 end
             end
-            -- Format synchronously to ensure it completes before save
             vim.lsp.buf.format({ async = false })
         end
     })
@@ -130,12 +127,9 @@ local function mason()
     -- C/C++
     vim.lsp.enable('clangd')
     vim.lsp.config('clangd', {
-        capabilities = capabilities,
-        on_attach = on_attach,
         cmd = {
             'clangd',
             '--background-index',
-
             '--clang-tidy',
             '--header-insertion=iwyu',
         },
@@ -144,8 +138,6 @@ local function mason()
     -- Rust
     vim.lsp.enable('rust_analyzer')
     vim.lsp.config('rust_analyzer', {
-        capabilities = capabilities,
-        on_attach = on_attach,
         settings = {
             ['rust-analyzer'] = {
                 imports = {
@@ -169,8 +161,6 @@ local function mason()
     -- Lua
     vim.lsp.enable('lua_ls')
     vim.lsp.config('lua_ls', {
-        capabilities = capabilities,
-        on_attach = on_attach,
         settings = {
             Lua = {
                 completion = {
@@ -183,8 +173,6 @@ local function mason()
     -- Markdown
     vim.lsp.enable('marksman')
     vim.lsp.config('marksman', {
-        capabilities = capabilities,
-        on_attach = on_attach,
         cmd = { "marksman", "server" },
         filetypes = { "markdown", "markdown.mdx" },
         single_file_support = true,
@@ -193,8 +181,6 @@ local function mason()
     -- Python
     vim.lsp.enable('pylsp')
     vim.lsp.config('pylsp', {
-        capabilities = capabilities,
-        on_attach = on_attach,
         settings = {
             pylsp = {
                 plugins = {
@@ -224,7 +210,6 @@ return {
     dependencies = {
         'neovim/nvim-lspconfig',
         'williamboman/mason.nvim',
-        'hrsh7th/cmp-nvim-lsp',
     },
     config = mason,
 }
