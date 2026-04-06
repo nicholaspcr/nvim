@@ -1,30 +1,7 @@
 local opt = vim.opt
 local cache_dir = vim.env.HOME .. '/.cache/nvim/'
 
--- Read background from dotfiles theme file, fallback to 'dark'
-local function get_theme()
-  local theme_file = vim.fn.expand('~/dotfiles/.current_theme')
-  local f = io.open(theme_file, 'r')
-  if f then
-    local theme = f:read('*l')
-    f:close()
-    if theme == 'light' then return 'light' end
-  end
-  return 'dark'
-end
-
-opt.background = get_theme()
-
--- Auto-switch background when returning to neovim after theme toggle
-vim.api.nvim_create_autocmd('FocusGained', {
-  group = vim.api.nvim_create_augroup('theme_sync', { clear = true }),
-  callback = function()
-    local bg = get_theme()
-    if vim.o.background ~= bg then
-      vim.o.background = bg
-    end
-  end,
-})
+opt.background = 'dark'
 opt.termguicolors = true
 opt.virtualedit = 'block'
 opt.clipboard = 'unnamedplus'
