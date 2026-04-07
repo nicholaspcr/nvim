@@ -44,7 +44,7 @@ local telescope_setup = {
       '.idea/',
       '.vscode/',
       'build/',
-      'env/',
+      '^env/',
       'gradle/',
       'node_modules/*',
       'target/',
