@@ -4,6 +4,34 @@ local cache_dir = vim.env.HOME .. '/.cache/nvim/'
 opt.background = 'dark'
 opt.termguicolors = true
 opt.virtualedit = 'block'
+-- Clipboard: use tmux buffer when inside tmux (works over SSH without a display),
+-- otherwise fall back to OSC52 (works over SSH via terminal escape codes).
+if vim.env.TMUX then
+  vim.g.clipboard = {
+    name = 'tmux',
+    copy = {
+      ['+'] = 'tmux load-buffer -',
+      ['*'] = 'tmux load-buffer -',
+    },
+    paste = {
+      ['+'] = 'tmux save-buffer -',
+      ['*'] = 'tmux save-buffer -',
+    },
+    cache_enabled = true,
+  }
+else
+  vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+    },
+  }
+end
 opt.clipboard = 'unnamedplus'
 opt.wildignorecase = true
 opt.swapfile = false
