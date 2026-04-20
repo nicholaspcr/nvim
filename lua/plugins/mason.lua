@@ -34,11 +34,6 @@ local function mason()
             local bufnr = ev.buf
             local opts = { buffer = bufnr, noremap = true, silent = true }
 
-            -- Enable LSP completion with auto-trigger
-            if client then
-                vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
-            end
-
             -- Enable inlay hints if supported
             if client and client.server_capabilities.inlayHintProvider then
                 vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
