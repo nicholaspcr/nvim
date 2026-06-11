@@ -13,13 +13,12 @@ local function trim_space(opts, preview_ns, preview_buf)
     if startidx ~= nil then
       -- Highlight the match if in command preview mode
       if preview_ns ~= nil then
-        vim.api.nvim_buf_add_highlight(
+        vim.hl.range(
           buf,
           preview_ns,
           'Substitute',
-          line1 + i - 2,
-          startidx - 1,
-          endidx
+          { line1 + i - 2, startidx - 1 },
+          { line1 + i - 2, endidx }
         )
         -- Add lines and highlight to the preview buffer
         -- if inccommand=split
@@ -32,13 +31,12 @@ local function trim_space(opts, preview_ns, preview_buf)
             0,
             { prefix .. line }
           )
-          vim.api.nvim_buf_add_highlight(
+          vim.hl.range(
             preview_buf,
             preview_ns,
             'Substitute',
-            preview_buf_line,
-            #prefix + startidx - 1,
-            #prefix + endidx
+            { preview_buf_line, #prefix + startidx - 1 },
+            { preview_buf_line, #prefix + endidx }
           )
           preview_buf_line = preview_buf_line + 1
         end
@@ -59,12 +57,9 @@ local function trim_space(opts, preview_ns, preview_buf)
   end
 end
 
-if vim.fn.has('nvim-0.9') == 1 then
-  -- Create the user command
-  vim.api.nvim_create_user_command(
-    'TrimTrailingWhitespace',
-    trim_space,
-    { nargs = '?', range = '%', addr = 'lines', preview = trim_space }
-  )
-end
+vim.api.nvim_create_user_command(
+  'TrimTrailingWhitespace',
+  trim_space,
+  { nargs = '?', range = '%', addr = 'lines', preview = trim_space }
+)
 
