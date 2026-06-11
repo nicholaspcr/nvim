@@ -194,9 +194,12 @@ end
 
 return {
   'epwalsh/obsidian.nvim',
-  ft = 'markdown',
+  event = 'VeryLazy',
   dependencies = {
     'nvim-lua/plenary.nvim',
+  },
+  keys = {
+    { '<leader>ot', '<cmd>ObsidianToday<CR>', desc = 'Obsidian today' },
   },
   config = obsidian,
 }
