@@ -18,11 +18,6 @@ if not ok then
 	return
 end
 
--- We have to set the leader key here for lazy.nvim to work
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-vim.keymap.set({ "n", "v" }, " ", "<nop>", { silent = true })
-
 -- Load plugins from specifications
--- (The leader key must be set before this)
+-- (The leader key is set in init.lua before this runs)
 lazy.setup("plugins")
