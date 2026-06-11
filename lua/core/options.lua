@@ -19,18 +19,18 @@ end
 opt.background = 'dark'
 opt.termguicolors = true
 opt.virtualedit = 'block'
--- Clipboard: use tmux buffer when inside tmux (works over SSH without a display),
--- otherwise fall back to OSC52 (works over SSH via terminal escape codes).
-if vim.env.TMUX then
+-- Clipboard: prefer macOS pbcopy/pbpaste (works in or out of tmux and bridges
+-- to the system pasteboard), fall back to OSC52 over SSH/non-mac.
+if vim.fn.has('mac') == 1 then
   vim.g.clipboard = {
-    name = 'tmux',
+    name = 'pbcopy',
     copy = {
-      ['+'] = 'tmux load-buffer -',
-      ['*'] = 'tmux load-buffer -',
+      ['+'] = 'pbcopy',
+      ['*'] = 'pbcopy',
     },
     paste = {
-      ['+'] = 'tmux save-buffer -',
-      ['*'] = 'tmux save-buffer -',
+      ['+'] = 'pbpaste',
+      ['*'] = 'pbpaste',
     },
     cache_enabled = true,
   }
