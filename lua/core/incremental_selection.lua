@@ -6,6 +6,13 @@ local M = {}
 -- Per-buffer stack of selected nodes
 local stacks = {}
 
+vim.api.nvim_create_autocmd('BufWipeout', {
+  group = vim.api.nvim_create_augroup('incremental_selection_cleanup', { clear = true }),
+  callback = function(args)
+    stacks[args.buf] = nil
+  end,
+})
+
 local function same_range(a, b)
   local ar1, ac1, ar2, ac2 = a:range()
   local br1, bc1, br2, bc2 = b:range()
@@ -16,12 +23,25 @@ local function select_node(node)
   local srow, scol, erow, ecol = node:range()
   -- Node end is exclusive; convert to inclusive visual marks
   if ecol == 0 then
+    -- Node ends at the start of a line: select up to the end of the previous
+    -- line instead (or just the first character for a node at buffer start)
     erow = erow - 1
-    local line = vim.api.nvim_buf_get_lines(0, erow, erow + 1, false)[1] or ''
-    ecol = math.max(#line, 1)
+    if erow < 0 then
+      erow, ecol = 0, 1
+    else
+      local line = vim.api.nvim_buf_get_lines(0, erow, erow + 1, false)[1] or ''
+      ecol = math.max(#line, 1)
+    end
+  end
+  -- Land the '> mark on the first byte of the final (possibly multibyte)
+  -- character, not its last byte
+  local mark_col = ecol - 1
+  local line = vim.api.nvim_buf_get_lines(0, erow, erow + 1, false)[1] or ''
+  if mark_col > 0 and mark_col < #line then
+    mark_col = mark_col + vim.str_utf_start(line, mark_col + 1)
   end
   vim.api.nvim_buf_set_mark(0, '<', srow + 1, scol, {})
-  vim.api.nvim_buf_set_mark(0, '>', erow + 1, ecol - 1, {})
+  vim.api.nvim_buf_set_mark(0, '>', erow + 1, math.max(mark_col, 0), {})
   vim.cmd('normal! gv')
 end
 

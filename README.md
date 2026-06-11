@@ -35,5 +35,7 @@ plugin/trimwhite.lua         :TrimTrailingWhitespace with inccommand preview
   installed in its mason venv.
 - Notes workflow uses [obsidian.nvim (community fork)](https://github.com/obsidian-nvim/obsidian.nvim)
   with a vault at `~/notes`; all note keymaps live under `<Leader>o`.
+- Treesitter (main rewrite) has no auto-install: parsers are pre-listed in
+  `lua/plugins/nvim_treesitter.lua`; add new languages there or via `:TSInstall`.
 - `NVIM_COLUMN` overrides `textwidth` (defaults to 120); `colorcolumn` tracks it.
 - Clipboard uses pbcopy/pbpaste on macOS and OSC52 elsewhere (works over SSH).
