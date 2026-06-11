@@ -194,12 +194,55 @@ end
 
 return {
   'epwalsh/obsidian.nvim',
-  event = 'VeryLazy',
+  -- Loads for markdown buffers, or on any of the keys below (so commands like
+  -- :ObsidianToday work from anywhere without paying the cost at startup).
+  ft = 'markdown',
   dependencies = {
     'nvim-lua/plenary.nvim',
   },
   keys = {
-    { '<leader>ot', '<cmd>ObsidianToday<CR>', desc = 'Obsidian today' },
+    { '<Leader>on', '<cmd>ObsidianNew<CR>', desc = 'New note' },
+    { '<Leader>ow', '<cmd>ObsidianWorkspace<CR>', desc = 'Workspace' },
+    { '<Leader>ot', '<cmd>ObsidianToday<CR>', desc = 'Today' },
+    { '<Leader>oy', '<cmd>ObsidianYesterday<CR>', desc = 'Yesterday' },
+    { '<Leader>os', '<cmd>ObsidianTags<CR>', desc = 'Search tags' },
+    { '<Leader>of', '<cmd>ObsidianQuickSwitch<CR>', desc = 'Find notes' },
+    { '<Leader>ob', '<cmd>ObsidianBacklinks<CR>', desc = 'Backlinks' },
+    { '<Leader>ol', '<cmd>ObsidianLinks<CR>', desc = 'Outgoing links' },
+    { '<Leader>oR', '<cmd>ObsidianRename<CR>', desc = 'Rename note' },
+    { '<Leader>oT', '<cmd>ObsidianTemplate<CR>', desc = 'Insert template' },
+    {
+      '<Leader>og',
+      function()
+        require('telescope.builtin').live_grep({
+          cwd = vim.fn.expand('~/notes'),
+          prompt_title = 'Search Notes Content',
+        })
+      end,
+      desc = 'Grep notes',
+    },
+    {
+      '<Leader>od',
+      function()
+        require('telescope.builtin').find_files({
+          cwd = vim.fn.expand('~/notes/daily'),
+          prompt_title = 'Daily Notes',
+          sorting_strategy = 'descending',
+        })
+      end,
+      desc = 'Daily notes',
+    },
+    {
+      '<Leader>or',
+      function()
+        require('telescope.builtin').find_files({
+          cwd = vim.fn.expand('~/notes/notes'),
+          prompt_title = 'Recent Notes (7d)',
+          find_command = { 'fd', '--type', 'f', '-e', 'md', '--changed-within', '7d' },
+        })
+      end,
+      desc = 'Recent notes',
+    },
   },
   config = obsidian,
 }

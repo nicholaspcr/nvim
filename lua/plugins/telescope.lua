@@ -93,10 +93,9 @@ local function telescope()
   telescope.setup(telescope_setup)
 
   -- Load extensions with error handling
+  -- (git_worktree is loaded on demand from plugins/git_worktree.lua)
   pcall(telescope.load_extension, 'file_browser')
   pcall(telescope.load_extension, 'fzf')
-
-  pcall(telescope.load_extension, 'git_worktree')
 
   local map = require('core.keymap').map
   local cmd = require('core.keymap').cmd
@@ -126,98 +125,8 @@ local function telescope()
   map('n', '<Leader>fP', cmd('TodoTelescope keywords=PERF'), { desc = 'Find PERF' })
   map('n', '<Leader>fE', cmd('TodoTelescope keywords=TEST'), { desc = 'Find TEST' })
 
-  -- Worktree related mappings
-  map('n', '<Leader>wl', function()
-    local ok, git_worktree = pcall(function()
-      return require('telescope').extensions.git_worktree
-    end)
-    if ok then
-      git_worktree.git_worktree()
-    end
-  end)
-  map('n', '<Leader>wc', function()
-    local ok, git_worktree = pcall(function()
-      return require('telescope').extensions.git_worktree
-    end)
-    if ok then
-      git_worktree.create_git_worktree({ prefix = 'trees/' })
-    end
-  end)
-
-  -- Stack a new worktree branch off the current branch.
-  -- Supports bare repo layout (trees/<branch>) and regular repos (sibling dir).
-  map('n', '<Leader>ws', function()
-    local branch = vim.fn.input('New stacked branch name: ')
-    if branch == '' then return end
-
-    local git_common_dir = vim.fn.systemlist('git rev-parse --git-common-dir')[1]
-    if vim.v.shell_error ~= 0 then
-      vim.notify('Not in a git repository', vim.log.levels.ERROR)
-      return
-    end
-    git_common_dir = vim.fn.resolve(git_common_dir)
-
-    local dir
-    local trees_dir = git_common_dir .. '/trees'
-    if vim.fn.isdirectory(trees_dir) == 1 then
-      -- Bare repo layout: worktrees live in trees/<branch_path>
-      dir = trees_dir .. '/' .. branch
-    else
-      -- Regular repo: worktree as sibling directory
-      local root = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
-      local basename = vim.fn.fnamemodify(root, ':t')
-      local parent_dir = vim.fn.fnamemodify(root, ':h')
-      dir = parent_dir .. '/' .. basename .. '-' .. branch:gsub('/', '-')
-    end
-
-    local current = vim.fn.systemlist('git branch --show-current')[1] or 'HEAD'
-    local result = vim.fn.system({ 'git', 'worktree', 'add', dir, '-b', branch })
-    if vim.v.shell_error ~= 0 then
-      vim.notify('Failed to create worktree: ' .. vim.trim(result), vim.log.levels.ERROR)
-      return
-    end
-    vim.cmd('lcd ' .. vim.fn.fnameescape(dir))
-    vim.cmd('e .')
-    vim.notify('Stacked worktree: ' .. branch .. ' (from ' .. current .. ')')
-  end)
-
-  -- Obsidian related mappings (unified under <Leader>o)
-  map('n', '<Leader>on', cmd('ObsidianNew'), { desc = 'New note' })
-  map('n', '<Leader>ow', cmd('ObsidianWorkspace'), { desc = 'Workspace' })
-  map('n', '<Leader>ot', cmd('ObsidianToday'), { desc = 'Today' })
-  map('n', '<Leader>oy', cmd('ObsidianYesterday'), { desc = 'Yesterday' })
-  map('n', '<Leader>os', cmd('ObsidianTags'), { desc = 'Search tags' })
-  map('n', '<Leader>of', cmd('ObsidianQuickSwitch'), { desc = 'Find notes' })
-  map('n', '<Leader>ob', cmd('ObsidianBacklinks'), { desc = 'Backlinks' })
-  map('n', '<Leader>ol', cmd('ObsidianLinks'), { desc = 'Outgoing links' })
-  map('n', '<Leader>oR', cmd('ObsidianRename'), { desc = 'Rename note' })
-  map('n', '<Leader>oT', cmd('ObsidianTemplate'), { desc = 'Insert template' })
-
-  -- Grep notes content
-  map('n', '<Leader>og', function()
-    require('telescope.builtin').live_grep({
-      cwd = vim.fn.expand('~/notes'),
-      prompt_title = 'Search Notes Content',
-    })
-  end)
-
-  -- Browse daily notes
-  map('n', '<Leader>od', function()
-    require('telescope.builtin').find_files({
-      cwd = vim.fn.expand('~/notes/daily'),
-      prompt_title = 'Daily Notes',
-      sorting_strategy = 'descending',
-    })
-  end)
-
-  -- Recent notes (modified in last 7 days)
-  map('n', '<Leader>or', function()
-    require('telescope.builtin').find_files({
-      cwd = vim.fn.expand('~/notes/notes'),
-      prompt_title = 'Recent Notes (7d)',
-      find_command = { 'fd', '--type', 'f', '-e', 'md', '--changed-within', '7d' },
-    })
-  end)
+  -- Worktree mappings live in plugins/git_worktree.lua
+  -- Obsidian/notes mappings live in plugins/obsidian.lua
 end
 
 
@@ -240,17 +149,12 @@ return {
     { '<Leader>fH', desc = 'Find HACK' },
     { '<Leader>fP', desc = 'Find PERF' },
     { '<Leader>fE', desc = 'Find TEST' },
-    { '<Leader>wl', desc = 'List worktrees' },
-    { '<Leader>wc', desc = 'Create worktree' },
-    { '<Leader>ws', desc = 'Stack new worktree branch' },
   },
   dependencies = {
     'nvim-lua/plenary.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     'nvim-telescope/telescope-file-browser.nvim',
-    'polarmutex/git-worktree.nvim',
     'folke/todo-comments.nvim',
-    'epwalsh/obsidian.nvim',
   },
   config = telescope,
 }
