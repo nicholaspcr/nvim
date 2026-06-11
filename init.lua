@@ -8,5 +8,6 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 require('core.options')
+require('core.theme') -- must run before lazy so gruvbox loads with the right background
 require('core.mappings')
 require('core.lazy')
