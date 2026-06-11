@@ -7,7 +7,6 @@ vim.keymap.set({ 'n', 'v' }, ' ', '<nop>', { silent = true })
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-require('core.compat')
 require('core.options')
 require('core.mappings')
 require('core.lazy')

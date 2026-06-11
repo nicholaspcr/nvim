@@ -33,6 +33,14 @@ map('n', '<Leader>fw', vim.lsp.buf.format, { desc = 'Format buffer' })
 -- Deletes all marks
 map('n', '<Leader>dm', cmd('delm! | delm A-Z0-9'), { desc = 'Delete all marks' })
 
+-- Treesitter incremental selection (see core/incremental_selection.lua)
+map('n', '<C-space>', function() require('core.incremental_selection').start() end,
+  { desc = 'Start incremental selection' })
+map('x', '<C-space>', function() require('core.incremental_selection').increment() end,
+  { desc = 'Expand selection to parent node' })
+map('x', '<BS>', function() require('core.incremental_selection').decrement() end,
+  { desc = 'Shrink selection' })
+
 -- Diagnostics (built-in vim.diagnostic, no plugin needed)
 map('n', '<Leader>dd', vim.diagnostic.open_float, { desc = 'Show diagnostics' })
 map('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, { desc = 'Previous diagnostic' })
