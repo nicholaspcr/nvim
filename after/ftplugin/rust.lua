@@ -6,10 +6,12 @@ vim.opt_local.tabstop = 4
 vim.opt_local.cindent = false
 vim.opt_local.expandtab = true
 
--- Format on save
+-- Format on save (rust-analyzer)
+local bufnr = vim.api.nvim_get_current_buf()
 vim.api.nvim_create_autocmd('BufWritePre', {
-    buffer = 0,
-    callback = function()
-        vim.lsp.buf.format({ async = false })
-    end,
+  group = vim.api.nvim_create_augroup('rust_format_' .. bufnr, { clear = true }),
+  buffer = bufnr,
+  callback = function()
+    vim.lsp.buf.format({ async = false })
+  end,
 })

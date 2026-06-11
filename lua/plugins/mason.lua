@@ -110,26 +110,7 @@ local function mason()
         },
     })
 
-    -- Go formatting autocmd with organize imports
-    vim.api.nvim_create_autocmd('BufWritePre', {
-        group = vim.api.nvim_create_augroup('go_format_on_save', { clear = true }),
-        pattern = '*.go',
-        callback = function()
-            local params = vim.lsp.util.make_range_params(nil, "utf-16")
-            params.context = { only = { "source.organizeImports" } }
-            local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 1000)
-            for cid, res in pairs(result or {}) do
-                for _, r in pairs(res.result or {}) do
-                    if r.edit then
-                        local clients = vim.lsp.get_clients({ id = cid })
-                        local enc = (clients[1] and clients[1].offset_encoding) or "utf-16"
-                        vim.lsp.util.apply_workspace_edit(r.edit, enc)
-                    end
-                end
-            end
-            vim.lsp.buf.format({ async = false })
-        end
-    })
+    -- Go format-on-save with organize imports lives in after/ftplugin/go.lua
 
     -- C/C++
     vim.lsp.enable('clangd')
