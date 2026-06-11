@@ -30,16 +30,18 @@ local function dap()
     dapui.setup()
 
     local map = require('core.keymap').map
-    
-    map('n', '<F5>', function() dap.continue() end)
-    map('n', '<F10>', function() dap.step_over() end)
-    map('n', '<F11>', function() dap.step_into() end)
-    map('n', '<F12>', function() dap.step_out() end)
-    map('n', '<Leader>db', function() dap.toggle_breakpoint() end)
-    map('n', '<Leader>B', function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end)
-    map('n', '<Leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
-    map('n', '<Leader>dr', function() dap.repl.open() end)
-    map('n', '<Leader>dl', function() dap.run_last() end)
+
+    map('n', '<F5>', function() dap.continue() end, { desc = 'DAP Continue' })
+    map('n', '<F10>', function() dap.step_over() end, { desc = 'DAP Step Over' })
+    map('n', '<F11>', function() dap.step_into() end, { desc = 'DAP Step Into' })
+    map('n', '<F12>', function() dap.step_out() end, { desc = 'DAP Step Out' })
+    map('n', '<Leader>db', function() dap.toggle_breakpoint() end, { desc = 'Toggle breakpoint' })
+    map('n', '<Leader>B', function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end,
+        { desc = 'Conditional breakpoint' })
+    map('n', '<Leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
+        { desc = 'Log point' })
+    map('n', '<Leader>dr', function() dap.repl.open() end, { desc = 'DAP REPL' })
+    map('n', '<Leader>dl', function() dap.run_last() end, { desc = 'DAP Run Last' })
 
     -- Open and close DAP UI with the debugger
     dap.listeners.after.event_initialized['dapui_config'] = function()

@@ -32,7 +32,9 @@ local function mason()
         callback = function(ev)
             local client = vim.lsp.get_client_by_id(ev.data.client_id)
             local bufnr = ev.buf
-            local opts = { buffer = bufnr, noremap = true, silent = true }
+            local function opts(desc)
+                return { buffer = bufnr, noremap = true, silent = true, desc = desc }
+            end
 
             -- Enable inlay hints if supported
             if client and client.server_capabilities.inlayHintProvider then
@@ -45,25 +47,25 @@ local function mason()
             -- Navigation
             vim.keymap.set('n', 'gd', function()
                 require('telescope.builtin').lsp_definitions()
-            end, opts)
+            end, opts('Definition'))
             vim.keymap.set('n', 'gD', function()
                 require('telescope.builtin').lsp_type_definitions()
-            end, opts)
+            end, opts('Type definition'))
             vim.keymap.set('n', 'gi', function()
                 require('telescope.builtin').lsp_implementations()
-            end, opts)
+            end, opts('Implementation'))
             vim.keymap.set('n', 'gr', function()
                 require('telescope.builtin').lsp_references()
-            end, opts)
+            end, opts('References'))
 
             -- Information
-            vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-            vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-            vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, opts)
+            vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts('Hover'))
+            vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts('Signature help'))
+            vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, opts('Signature help'))
 
             -- Actions
-            vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-            vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+            vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts('Rename symbol'))
+            vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts('Code action'))
         end,
     })
 
