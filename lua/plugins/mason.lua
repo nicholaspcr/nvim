@@ -110,6 +110,7 @@ local function mason()
 
     -- Go formatting autocmd with organize imports
     vim.api.nvim_create_autocmd('BufWritePre', {
+        group = vim.api.nvim_create_augroup('go_format_on_save', { clear = true }),
         pattern = '*.go',
         callback = function()
             local params = vim.lsp.util.make_range_params(nil, "utf-16")
