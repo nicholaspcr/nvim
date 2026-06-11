@@ -194,9 +194,25 @@ end
 
 return {
   'epwalsh/obsidian.nvim',
-  -- Loads for markdown buffers, or on any of the keys below (so commands like
-  -- :ObsidianToday work from anywhere without paying the cost at startup).
+  -- Loads for markdown buffers, on any of the keys below, or on direct
+  -- :Obsidian* command invocation — without paying the cost at startup.
   ft = 'markdown',
+  cmd = {
+    'ObsidianNew',
+    'ObsidianOpen',
+    'ObsidianToday',
+    'ObsidianYesterday',
+    'ObsidianTomorrow',
+    'ObsidianDailies',
+    'ObsidianQuickSwitch',
+    'ObsidianSearch',
+    'ObsidianTags',
+    'ObsidianBacklinks',
+    'ObsidianLinks',
+    'ObsidianRename',
+    'ObsidianTemplate',
+    'ObsidianWorkspace',
+  },
   dependencies = {
     'nvim-lua/plenary.nvim',
   },
