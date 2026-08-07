@@ -17,6 +17,15 @@ local function obsidian()
   require('obsidian').setup({
     legacy_commands = false, -- use :Obsidian <subcommand> only
 
+    -- render-markdown.nvim owns in-buffer rendering. obsidian.nvim tries to step
+    -- aside on its own, but the check scans 'runtimepath' for render-markdown at
+    -- setup time -- so opening the vault through an :Obsidian command (before any
+    -- markdown buffer has loaded render-markdown) leaves both plugins rendering.
+    -- Their checkbox extmarks then stack: obsidian conceals '- [ ]' down to one
+    -- glyph while render-markdown overlays its own, and the following characters
+    -- get swallowed. Disable it explicitly instead of relying on load order.
+    ui = { enable = false },
+
     workspaces = {
       {
         name = 'notes',
