@@ -139,7 +139,8 @@ local function telescope()
   map('n', '<Leader>fo', cmd('Telescope oldfiles'), { desc = 'Recent files' })
   map('n', '<Leader>fl', cmd('Telescope file_browser path=%:p:h select_buffer=true'), { desc = 'File browser' })
 
-  -- Symbols (buffer-local LSP navigation lives in lua/core/lsp.lua)
+  -- Symbols. Neovim's builtin gO covers document symbols via the quickfix
+  -- list; these give a telescope picker and add workspace symbols.
   map('n', '<Leader>fs', cmd('Telescope lsp_document_symbols'), { desc = 'Document symbols' })
   map('n', '<Leader>fS', cmd('Telescope lsp_dynamic_workspace_symbols'), { desc = 'Workspace symbols' })
 

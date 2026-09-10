@@ -18,28 +18,13 @@ local function keymaps(ev)
     end, 'Toggle inlay hints')
   end
 
-  -- Navigation, routed through telescope so results are pickable
-  local function picker(name)
-    return function()
-      require('telescope.builtin')[name]()
-    end
-  end
-  map('n', 'gd', picker('lsp_definitions'), 'Definition')
-  map('n', 'gD', picker('lsp_type_definitions'), 'Type definition')
-  map('n', 'gi', picker('lsp_implementations'), 'Implementation')
-  -- gR, not gr: Neovim 0.11 ships global grn/gra/grr/gri/grt/grx, so a 'gr'
-  -- mapping is both complete and a prefix of six others and stalls for
-  -- 'timeoutlen' on every press (:h map-ambiguous). This also leaves the
-  -- builtin gr{char} virtual replace alone.
-  map('n', 'gR', picker('lsp_references'), 'References')
-
-  -- Information
-  map('n', 'K', vim.lsp.buf.hover, 'Hover')
-  map({ 'n', 'i' }, '<C-k>', vim.lsp.buf.signature_help, 'Signature help')
-
-  -- Actions
-  map('n', '<Leader>rn', vim.lsp.buf.rename, 'Rename symbol')
-  map('n', '<Leader>ca', vim.lsp.buf.code_action, 'Code action')
+  -- Nothing else is mapped here. Neovim 0.11+ covers the rest on its own and
+  -- remapping it only shadows builtins (gr{char}, gR, gi, gI) for no gain:
+  --   grr  references      gri  implementation   grt  type definition
+  --   grn  rename          gra  code action      grx  run codelens
+  --   gO   document symbol <C-s> signature help (insert/select)
+  -- and on attach Neovim sets 'tagfunc' (so <C-]> and g<C-]> go to the
+  -- definition), 'omnifunc', and K for hover.
 end
 
 --- Apply a server's source.organizeImports code action synchronously.

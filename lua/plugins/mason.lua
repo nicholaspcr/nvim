@@ -1,6 +1,6 @@
 -- Mason installs the language servers. Everything else lives next door:
 --   lua/lsp/<server>.lua     per-server settings
---   lua/core/lsp.lua         capabilities + LspAttach keymaps
+--   lua/core/lsp.lua         capabilities, inlay hints, organize imports
 --   lua/core/diagnostics.lua diagnostic rendering
 return {
   'mason-org/mason-lspconfig.nvim',

@@ -65,9 +65,12 @@ scripts/smoke.lua            headless config sanity check (also run in CI)
 - Treesitter (main rewrite) has no auto-install: parsers are pre-listed in
   `lua/plugins/nvim_treesitter.lua`. Startup only installs what is missing;
   `:TSEnsureInstalled` re-checks the list on demand.
-- LSP navigation is `gd`, `gD`, `gi` and `gR` (references). `gR` rather than
-  `gr`, which would be a prefix of Neovim's builtin `grn`/`gra`/`grr`/`gri`
-  and stall for `timeoutlen` on every press.
+- LSP keymaps are Neovim's own, not remapped: `grr` references, `gri`
+  implementation, `grt` type definition, `grn` rename, `gra` code action,
+  `gO` document symbols, `K` hover, and `<C-]>` to the definition via the
+  `tagfunc` Neovim sets on attach. `lua/core/lsp.lua` adds only `<Leader>ih`
+  (toggle inlay hints); `<Leader>fs` / `<Leader>fS` give telescope pickers
+  for document and workspace symbols.
 - `<Leader>ff` finds files, `<Leader>fh` finds them including hidden and
   gitignored paths (this repo lives under `.config/`, which `<Leader>ff` skips).
 - `NVIM_COLUMN` overrides `textwidth` (defaults to 120); `colorcolumn` tracks it.

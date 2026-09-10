@@ -25,7 +25,8 @@ map('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up and center' })
 map('n', '<Leader>pu', cmd('Lazy update'), { desc = 'Update plugins' })
 map('n', '<Leader>pi', cmd('Lazy install'), { desc = 'Install plugins' })
 
--- LSP keymaps are buffer-local (see lua/core/lsp.lua LspAttach autocmd)
+-- LSP keys are Neovim's own (grr, gri, grt, grn, gra, gO, K, <C-]>);
+-- lua/core/lsp.lua adds only the inlay-hint toggle on top.
 -- <Leader>fw (format buffer) is owned by plugins/conform.lua
 
 -- Deletes all marks
