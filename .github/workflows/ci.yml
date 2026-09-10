@@ -3,21 +3,53 @@ name: ci
 on:
   push:
     branches:
-      - main
+      - master
 
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   lint:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Stylua
-        uses: JohnnyMorganz/stylua-action@v1.1.2
+        uses: JohnnyMorganz/stylua-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
           args: --check .
+
+  smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: stable
+
+      - name: Install config
+        run: |
+          mkdir -p ~/.config
+          ln -s "$GITHUB_WORKSPACE" ~/.config/nvim
+
+      - name: Cache plugins
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/nvim
+          key: ${{ runner.os }}-lazy-${{ hashFiles('lazy-lock.json') }}
+          restore-keys: ${{ runner.os }}-lazy-
+
+      - name: Install plugins at locked versions
+        run: nvim --headless '+Lazy! restore' +qa
+
+      # Fails the build if any module errors, any plugin spec is malformed, or
+      # a cache directory the config depends on is missing.
+      - name: Smoke check
+        run: nvim --headless -c 'luafile scripts/smoke.lua' -c 'qa'
