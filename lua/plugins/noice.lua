@@ -1,9 +1,26 @@
+local function notify_background()
+  -- gruvbox runs with transparent_mode, so Normal has no background for
+  -- nvim-notify to inherit and it needs an explicit colour. Track the
+  -- light/dark flip that lua/core/theme.lua drives instead of pinning black.
+  local palette = require('gruvbox').palette
+  return vim.o.background == 'dark' and palette.dark0 or palette.light0
+end
+
 local function noice()
-  require('notify').setup({
-    background_colour = '#000000',
+  local notify = require('notify')
+  notify.setup({
+    background_colour = notify_background(),
     render = 'compact',
-    timeout = 3000,  -- 3 seconds
+    timeout = 3000, -- 3 seconds
   })
+
+  vim.api.nvim_create_autocmd('ColorScheme', {
+    group = vim.api.nvim_create_augroup('notify_background', { clear = true }),
+    callback = function()
+      notify.setup({ background_colour = notify_background() })
+    end,
+  })
+
   require('noice').setup({
     lsp = {
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -24,8 +41,8 @@ local function noice()
     routes = {
       {
         filter = {
-          event = "msg_show",
-          find = "Finder failed with msg",
+          event = 'msg_show',
+          find = 'Finder failed with msg',
         },
         opts = { skip = true },
       },
