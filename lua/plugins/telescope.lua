@@ -19,63 +19,83 @@ local telescope_setup = {
       '--with-filename',
       '--line-number',
       '--column',
-      '--smart-case'
+      '--smart-case',
     },
     sorting_strategy = 'ascending',
-    file_previewer = function(...) return require('telescope.previewers').vim_buffer_cat.new(...) end,
-    grep_previewer = function(...) return require('telescope.previewers').vim_buffer_vimgrep.new(...) end,
-    qflist_previewer = function(...) return require('telescope.previewers').vim_buffer_qflist.new(...) end,
+    file_previewer = function(...)
+      return require('telescope.previewers').vim_buffer_cat.new(...)
+    end,
+    grep_previewer = function(...)
+      return require('telescope.previewers').vim_buffer_vimgrep.new(...)
+    end,
+    qflist_previewer = function(...)
+      return require('telescope.previewers').vim_buffer_qflist.new(...)
+    end,
 
+    -- These are Lua patterns, not globs. A trailing '/*' reads as "slash,
+    -- repeated zero or more times", so it matches the bare prefix too --
+    -- '^data/*' was hiding database.go and data.json. Directories therefore
+    -- end in a plain '/', and extensions are anchored with '$'.
     file_ignore_patterns = {
-      'vendor/*',
-      '%.lock',
-      '__pycache__/*',
-      '%.sqlite3',
-      '%.ipynb',
-      '%.jpg',
-      '%.jpeg',
-      '%.png',
-      '%.svg',
-      '%.otf',
-      '%.ttf',
-      '%.webp',
-      '.dart_tool/',
-      '.gradle/',
-      '.idea/',
-      '.vscode/',
-      'build/',
-      '^env/',
-      'gradle/',
-      'node_modules/*',
+      -- Directories
+      'vendor/',
+      '__pycache__/',
+      'node_modules/',
       'target/',
-      '%.pdb',
-      '%.dll',
-      '%.class',
-      '%.exe',
-      '%.cache',
-      '%.ico',
-      '%.pdf',
-      '%.dylib',
-      '%.jar',
-      '%.docx',
-      '%.met',
-      'smalljre_*/*',
-      '.vale/',
+      'build/',
+      'gradle/',
+      '%.dart_tool/',
+      '%.idea/',
+      '%.vscode/',
+      '%.vale/',
+      '^env/',
+      '^data/',
+      'smalljre_[^/]*/',
 
-      -- custom files
-      '^data/*',
-      'go.sum',
-    }
+      -- Generated Go: protoc writes foo.pb.go, its plugins add foo.pb.gw.go,
+      -- foo.pb.fm.go, foo.pb.validate.go and friends.
+      '%.pb%.go$',
+      '%.pb%.[%w%.]+%.go$',
+
+      -- Lockfiles
+      '%.lock$',
+      'go%.sum$',
+
+      -- Binaries and archives
+      '%.class$',
+      '%.dll$',
+      '%.dylib$',
+      '%.exe$',
+      '%.jar$',
+      '%.pdb$',
+
+      -- Images and fonts
+      '%.ico$',
+      '%.jpe?g$',
+      '%.otf$',
+      '%.png$',
+      '%.svg$',
+      '%.ttf$',
+      '%.webp$',
+
+      -- Documents and data blobs
+      '%.cache$',
+      '%.docx$',
+      '%.ipynb$',
+      '%.met$',
+      '%.pdf$',
+      '%.sqlite3$',
+    },
   },
   extensions = {
     fzf = {
       fuzzy = true,
       override_generic_sorter = true,
       override_file_sorter = true,
-      case_mode = "smart_case",
+      case_mode = 'smart_case',
     },
     file_browser = {
-      theme = "ivy",
+      theme = 'ivy',
       grouped = true,
       hidden = true,
       respect_gitignore = false,
@@ -84,11 +104,7 @@ local telescope_setup = {
 }
 
 local function telescope()
-  local telescope_ok, telescope = pcall(require, 'telescope')
-  if not telescope_ok then
-    vim.notify("Failed to load telescope", vim.log.levels.ERROR)
-    return
-  end
+  local telescope = require('telescope')
 
   telescope.setup(telescope_setup)
 
@@ -112,8 +128,6 @@ local function telescope()
   map('n', '<Leader>gs', cmd('Telescope git_status'), { desc = 'Git status' })
   map('n', '<Leader>ff', cmd('Telescope find_files'), { desc = 'Find files' })
   map('n', '<Leader>fl', cmd('Telescope file_browser path=%:p:h select_buffer=true'), { desc = 'File browser' })
-  -- Note: 'gr' and 'gi' are buffer-local LSP keymaps set in mason.lua on_attach
-
 
   -- Todo related mappings (shows all tags: TODO, FIX, HACK, WARN, PERF, NOTE, TEST)
   map('n', '<Leader>ft', cmd('TodoTelescope'), { desc = 'Find comment tags (TODO, FIX, NOTE, etc.)' })
@@ -128,7 +142,6 @@ local function telescope()
   -- Worktree mappings live in plugins/git_worktree.lua
   -- Obsidian/notes mappings live in plugins/obsidian.lua
 end
-
 
 return {
   'nvim-telescope/telescope.nvim',
