@@ -1,11 +1,11 @@
-local function bufferline()
-  local ok, bufferline = pcall(require, 'bufferline')
-  if not ok then
-    vim.notify("Failed to load bufferline", vim.log.levels.ERROR)
-    return
-  end
-
-  bufferline.setup{
+-- Tab bar. Runs in 'tabs' mode, so it reflects the builtin gt / gT motions
+-- and the <Leader>tn / <Leader>tc pair in lua/core/mappings.lua.
+return {
+  'akinsho/bufferline.nvim',
+  event = 'BufAdd',
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
+  version = '*',
+  opts = {
     options = {
       mode = 'tabs',
       separator_style = 'thin',
@@ -17,13 +17,5 @@ local function bufferline()
       show_close_icon = false,
       show_buffer_close_icons = false,
     },
-  }
-end
-
-return {
-  'akinsho/bufferline.nvim',
-  event = 'BufAdd',
-  dependencies = {'nvim-tree/nvim-web-devicons'},
-  version = '*',
-  config = bufferline,
+  },
 }
