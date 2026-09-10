@@ -27,7 +27,11 @@ local function keymaps(ev)
   map('n', 'gd', picker('lsp_definitions'), 'Definition')
   map('n', 'gD', picker('lsp_type_definitions'), 'Type definition')
   map('n', 'gi', picker('lsp_implementations'), 'Implementation')
-  map('n', 'gr', picker('lsp_references'), 'References')
+  -- gR, not gr: Neovim 0.11 ships global grn/gra/grr/gri/grt/grx, so a 'gr'
+  -- mapping is both complete and a prefix of six others and stalls for
+  -- 'timeoutlen' on every press (:h map-ambiguous). This also leaves the
+  -- builtin gr{char} virtual replace alone.
+  map('n', 'gR', picker('lsp_references'), 'References')
 
   -- Information
   map('n', 'K', vim.lsp.buf.hover, 'Hover')
