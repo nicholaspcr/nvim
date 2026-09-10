@@ -8,13 +8,12 @@ map('n', '<C-x>p', cmd('let @+=expand("%:p")'), { desc = 'Copy file path' })
 
 -- save
 map('n', '<C-s>', cmd('write'), { desc = 'Save file' })
--- buffer jump
-map('n', ']b', cmd('bn'), { desc = 'Next buffer' })
-map('n', '[b', cmd('bp'), { desc = 'Previous buffer' })
 -- remove trailing white space
 map('n', '<Leader>tw', cmd('TrimTrailingWhitespace'), { desc = 'Trim whitespace' })
 map('n', '<Leader><CR>', ':noh<CR>', { desc = 'Clear search highlight' })
--- Tab related
+-- Tab related. bufferline runs in 'tabs' mode so the bar tracks these; the
+-- builtin gt / gT already walk tab pages, and ]t / [t are the builtin tag
+-- motions, so neither is remapped here.
 map('n', '<Leader>tn', cmd('tabnew'), { desc = 'New tab' })
 map('n', '<Leader>tc', cmd('tabclose'), { desc = 'Close tab' })
 -- Movement related
@@ -26,23 +25,29 @@ map('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up and center' })
 map('n', '<Leader>pu', cmd('Lazy update'), { desc = 'Update plugins' })
 map('n', '<Leader>pi', cmd('Lazy install'), { desc = 'Install plugins' })
 
--- LSP keymaps are buffer-local (see mason.lua LspAttach autocmd)
--- Global formatting keymap
-map('n', '<Leader>fw', vim.lsp.buf.format, { desc = 'Format buffer' })
+-- LSP keymaps are buffer-local (see lua/core/lsp.lua LspAttach autocmd)
+-- <Leader>fw (format buffer) is owned by plugins/conform.lua
 
 -- Deletes all marks
 map('n', '<Leader>dm', cmd('delm! | delm A-Z0-9'), { desc = 'Delete all marks' })
 
 -- Treesitter incremental selection (see core/incremental_selection.lua)
-map('n', '<C-space>', function() require('core.incremental_selection').start() end,
-  { desc = 'Start incremental selection' })
-map('x', '<C-space>', function() require('core.incremental_selection').increment() end,
-  { desc = 'Expand selection to parent node' })
-map('x', '<BS>', function() require('core.incremental_selection').decrement() end,
-  { desc = 'Shrink selection' })
+map('n', '<C-space>', function()
+  require('core.incremental_selection').start()
+end, { desc = 'Start incremental selection' })
+map('x', '<C-space>', function()
+  require('core.incremental_selection').increment()
+end, { desc = 'Expand selection to parent node' })
+map('x', '<BS>', function()
+  require('core.incremental_selection').decrement()
+end, { desc = 'Shrink selection' })
 
 -- Diagnostics (built-in vim.diagnostic, no plugin needed)
 map('n', '<Leader>dd', vim.diagnostic.open_float, { desc = 'Show diagnostics' })
-map('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, { desc = 'Previous diagnostic' })
-map('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, { desc = 'Next diagnostic' })
+map('n', '[d', function()
+  vim.diagnostic.jump({ count = -1 })
+end, { desc = 'Previous diagnostic' })
+map('n', ']d', function()
+  vim.diagnostic.jump({ count = 1 })
+end, { desc = 'Next diagnostic' })
 map('n', '<Leader>q', vim.diagnostic.setloclist, { desc = 'Diagnostic list' })
