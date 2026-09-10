@@ -127,7 +127,21 @@ local function telescope()
   map('n', '<Leader>cs', cmd('Telescope colorscheme'), { desc = 'Colorscheme' })
   map('n', '<Leader>gs', cmd('Telescope git_status'), { desc = 'Git status' })
   map('n', '<Leader>ff', cmd('Telescope find_files'), { desc = 'Find files' })
+  -- Dotfile repos keep everything real under .config/, which find_files hides
+  -- by default; this variant also ignores .gitignore.
+  map('n', '<Leader>fh', function()
+    require('telescope.builtin').find_files({
+      hidden = true,
+      no_ignore = true,
+      prompt_title = 'Find Files (hidden, no ignore)',
+    })
+  end, { desc = 'Find files (hidden)' })
+  map('n', '<Leader>fo', cmd('Telescope oldfiles'), { desc = 'Recent files' })
   map('n', '<Leader>fl', cmd('Telescope file_browser path=%:p:h select_buffer=true'), { desc = 'File browser' })
+
+  -- Symbols (buffer-local LSP navigation lives in lua/core/lsp.lua)
+  map('n', '<Leader>fs', cmd('Telescope lsp_document_symbols'), { desc = 'Document symbols' })
+  map('n', '<Leader>fS', cmd('Telescope lsp_dynamic_workspace_symbols'), { desc = 'Workspace symbols' })
 
   -- Todo related mappings (shows all tags: TODO, FIX, HACK, WARN, PERF, NOTE, TEST)
   map('n', '<Leader>ft', cmd('TodoTelescope'), { desc = 'Find comment tags (TODO, FIX, NOTE, etc.)' })
@@ -153,7 +167,11 @@ return {
     { '<Leader>cs', desc = 'Telescope colorscheme' },
     { '<Leader>gs', desc = 'Telescope git status' },
     { '<Leader>ff', desc = 'Telescope find files' },
+    { '<Leader>fh', desc = 'Telescope find files (hidden)' },
+    { '<Leader>fo', desc = 'Telescope recent files' },
     { '<Leader>fl', desc = 'Telescope file browser' },
+    { '<Leader>fs', desc = 'Telescope document symbols' },
+    { '<Leader>fS', desc = 'Telescope workspace symbols' },
     { '<Leader>ft', desc = 'Find comment tags (TODO, FIX, NOTE, etc.)' },
     { '<Leader>fT', desc = 'Find TODO' },
     { '<Leader>fF', desc = 'Find FIX/BUG' },
