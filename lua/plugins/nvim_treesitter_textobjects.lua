@@ -45,11 +45,18 @@ local function textobjects()
   -- (mirrors n/N search direction; the old <leader>bp/<leader>bf prefix
   -- delayed <leader>b by timeoutlen).
   local swap = function(fn, query)
-    return function() require('nvim-treesitter-textobjects.swap')[fn](query) end
+    return function()
+      require('nvim-treesitter-textobjects.swap')[fn](query)
+    end
   end
   vim.keymap.set('n', '<leader>np', swap('swap_next', '@parameter.inner'), { desc = 'Swap with next parameter' })
   vim.keymap.set('n', '<leader>nf', swap('swap_next', '@function.outer'), { desc = 'Swap with next function' })
-  vim.keymap.set('n', '<leader>Np', swap('swap_previous', '@parameter.inner'), { desc = 'Swap with previous parameter' })
+  vim.keymap.set(
+    'n',
+    '<leader>Np',
+    swap('swap_previous', '@parameter.inner'),
+    { desc = 'Swap with previous parameter' }
+  )
   vim.keymap.set('n', '<leader>Nf', swap('swap_previous', '@function.outer'), { desc = 'Swap with previous function' })
 
   -- Move
@@ -90,9 +97,26 @@ local function textobjects()
       { '[L', '@loop.outer', 'Prev loop end' },
     },
   }
+  -- ']c' and '[c' are the builtin diff-mode change motions, and gitsigns'
+  -- ']h'/'[h' fall back to them in a diff window. Only take the key over for
+  -- class navigation outside of diff mode.
+  local function diff_aware(key, action)
+    return function()
+      if vim.wo.diff then
+        vim.cmd('normal! ' .. vim.v.count1 .. key)
+        return
+      end
+      action()
+    end
+  end
+
   for fn, maps in pairs(moves) do
     for _, m in ipairs(maps) do
-      vim.keymap.set({ 'n', 'x', 'o' }, m[1], move(fn, m[2], m[4]), { desc = m[3] })
+      local action = move(fn, m[2], m[4])
+      if m[1] == ']c' or m[1] == '[c' then
+        action = diff_aware(m[1], action)
+      end
+      vim.keymap.set({ 'n', 'x', 'o' }, m[1], action, { desc = m[3] })
     end
   end
 
