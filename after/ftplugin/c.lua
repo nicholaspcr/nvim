@@ -1,7 +1,4 @@
+-- The builtin c ftplugin uses /* */; everything else matches the globals
+-- (expandtab, tabstop and shiftwidth in lua/core/options.lua) or is driven by
+-- the treesitter indentexpr set in plugins/nvim_treesitter.lua.
 vim.opt_local.commentstring = '//%s'
-vim.opt_local.autoindent = true
-vim.opt_local.smartindent = true
-vim.opt_local.shiftwidth = 4
-vim.opt_local.softtabstop = 4
-vim.opt_local.tabstop = 4
-vim.opt_local.expandtab = true
