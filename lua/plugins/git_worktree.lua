@@ -2,7 +2,9 @@
 -- Supports bare repo layout (trees/<branch>) and regular repos (sibling dir).
 local function stack_worktree()
   local branch = vim.fn.input('New stacked branch name: ')
-  if branch == '' then return end
+  if branch == '' then
+    return
+  end
 
   local git_common_dir = vim.fn.systemlist('git rev-parse --git-common-dir')[1]
   if vim.v.shell_error ~= 0 then
@@ -54,7 +56,9 @@ return {
       '<Leader>wl',
       function()
         local ext = telescope_worktree()
-        if ext then ext.git_worktree() end
+        if ext then
+          ext.git_worktree()
+        end
       end,
       desc = 'List worktrees (M-d to delete)',
     },
@@ -62,7 +66,9 @@ return {
       '<Leader>wc',
       function()
         local ext = telescope_worktree()
-        if ext then ext.create_git_worktree({ prefix = 'trees/' }) end
+        if ext then
+          ext.create_git_worktree({ prefix = 'trees/' })
+        end
       end,
       desc = 'Create worktree',
     },

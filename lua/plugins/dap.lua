@@ -1,76 +1,91 @@
 local function dap()
-    local dap = require('dap')
-    local dapui = require('dapui')
-    local go = require('dap-go')
+  local dap = require('dap')
+  local dapui = require('dapui')
+  local go = require('dap-go')
 
-    -- Setup nvim-dap-go
-    go.setup({
-        dap_configurations = {
-            {
-              type = "go",
-              name = "TTI Test File",
-              request = "launch",
-              program = "${file}",
-              mode = "test",
-              buildFlags = "-tags=tti",
-            },
-            {
-              type = "go",
-              name = "TTI Test Package",
-              request = "launch",
-              mode = "test",
-              program = "${fileDirname}",
-              buildFlags = "-tags=tti",
-            }
-        }
-    })
+  -- Setup nvim-dap-go
+  go.setup({
+    dap_configurations = {
+      {
+        type = 'go',
+        name = 'TTI Test File',
+        request = 'launch',
+        program = '${file}',
+        mode = 'test',
+        buildFlags = '-tags=tti',
+      },
+      {
+        type = 'go',
+        name = 'TTI Test Package',
+        request = 'launch',
+        mode = 'test',
+        program = '${fileDirname}',
+        buildFlags = '-tags=tti',
+      },
+    },
+  })
 
+  -- Setup nvim-dap-ui
+  dapui.setup()
 
-    -- Setup nvim-dap-ui
-    dapui.setup()
+  local map = require('core.keymap').map
 
-    local map = require('core.keymap').map
+  map('n', '<F5>', function()
+    dap.continue()
+  end, { desc = 'DAP Continue' })
+  map('n', '<F10>', function()
+    dap.step_over()
+  end, { desc = 'DAP Step Over' })
+  map('n', '<F11>', function()
+    dap.step_into()
+  end, { desc = 'DAP Step Into' })
+  map('n', '<F12>', function()
+    dap.step_out()
+  end, { desc = 'DAP Step Out' })
+  map('n', '<Leader>db', function()
+    dap.toggle_breakpoint()
+  end, { desc = 'Toggle breakpoint' })
+  map('n', '<Leader>B', function()
+    dap.set_breakpoint(vim.fn.input('Breakpoint condition: '))
+  end, { desc = 'Conditional breakpoint' })
+  map('n', '<Leader>lp', function()
+    dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
+  end, { desc = 'Log point' })
+  map('n', '<Leader>dr', function()
+    dap.repl.open()
+  end, { desc = 'DAP REPL' })
+  map('n', '<Leader>dl', function()
+    dap.run_last()
+  end, { desc = 'DAP Run Last' })
 
-    map('n', '<F5>', function() dap.continue() end, { desc = 'DAP Continue' })
-    map('n', '<F10>', function() dap.step_over() end, { desc = 'DAP Step Over' })
-    map('n', '<F11>', function() dap.step_into() end, { desc = 'DAP Step Into' })
-    map('n', '<F12>', function() dap.step_out() end, { desc = 'DAP Step Out' })
-    map('n', '<Leader>db', function() dap.toggle_breakpoint() end, { desc = 'Toggle breakpoint' })
-    map('n', '<Leader>B', function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end,
-        { desc = 'Conditional breakpoint' })
-    map('n', '<Leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
-        { desc = 'Log point' })
-    map('n', '<Leader>dr', function() dap.repl.open() end, { desc = 'DAP REPL' })
-    map('n', '<Leader>dl', function() dap.run_last() end, { desc = 'DAP Run Last' })
-
-    -- Open and close DAP UI with the debugger
-    dap.listeners.after.event_initialized['dapui_config'] = function()
-      dapui.open()
-    end
-    dap.listeners.before.event_terminated['dapui_config'] = function()
-      dapui.close()
-    end
-    dap.listeners.before.event_exited['dapui_config'] = function()
-      dapui.close()
-    end
+  -- Open and close DAP UI with the debugger
+  dap.listeners.after.event_initialized['dapui_config'] = function()
+    dapui.open()
+  end
+  dap.listeners.before.event_terminated['dapui_config'] = function()
+    dapui.close()
+  end
+  dap.listeners.before.event_exited['dapui_config'] = function()
+    dapui.close()
+  end
 end
 
 return {
-   'mfussenegger/nvim-dap',
-   keys = {
-     { '<F5>', desc = 'DAP Continue' },
-     { '<F10>', desc = 'DAP Step Over' },
-     { '<F11>', desc = 'DAP Step Into' },
-     { '<F12>', desc = 'DAP Step Out' },
-     { '<Leader>db', desc = 'Toggle Breakpoint' },
-     { '<Leader>B', desc = 'Conditional Breakpoint' },
-     { '<Leader>lp', desc = 'Log Point' },
-     { '<Leader>dr', desc = 'DAP REPL' },
-     { '<Leader>dl', desc = 'DAP Run Last' },
-   },
-   dependencies = {
-     { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
-     { 'leoluz/nvim-dap-go', dependencies = {'mfussenegger/nvim-dap'} },    -- Go support for nvim-dap
-   },
-   config = dap
- }
+  'mfussenegger/nvim-dap',
+  keys = {
+    { '<F5>', desc = 'DAP Continue' },
+    { '<F10>', desc = 'DAP Step Over' },
+    { '<F11>', desc = 'DAP Step Into' },
+    { '<F12>', desc = 'DAP Step Out' },
+    { '<Leader>db', desc = 'Toggle Breakpoint' },
+    { '<Leader>B', desc = 'Conditional Breakpoint' },
+    { '<Leader>lp', desc = 'Log Point' },
+    { '<Leader>dr', desc = 'DAP REPL' },
+    { '<Leader>dl', desc = 'DAP Run Last' },
+  },
+  dependencies = {
+    { 'rcarriga/nvim-dap-ui', dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' } },
+    { 'leoluz/nvim-dap-go', dependencies = { 'mfussenegger/nvim-dap' } }, -- Go support for nvim-dap
+  },
+  config = dap,
+}

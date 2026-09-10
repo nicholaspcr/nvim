@@ -1,23 +1,23 @@
 -- Install lazy.nvim if not already installed
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.uv.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
+  vim.fn.system({
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
+    lazypath,
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
 -- Use a protected call so we don't error out on first use
-local ok, lazy = pcall(require, "lazy")
+local ok, lazy = pcall(require, 'lazy')
 if not ok then
-	return
+  return
 end
 
 -- Load plugins from specifications
 -- (The leader key is set in init.lua before this runs)
-lazy.setup("plugins")
+lazy.setup('plugins')

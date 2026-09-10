@@ -78,7 +78,9 @@ function M.decrement()
   local buf = vim.api.nvim_get_current_buf()
   local stack = stacks[buf]
   if stack == nil or #stack <= 1 then
-    if stack and stack[1] then select_node(stack[1]) end
+    if stack and stack[1] then
+      select_node(stack[1])
+    end
     return
   end
   local shrunk = { unpack(stack, 1, #stack - 1) }
