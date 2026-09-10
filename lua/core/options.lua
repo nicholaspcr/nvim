@@ -1,5 +1,6 @@
 local opt = vim.opt
-local cache_dir = vim.env.HOME .. '/.cache/nvim/'
+-- stdpath('cache') already honours $XDG_CACHE_HOME; don't hardcode ~/.cache.
+local cache_dir = vim.fn.stdpath('cache') .. '/'
 
 opt.termguicolors = true
 opt.virtualedit = 'block'
@@ -35,9 +36,16 @@ opt.clipboard = 'unnamedplus'
 opt.wildignorecase = true
 opt.swapfile = false
 opt.undodir = cache_dir .. 'undo/'
-opt.backupdir = cache_dir .. 'backup/'
 opt.viewdir = cache_dir .. 'view/'
 opt.spellfile = cache_dir .. 'spell/en.utf-8.add'
+
+-- Neovim creates 'undodir' on demand but not 'viewdir' or the parent of
+-- 'spellfile', so :mkview and zg fail with E484 on a fresh machine.
+-- pcall: mkdir throws E739 if the path already exists as a regular file, and
+-- an uncaught error here would abort the rest of this file.
+for _, dir in ipairs({ 'undo/', 'view/', 'spell/' }) do
+  pcall(vim.fn.mkdir, cache_dir .. dir, 'p')
+end
 opt.history = 2000
 opt.timeout = true
 opt.ttimeout = true
@@ -72,6 +80,8 @@ opt.undofile = true
 opt.confirm = true
 opt.smoothscroll = true
 opt.splitkeep = 'screen'
+opt.splitright = true
+opt.splitbelow = true
 opt.jumpoptions = 'stack'
 opt.inccommand = 'split'
 
@@ -92,7 +102,7 @@ opt.whichwrap = 'h,l,<,>,[,],~'
 opt.breakindentopt = 'shift:2,min:20'
 opt.showbreak = '↳ '
 
-opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 opt.foldlevel = 99
 opt.foldmethod = 'expr'
 
@@ -106,7 +116,7 @@ opt.conceallevel = 1
 -- Colorcolumn configuration
 -- Set via NVIM_COLUMN environment variable (defaults to 120)
 -- Example: export NVIM_COLUMN=80
-local column = os.getenv("NVIM_COLUMN")
+local column = os.getenv('NVIM_COLUMN')
 if column == nil then
   opt.textwidth = 120
 else
