@@ -65,6 +65,11 @@ scripts/smoke.lua            headless config sanity check (also run in CI)
 - Treesitter (main rewrite) has no auto-install: parsers are pre-listed in
   `lua/plugins/nvim_treesitter.lua`. Startup only installs what is missing;
   `:TSEnsureInstalled` re-checks the list on demand.
+- gopls runs with `staticcheck` on and inlay hints configured. Its settings
+  and analyzer defaults were checked against the binary with `gopls api-json`
+  rather than the docs, which lag: `unusedparams`, `nilness`, `unusedwrite`
+  and `unusedvariable` are all on by default in v0.23 and need no `analyses`
+  entry, and `completeUnimported` is no longer a setting at all.
 - LSP keymaps are Neovim's own, not remapped. Neovim 0.11 began shipping
   these; this config predated that and duplicated them on other keys, so the
   custom set was dropped:
