@@ -31,6 +31,10 @@ local function keymaps(ev)
       require('telescope.builtin')[name]()
     end
   end
+  -- gd alongside Neovim's <C-]>: nothing extends it, so it costs no
+  -- 'timeoutlen' wait, and it shadows only the builtin "go to local
+  -- declaration", which the LSP definition supersedes.
+  map('n', 'gd', picker('lsp_definitions'), 'Definition')
   map('n', '<C-]>', picker('lsp_definitions'), 'Definition')
   map('n', 'grr', picker('lsp_references'), 'References')
   map('n', 'gri', picker('lsp_implementations'), 'Implementation')

@@ -74,7 +74,7 @@ scripts/smoke.lua            headless config sanity check (also run in CI)
   | `gr`     | `grr`   | references                                |
   | `gi`     | `gri`   | implementation                            |
   | `gD`     | `grt`   | type definition                           |
-  | `gd`     | `<C-]>` | definition (via the `tagfunc` set on attach) |
+  | `gd`     | `gd` or `<C-]>` | definition (kept, plus Neovim's key)  |
   | `<Leader>rn` | `grn` | rename                                  |
   | `<Leader>ca` | `gra` | code action                             |
   | —        | `grx`   | run codelens                              |
@@ -82,9 +82,9 @@ scripts/smoke.lua            headless config sanity check (also run in CI)
   | `K`      | `K`     | hover (Neovim maps this itself on attach) |
   | `<C-k>`  | `<C-s>` | signature help (insert/select mode)       |
 
-  `lua/core/lsp.lua` keeps those bindings but rebinds `<C-]>`, `grr`, `gri`,
-  `grt` and `gO` to telescope pickers, since stock Neovim sends them to the
-  quickfix list. `gra` (code action) goes through `vim.ui.select`, which
+  `lua/core/lsp.lua` keeps those bindings but rebinds `gd`, `<C-]>`, `grr`,
+  `gri`, `grt` and `gO` to telescope pickers, since stock Neovim sends them to
+  the quickfix list. `gra` (code action) goes through `vim.ui.select`, which
   telescope-ui-select routes into a picker as well. `grn`, `grx`, `K` and
   `<C-s>` are left exactly as Neovim sets them.
 
