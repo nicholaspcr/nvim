@@ -26,9 +26,13 @@ local function keymaps(ev)
   -- Left as Neovim set them: grn (rename), grx (codelens), K (hover),
   -- <C-s> (signature help), and 'tagfunc'/'omnifunc'. gra (code action) goes
   -- through vim.ui.select, which telescope-ui-select routes into a picker.
+  -- file_ignore_patterns is set in plugins/telescope.lua for file *browsing*,
+  -- but telescope applies defaults to every picker -- which silently drops LSP
+  -- results in ignored paths. Jumping to a definition in vendor/ or a
+  -- generated .pb.go is exactly what you asked for, so clear it here.
   local function picker(name)
     return function()
-      require('telescope.builtin')[name]()
+      require('telescope.builtin')[name]({ file_ignore_patterns = {} })
     end
   end
   -- gd alongside Neovim's <C-]>: nothing extends it, so it costs no

@@ -90,6 +90,10 @@ scripts/smoke.lua            headless config sanity check (also run in CI)
 
   `<Leader>fs` / `<Leader>fS` pick document and workspace symbols, and
   `<Leader>ih` toggles inlay hints.
+- Every LSP picker clears `file_ignore_patterns`. Telescope applies its
+  defaults to all pickers, so the ignore list meant for file browsing would
+  otherwise make `gd` fail silently whenever a definition lives in `vendor/`
+  or a generated `.pb.go`.
 - Pressing `gr` alone waits `timeoutlen` before the builtin `gr{char}` virtual
   replace runs, because the six `gr*` defaults above extend it
   (`:h map-ambiguous`). This is stock Neovim behaviour, reproducible with

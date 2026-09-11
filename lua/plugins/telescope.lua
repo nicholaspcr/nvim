@@ -148,10 +148,15 @@ local function telescope()
   map('n', '<Leader>fo', cmd('Telescope oldfiles'), { desc = 'Recent files' })
   map('n', '<Leader>fl', cmd('Telescope file_browser path=%:p:h select_buffer=true'), { desc = 'File browser' })
 
-  -- Symbols. Neovim's builtin gO covers document symbols via the quickfix
-  -- list; these give a telescope picker and add workspace symbols.
-  map('n', '<Leader>fs', cmd('Telescope lsp_document_symbols'), { desc = 'Document symbols' })
-  map('n', '<Leader>fS', cmd('Telescope lsp_dynamic_workspace_symbols'), { desc = 'Workspace symbols' })
+  -- Symbols. Like the LSP pickers in lua/core/lsp.lua these clear
+  -- file_ignore_patterns, so symbols in vendor/ or a generated .pb.go still
+  -- show up.
+  map('n', '<Leader>fs', function()
+    require('telescope.builtin').lsp_document_symbols({ file_ignore_patterns = {} })
+  end, { desc = 'Document symbols' })
+  map('n', '<Leader>fS', function()
+    require('telescope.builtin').lsp_dynamic_workspace_symbols({ file_ignore_patterns = {} })
+  end, { desc = 'Workspace symbols' })
 
   -- Todo related mappings (shows all tags: TODO, FIX, HACK, WARN, PERF, NOTE, TEST)
   map('n', '<Leader>ft', cmd('TodoTelescope'), { desc = 'Find comment tags (TODO, FIX, NOTE, etc.)' })
