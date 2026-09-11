@@ -2,16 +2,29 @@
 -- Highlighting, folds, and indentation are Neovim built-ins enabled per
 -- buffer in the FileType autocmd below; textobjects live in
 -- plugins/nvim_treesitter_textobjects.lua.
+-- ('jsonc' is not a parser: jsonc buffers are handled by the json one.)
 local parsers = {
   'bash',
   'c',
+  'css',
+  'diff',
+  'dockerfile',
+  'git_rebase',
+  'gitcommit',
+  'gitignore',
   'go',
+  'gomod',
+  'gosum',
+  'gowork',
+  'html',
   'inko',
   'javascript',
   'json',
   'lua',
+  'make',
   'markdown',
   'markdown_inline',
+  'printf',
   'proto',
   'python',
   'query',
@@ -21,14 +34,12 @@ local parsers = {
   'sql',
   'terraform',
   'toml',
+  'tsx',
   'typescript',
   'vim',
   'vimdoc',
   'xml',
   'yaml',
-  'html',
-  'css',
-  'tsx',
 }
 
 return {
