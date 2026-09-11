@@ -18,13 +18,48 @@ local function keymaps(ev)
     end, 'Toggle inlay hints')
   end
 
-  -- Nothing else is mapped here. Neovim 0.11+ covers the rest on its own and
-  -- remapping it only shadows builtins (gr{char}, gR, gi, gI) for no gain:
-  --   grr  references      gri  implementation   grt  type definition
-  --   grn  rename          gra  code action      grx  run codelens
-  --   gO   document symbol <C-s> signature help (insert/select)
-  -- and on attach Neovim sets 'tagfunc' (so <C-]> and g<C-]> go to the
-  -- definition), 'omnifunc', and K for hover.
+  -- Navigation, routed through telescope so results are pickable.
+  -- These replace Neovim's gr* defaults, which M.setup() deletes: leaving
+  -- those in place makes the builtin gr{char} a partial match and stalls it
+  -- for 'timeoutlen' on every press (:h map-ambiguous).
+  local function picker(name)
+    return function()
+      require('telescope.builtin')[name]()
+    end
+  end
+  map('n', 'gd', picker('lsp_definitions'), 'Definition')
+  map('n', 'gD', picker('lsp_type_definitions'), 'Type definition')
+  map('n', 'gi', picker('lsp_implementations'), 'Implementation')
+  map('n', 'gr', picker('lsp_references'), 'References')
+
+  -- Information
+  map('n', 'K', vim.lsp.buf.hover, 'Hover')
+  map({ 'n', 'i' }, '<C-k>', vim.lsp.buf.signature_help, 'Signature help')
+
+  -- Actions
+  map('n', '<Leader>rn', vim.lsp.buf.rename, 'Rename symbol')
+  map('n', '<Leader>ca', vim.lsp.buf.code_action, 'Code action')
+  map('n', '<Leader>cl', vim.lsp.codelens.run, 'Run codelens')
+end
+
+-- Neovim 0.11+ maps these unconditionally at startup. Every one of them
+-- extends 'gr', so the builtin gr{char} virtual replace cannot fire until
+-- 'timeoutlen' has elapsed. The equivalents are bound above, on keys that
+-- nothing extends.
+local DEFAULT_LSP_MAPS = {
+  { 'n', 'grn' },
+  { { 'n', 'x' }, 'gra' },
+  { 'n', 'grx' },
+  { 'n', 'grr' },
+  { 'n', 'gri' },
+  { 'n', 'grt' },
+}
+
+local function drop_default_maps()
+  for _, spec in ipairs(DEFAULT_LSP_MAPS) do
+    -- pcall: harmless if a future Neovim stops defining one of these.
+    pcall(vim.keymap.del, spec[1], spec[2])
+  end
 end
 
 --- Apply a server's source.organizeImports code action synchronously.
@@ -82,6 +117,8 @@ function M.setup(servers)
   for name, settings in pairs(servers) do
     vim.lsp.config(name, settings)
   end
+
+  drop_default_maps()
 
   vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('lsp_attach', { clear = true }),

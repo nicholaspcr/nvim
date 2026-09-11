@@ -24,6 +24,7 @@ return {
       { '<leader>N', group = 'Swap with previous' },
       { '<leader>o', group = 'Notes/Obsidian' },
       { '<leader>p', group = 'Plugin Manager' },
+      { '<leader>r', group = 'Rename' },
       { '<leader>s', group = 'Spell' },
       { '<leader>t', group = 'Toggle/Tab' },
       { '<leader>w', group = 'Worktree' },

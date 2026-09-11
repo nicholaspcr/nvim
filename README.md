@@ -65,12 +65,16 @@ scripts/smoke.lua            headless config sanity check (also run in CI)
 - Treesitter (main rewrite) has no auto-install: parsers are pre-listed in
   `lua/plugins/nvim_treesitter.lua`. Startup only installs what is missing;
   `:TSEnsureInstalled` re-checks the list on demand.
-- LSP keymaps are Neovim's own, not remapped: `grr` references, `gri`
-  implementation, `grt` type definition, `grn` rename, `gra` code action,
-  `gO` document symbols, `K` hover, and `<C-]>` to the definition via the
-  `tagfunc` Neovim sets on attach. `lua/core/lsp.lua` adds only `<Leader>ih`
-  (toggle inlay hints); `<Leader>fs` / `<Leader>fS` give telescope pickers
-  for document and workspace symbols.
+- LSP keymaps are `gd` definition, `gD` type definition, `gi` implementation,
+  `gr` references (all telescope pickers), `K` hover, `<C-k>` signature help,
+  `<Leader>rn` rename, `<Leader>ca` code action, `<Leader>cl` run codelens and
+  `<Leader>ih` toggle inlay hints. `<Leader>fs` / `<Leader>fS` pick document
+  and workspace symbols.
+- `lua/core/lsp.lua` deletes Neovim 0.11's `grn`/`gra`/`grx`/`grr`/`gri`/`grt`
+  defaults. All six extend `gr`, which makes the builtin `gr{char}` virtual
+  replace a partial match and stalls it for `timeoutlen` on every press
+  (`:h map-ambiguous`). With them gone `gr` is the only `gr*` mapping, so it
+  fires instantly. Neovim still sets `tagfunc`, `omnifunc` and `gO` on attach.
 - `<Leader>ff` finds files, `<Leader>fh` finds them including hidden and
   gitignored paths (this repo lives under `.config/`, which `<Leader>ff` skips).
 - `NVIM_COLUMN` overrides `textwidth` (defaults to 120); `colorcolumn` tracks it.
