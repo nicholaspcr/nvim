@@ -32,6 +32,13 @@ return {
       },
     },
     signature = { enabled = true },
+    -- blink enables cmdline completion by default but only auto-shows the
+    -- menu inside cmdwin; show it while typing : and / as well.
+    cmdline = {
+      completion = {
+        menu = { auto_show = true },
+      },
+    },
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
     },
