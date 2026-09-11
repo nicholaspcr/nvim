@@ -64,7 +64,9 @@ end
 
 opt.completeopt = 'menu,menuone,noselect'
 opt.showmode = false
-opt.shortmess = 'aoOTIcF'
+-- append, not assign: assigning dropped l/t/C from Neovim's own default
+-- ('C' suppresses the ins-completion scanning messages blink triggers)
+opt.shortmess:append('aoOTIc')
 opt.scrolloff = 8
 opt.sidescrolloff = 5
 opt.showtabline = 1
@@ -82,6 +84,9 @@ opt.smoothscroll = true
 opt.splitkeep = 'screen'
 opt.splitright = true
 opt.splitbelow = true
+-- Single border for every float that doesn't set its own (LSP hover and
+-- signature help, diagnostic floats, lazy, mason).
+opt.winborder = 'rounded'
 opt.jumpoptions = 'stack'
 opt.inccommand = 'split'
 
