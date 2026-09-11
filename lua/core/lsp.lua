@@ -18,13 +18,24 @@ local function keymaps(ev)
     end, 'Toggle inlay hints')
   end
 
-  -- Nothing else is mapped here. Neovim 0.11+ covers the rest on its own and
-  -- remapping it only shadows builtins (gr{char}, gR, gi, gI) for no gain:
-  --   grr  references      gri  implementation   grt  type definition
-  --   grn  rename          gra  code action      grx  run codelens
-  --   gO   document symbol <C-s> signature help (insert/select)
-  -- and on attach Neovim sets 'tagfunc' (so <C-]> and g<C-]> go to the
-  -- definition), 'omnifunc', and K for hover.
+  -- Neovim's own default keys, rebound to telescope pickers. Stock Neovim
+  -- sends these to the quickfix list; keeping the bindings and swapping only
+  -- the handler means no relearning and no new prefix ambiguity, because
+  -- nothing extends grr/gri/grt/gO/<C-]>.
+  --
+  -- Left as Neovim set them: grn (rename), grx (codelens), K (hover),
+  -- <C-s> (signature help), and 'tagfunc'/'omnifunc'. gra (code action) goes
+  -- through vim.ui.select, which telescope-ui-select routes into a picker.
+  local function picker(name)
+    return function()
+      require('telescope.builtin')[name]()
+    end
+  end
+  map('n', '<C-]>', picker('lsp_definitions'), 'Definition')
+  map('n', 'grr', picker('lsp_references'), 'References')
+  map('n', 'gri', picker('lsp_implementations'), 'Implementation')
+  map('n', 'grt', picker('lsp_type_definitions'), 'Type definition')
+  map('n', 'gO', picker('lsp_document_symbols'), 'Document symbols')
 end
 
 --- Apply a server's source.organizeImports code action synchronously.

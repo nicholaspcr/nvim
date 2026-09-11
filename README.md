@@ -82,9 +82,14 @@ scripts/smoke.lua            headless config sanity check (also run in CI)
   | `K`      | `K`     | hover (Neovim maps this itself on attach) |
   | `<C-k>`  | `<C-s>` | signature help (insert/select mode)       |
 
-  These use the quickfix list rather than a telescope picker. `<Leader>fs` and
-  `<Leader>fS` give telescope pickers for document and workspace symbols, and
-  `lua/core/lsp.lua` adds `<Leader>ih` to toggle inlay hints.
+  `lua/core/lsp.lua` keeps those bindings but rebinds `<C-]>`, `grr`, `gri`,
+  `grt` and `gO` to telescope pickers, since stock Neovim sends them to the
+  quickfix list. `gra` (code action) goes through `vim.ui.select`, which
+  telescope-ui-select routes into a picker as well. `grn`, `grx`, `K` and
+  `<C-s>` are left exactly as Neovim sets them.
+
+  `<Leader>fs` / `<Leader>fS` pick document and workspace symbols, and
+  `<Leader>ih` toggles inlay hints.
 - Pressing `gr` alone waits `timeoutlen` before the builtin `gr{char}` virtual
   replace runs, because the six `gr*` defaults above extend it
   (`:h map-ambiguous`). This is stock Neovim behaviour, reproducible with

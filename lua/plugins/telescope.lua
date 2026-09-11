@@ -106,12 +106,21 @@ local telescope_setup = {
 local function telescope()
   local telescope = require('telescope')
 
-  telescope.setup(telescope_setup)
+  -- The dropdown theme has to be built here rather than in telescope_setup,
+  -- since telescope.themes is not requireable until the plugin has loaded.
+  telescope.setup(vim.tbl_deep_extend('force', telescope_setup, {
+    extensions = {
+      ['ui-select'] = { require('telescope.themes').get_dropdown() },
+    },
+  }))
 
   -- Load extensions with error handling
   -- (git_worktree is loaded on demand from plugins/git_worktree.lua)
   pcall(telescope.load_extension, 'file_browser')
   pcall(telescope.load_extension, 'fzf')
+  -- Routes vim.ui.select through telescope, which is what gra (code action)
+  -- and any other picker-less prompt uses.
+  pcall(telescope.load_extension, 'ui-select')
 
   local map = require('core.keymap').map
   local cmd = require('core.keymap').cmd
@@ -186,6 +195,7 @@ return {
     'nvim-lua/plenary.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     'nvim-telescope/telescope-file-browser.nvim',
+    'nvim-telescope/telescope-ui-select.nvim',
     'folke/todo-comments.nvim',
   },
   config = telescope,
