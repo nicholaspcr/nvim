@@ -65,16 +65,30 @@ scripts/smoke.lua            headless config sanity check (also run in CI)
 - Treesitter (main rewrite) has no auto-install: parsers are pre-listed in
   `lua/plugins/nvim_treesitter.lua`. Startup only installs what is missing;
   `:TSEnsureInstalled` re-checks the list on demand.
-- LSP keymaps are `gd` definition, `gD` type definition, `gi` implementation,
-  `gr` references (all telescope pickers), `K` hover, `<C-k>` signature help,
-  `<Leader>rn` rename, `<Leader>ca` code action, `<Leader>cl` run codelens and
-  `<Leader>ih` toggle inlay hints. `<Leader>fs` / `<Leader>fS` pick document
-  and workspace symbols.
-- `lua/core/lsp.lua` deletes Neovim 0.11's `grn`/`gra`/`grx`/`grr`/`gri`/`grt`
-  defaults. All six extend `gr`, which makes the builtin `gr{char}` virtual
-  replace a partial match and stalls it for `timeoutlen` on every press
-  (`:h map-ambiguous`). With them gone `gr` is the only `gr*` mapping, so it
-  fires instantly. Neovim still sets `tagfunc`, `omnifunc` and `gO` on attach.
+- LSP keymaps are Neovim's own, not remapped. Neovim 0.11 began shipping
+  these; this config predated that and duplicated them on other keys, so the
+  custom set was dropped:
+
+  | was      | now     | action                                    |
+  | -------- | ------- | ----------------------------------------- |
+  | `gr`     | `grr`   | references                                |
+  | `gi`     | `gri`   | implementation                            |
+  | `gD`     | `grt`   | type definition                           |
+  | `gd`     | `<C-]>` | definition (via the `tagfunc` set on attach) |
+  | `<Leader>rn` | `grn` | rename                                  |
+  | `<Leader>ca` | `gra` | code action                             |
+  | —        | `grx`   | run codelens                              |
+  | —        | `gO`    | document symbols                          |
+  | `K`      | `K`     | hover (Neovim maps this itself on attach) |
+  | `<C-k>`  | `<C-s>` | signature help (insert/select mode)       |
+
+  These use the quickfix list rather than a telescope picker. `<Leader>fs` and
+  `<Leader>fS` give telescope pickers for document and workspace symbols, and
+  `lua/core/lsp.lua` adds `<Leader>ih` to toggle inlay hints.
+- Pressing `gr` alone waits `timeoutlen` before the builtin `gr{char}` virtual
+  replace runs, because the six `gr*` defaults above extend it
+  (`:h map-ambiguous`). This is stock Neovim behaviour, reproducible with
+  `nvim --clean`.
 - `<Leader>ff` finds files, `<Leader>fh` finds them including hidden and
   gitignored paths (this repo lives under `.config/`, which `<Leader>ff` skips).
 - `NVIM_COLUMN` overrides `textwidth` (defaults to 120); `colorcolumn` tracks it.
