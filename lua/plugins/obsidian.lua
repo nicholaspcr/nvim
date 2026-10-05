@@ -26,6 +26,11 @@ local function obsidian()
     -- get swallowed. Disable it explicitly instead of relying on load order.
     ui = { enable = false },
 
+    -- <Leader>ch cycles through these states; put done ('x') right after empty.
+    checkbox = {
+      order = { ' ', 'x', '~', '!', '>' },
+    },
+
     workspaces = {
       {
         name = 'notes',
