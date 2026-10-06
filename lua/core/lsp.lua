@@ -10,9 +10,8 @@ local function keymaps(ev)
     vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
   end
 
-  -- Inlay hints, where the server offers them
+  -- Inlay hints, where the server offers them: off by default, toggled on demand
   if client and client:supports_method('textDocument/inlayHint') then
-    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     map('n', '<Leader>ih', function()
       vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
     end, 'Toggle inlay hints')
