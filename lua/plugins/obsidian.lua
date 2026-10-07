@@ -27,7 +27,10 @@ local function obsidian()
     ui = { enable = false },
 
     -- <Leader>ch cycles through these states; put done ('x') right after empty.
+    -- create_new = false stops <CR> (smart action) and toggle_checkbox from
+    -- turning plain lines into '- [ ]' items; they only act on existing ones.
     checkbox = {
+      create_new = false,
       order = { ' ', 'x', '~', '!', '>' },
     },
 
